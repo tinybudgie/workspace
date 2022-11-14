@@ -23,6 +23,7 @@
     "esModuleInterop": true,
     "noImplicitAny": false,
     "paths": {
+      "@nxnest/auth": ["libs/auth/src/index.ts"],
       "@nxnest/core/errors": ["libs/core/errors/src/index.ts"]
     }
   },
