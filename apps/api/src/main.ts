@@ -47,8 +47,6 @@ async function bootstrap() {
     )
 }
 
-bootstrap()
-
 try {
     bootstrap().catch((err) => {
         logger.error(err, err.stack)
