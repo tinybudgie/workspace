@@ -20,9 +20,7 @@ export class PrismaClientConnectionHealthIndicator extends HealthIndicator {
                 date: result[0].dt,
             })
         } catch (error) {
-            return this.getStatus(key, false, {
-                error: error.message,
-            })
+            return this.getStatus(key, false)
         }
     }
 }
