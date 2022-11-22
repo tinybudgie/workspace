@@ -25,6 +25,9 @@
     "paths": {
       "@nxnest/auth": ["libs/auth/src/index.ts"],
       "@nxnest/core/errors": ["libs/core/errors/src/index.ts"],
+      "@nxnest/core/eventloop-frozen-detector": [
+        "libs/core/eventloop-frozen-detector/src/index.ts"
+      ],
       "@nxnest/core/health-checks": ["libs/core/health-checks/src/index.ts"],
       "@nxnest/core/prisma-client": ["libs/core/prisma-client/src/index.ts"]
     }

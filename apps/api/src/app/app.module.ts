@@ -4,6 +4,8 @@ import {
     PrismaClientConnectionHealthIndicator,
     PrismaClientModule,
 } from '@nxnest/core/prisma-client'
+import { EventloopFrozenDetectorModule } from '@nxnest/core/eventloop-frozen-detector'
+
 import * as env from 'env-var'
 
 import { AppController } from './app.controller'
@@ -25,6 +27,9 @@ import { AppService } from './app.service'
             databaseUrl: env.get('POSTGRES_URL').required().asString(),
             logging: 'long_queries',
             maxQueryExecutionTime: 5000,
+        }),
+        EventloopFrozenDetectorModule.forRoot({
+            delay: 3000,
         }),
     ],
     controllers: [AppController],
