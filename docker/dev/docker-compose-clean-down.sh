@@ -2,5 +2,5 @@
 #export UID=$(id -u)
 #export GID=$(id -g)
 export CURRENT_UID=$(id -u):$(id -g) 
-docker-compose -f ./docker/docker-compose.yml down
-docker volume rm nxnest-postgres-volume --force
+docker-compose -f ./docker/dev/docker-compose.yml down
+docker volume rm nxnestjs-postgres-volume --force

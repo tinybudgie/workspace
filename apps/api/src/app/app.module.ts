@@ -24,7 +24,7 @@ import { AppService } from './app.service'
             healthIndicators: [PrismaClientConnectionHealthIndicator],
         }),
         PrismaClientModule.forRoot({
-            databaseUrl: env.get('POSTGRES_URL').required().asString(),
+            databaseUrl: env.get('DATABASE_URL').required().asString(),
             logging: 'long_queries',
             maxQueryExecutionTime: 5000,
         }),
