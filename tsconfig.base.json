@@ -23,6 +23,7 @@
     "esModuleInterop": true,
     "noImplicitAny": false,
     "paths": {
+      "@nx/auth": ["libs/auth/src/index.ts"],
       "@nx/core/errors": ["libs/core/errors/src/index.ts"],
       "@nx/core/eventloop-frozen-detector": [
         "libs/core/eventloop-frozen-detector/src/index.ts"
