@@ -46,6 +46,7 @@
     "@nrwl/node": "15.0.3",
     "@nrwl/nx-cloud": "latest",
     "@nrwl/workspace": "15.0.3",
+    "@nx-go/nx-go": "^2.7.0",
     "@types/jest": "28.1.1",
     "@types/node": "18.7.1",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
