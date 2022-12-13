@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
-import { HealthChecksModule } from '@nxnest/core/health-checks'
+import { HealthChecksModule } from '@nx/core/health-checks'
 import {
     PrismaClientConnectionHealthIndicator,
     PrismaClientModule,
-} from '@nxnest/core/prisma-client'
-import { EventloopFrozenDetectorModule } from '@nxnest/core/eventloop-frozen-detector'
+} from '@nx/core/prisma-client'
+import { EventloopFrozenDetectorModule } from '@nx/core/eventloop-frozen-detector'
 
 import * as env from 'env-var'
 

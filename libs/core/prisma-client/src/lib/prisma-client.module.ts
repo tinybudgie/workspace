@@ -6,7 +6,7 @@ import {
 } from './prisma-client.config'
 import { PrismaClientService } from './prisma-client.service'
 import { PrismaClientConnectionHealthIndicator } from './prisma-client-connection.health'
-import { HEALTH_CHECKS_PROVIDER } from '@nxnest/core/health-checks'
+import { HEALTH_CHECKS_PROVIDER } from '@nx/core/health-checks'
 
 @Module({
     imports: [CustomInjectorModule],

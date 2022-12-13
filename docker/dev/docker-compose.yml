@@ -1,18 +1,18 @@
 version: '3.7'
 networks:
-  nxnestjs-network:
+  nx-network:
     ipam:
       config:
         - subnet: '172.6.0.0/16'
 
 volumes:
-  nxnestjs-postgres-volume:
+  nx-postgres-volume:
     external: true
 
 services:
-  nxnestjs-postgres:
+  nx-postgres:
     image: endykaufman/postgres-default
-    container_name: nxnestjs-postgres
+    container_name: nx-postgres
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -20,22 +20,22 @@ services:
     ports:
       - ${POSTGRES_PORT}:5432
     volumes:
-      - nxnestjs-postgres-volume:/var/lib/postgresql/data
+      - nx-postgres-volume:/var/lib/postgresql/data
     networks:
-      - nxnestjs-network
+      - nx-network
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DATABASE}']
       interval: 5s
       timeout: 5s
       retries: 5
 
-  nxnestjs-api:
+  nx-api:
     image: node:16-alpine
     user: ${CURRENT_UID}
-    container_name: nxnestjs-api
+    container_name: nx-api
     environment:
-      - POSTGRES_HOST=nxnestjs-postgres
-      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@nxnestjs-postgres:${POSTGRES_PORT}/${POSTGRES_DATABASE}?schema=public
+      - POSTGRES_HOST=nx-postgres
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@nx-postgres:${POSTGRES_PORT}/${POSTGRES_DATABASE}?schema=public
       - PORT=${PORT}
     ports:
       - ${PORT}:${PORT}
@@ -43,8 +43,8 @@ services:
     volumes:
       - ./../../:/app
     networks:
-      - nxnestjs-network
+      - nx-network
     command: 'node ./dist/apps/api/main.js'
     tty: true
     depends_on:
-      - nxnestjs-postgres
+      - nx-postgres
