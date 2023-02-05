@@ -17,9 +17,9 @@ export class HealthChecksController {
 
     @Get('/health')
     async check(): Promise<HealthCheckResult> {
-        const uptime = Math.floor((Date.now() - this._appStartedAt) / 1000)
-        const commit = this._getCommit()
-        const tag = this._getTag()
+        const timestamp = Date.now()
+        const uptime = Math.floor((timestamp - this._appStartedAt) / 1000)
+
         const services = await Promise.all(
             this.healthIndicators.map(
                 async (indicator) => await indicator.isHealthy(),
@@ -34,33 +34,8 @@ export class HealthChecksController {
         return {
             ratio,
             uptime,
-            commit,
-            tag,
+            timestamp,
             services,
-        }
-    }
-
-    private _getCommit(): string | undefined {
-        try {
-            return execSync('git rev-parse HEAD').toString().trim()
-        } catch (error) {
-            this._logger.warn(`Can't get GIT commit, ignoring`)
-            return
-        }
-    }
-
-    private _getTag(): string | undefined {
-        try {
-            const tag = execSync('git tag --points-at HEAD').toString().trim()
-
-            if (tag === '') {
-                return
-            }
-
-            return tag
-        } catch (error) {
-            this._logger.warn(`Can't get GIT commit, ignoring`)
-            return
         }
     }
 }
