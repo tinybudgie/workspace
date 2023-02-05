@@ -5,9 +5,6 @@ import { EventloopFrozenDetectorModule } from '@nx/core/eventloop-frozen-detecto
 
 import * as env from 'env-var'
 
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
-
 @Module({
     imports: [
         HealthChecksModule,
@@ -20,7 +17,7 @@ import { AppService } from './app.service'
             delay: 3000,
         }),
     ],
-    controllers: [AppController],
-    providers: [AppService],
+    controllers: [],
+    providers: [],
 })
 export class AppModule {}
