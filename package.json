@@ -42,14 +42,15 @@
   },
   "devDependencies": {
     "@nestjs/schematics": "^9.0.0",
-    "@nrwl/cli": "15.0.3",
-    "@nrwl/eslint-plugin-nx": "15.0.3",
-    "@nrwl/jest": "15.0.3",
-    "@nrwl/linter": "15.0.3",
-    "@nrwl/nest": "15.0.3",
-    "@nrwl/node": "15.0.3",
-    "@nrwl/nx-cloud": "latest",
-    "@nrwl/workspace": "15.0.3",
+    "@nrwl/cli": "15.6.3",
+    "@nrwl/eslint-plugin-nx": "15.6.3",
+    "@nrwl/jest": "15.6.3",
+    "@nrwl/linter": "15.6.3",
+    "@nrwl/nest": "15.6.3",
+    "@nrwl/node": "15.6.3",
+    "@nrwl/nx-cloud": "15.0.3",
+    "@nrwl/nx-plugin": "15.6.3",
+    "@nrwl/workspace": "15.6.3",
     "@nx-go/nx-go": "^2.7.0",
     "@types/jest": "28.1.1",
     "@types/node": "18.7.1",
@@ -60,7 +61,7 @@
     "jest": "28.1.1",
     "jest-environment-jsdom": "28.1.1",
     "lint-staged": "^13.0.3",
-    "nx": "15.0.3",
+    "nx": "15.6.3",
     "prettier": "^2.6.2",
     "prisma": "^4.5.0",
     "ts-jest": "28.0.5",
@@ -72,3 +73,4 @@
     "*.{js,ts,css,scss,md}": "prettier --ignore-unknown --write"
   }
 }
+
