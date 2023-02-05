@@ -1,0 +1,27 @@
+---
+sidebar_position: 1
+slug: /
+---
+
+# What is it about?
+
+Hello, I'm Tema. In this documentation, I will save all my experience in programming backend applications. I mainly use NestJS and most of the articles are related to this framework, but there are also many useful architectural solutions that can be used in any programming language. 
+
+## About me
+
+I have been developing different levels backend systems since 2020. Almost all of these projects are made with NodeJS (and NestJS) and a lot of these projects use blockchain and cryptocurrency technologies.
+
+I have experience with:
+
+- Solidity and smart-contract development
+- NodeJS/TypeScript
+- NestJS
+- Blockchain technologies like Ethereum, Avalanche, Polkadot, EOS.
+- Docker
+- Brokers like RabbitMQ
+
+This will describe the problems that I encountered during development, as well as the solutions that I came up with. In these articles you can also find information from other sites that I take if I find it very useful. I will always try to link to sources.
+
+If any documentation seems strange or incorrect to you, or you have suggestions, you can text me on Telegram **@temarusanov**
+
+Checkout my repositories on [GitHub](https://github.com/temarusanov)

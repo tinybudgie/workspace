@@ -9,13 +9,17 @@ const config = {
   title: 'NX Docs',
   tagline: 'NX useful libs and tools',
   url: 'https://temarusanov.github.io',
-  baseUrl: '/nx/',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'temarusanov', // Usually your GitHub org/user name.
   projectName: 'nx', // Usually your repo name.
   trailingSlash: false,
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'ru'],
+  },
   presets: [
     ['@docusaurus/preset-classic',
     {
@@ -31,7 +35,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'NX Docs',
+        title: 'Tema docs',
         logo: {
           alt: 'NX docs logo',
           src: 'img/logo.svg',
@@ -39,9 +43,13 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'home-doc',
+            docId: 'home',
             position: 'left',
             label: 'Docs',
+          },
+          {
+            type: 'localeDropdown',
+            position: 'right',
           },
           {
             href: 'https://github.com/temarusanov/nx',
