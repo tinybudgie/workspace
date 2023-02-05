@@ -9,7 +9,7 @@ const config = {
   title: 'NX Docs',
   tagline: 'NX useful libs and tools',
   url: 'https://temarusanov.github.io',
-  baseUrl: '/',
+  baseUrl: '/nx/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
