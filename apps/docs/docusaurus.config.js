@@ -49,7 +49,7 @@ const config = {
           },
           {
             type: 'localeDropdown',
-            position: 'right',
+            position: 'left',
           },
           {
             href: 'https://github.com/temarusanov/nx',
