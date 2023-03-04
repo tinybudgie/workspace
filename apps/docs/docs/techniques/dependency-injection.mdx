@@ -14,13 +14,13 @@ Many new developers do not know what CI is and how to use it. How to design syst
 ## Solution
 
 > In software engineering, dependency injection is a design pattern in which an object or function receives other objects or functions that it depends on. A form of inversion of control, dependency injection aims to separate the concerns of constructing objects and using them, leading to loosely coupled programs. The pattern ensures that an object or function which wants to use a given service should not have to know how to construct those services. Instead, the receiving 'client' (object or function) is provided with its dependencies by external code (an 'injector'), which it is not aware of.
-> 
+>
 > Dependency injection helps by making implicit dependencies explicit and helps solve the following problems
 > How can a class be independent from the creation of the objects it depends on?
 > How can an application, and the objects it uses support different configurations?
 > How can the behavior of a piece of code be changed without editing it directly?
 >
->Read more in [Wikipedia](https://en.wikipedia.org/wiki/Dependency_injection)
+> Read more in [Wikipedia](https://en.wikipedia.org/wiki/Dependency_injection)
 
 Initially, NestJS doesn't tell us how to properly design code, what folder structure to use, and how to deal with typical module dependency problems. Because of this, developers write code differently. Even if they are doing the same project, the code in microservices can be very different.
 
@@ -49,9 +49,9 @@ Developers new to Nx are initially often hesitant to move their logic into libra
 **This is a common misconception, moving code into libraries can be done from a pure code organization perspective.**
 
 > Ease of re-use might emerge as a positive side effect of refactoring code into libraries by applying an "API thinking" approach. It is not the main driver though.
-> 
+>
 > In fact when organizing libraries you should think about your business domains.
-> 
+>
 > Most often teams are aligned with those domains and thus a similar organization of the libraries in the libs/ folder might be most appropriate. Nx allows to nest libraries into sub-folders which makes it easy to reflect such structuring.
 
 A common mental model is to **see the application as "containers"** that link, bundle and compile functionality implemented in libraries for being deployed. As such, if we follow a 80/20 approach:
@@ -110,4 +110,3 @@ To avoid circular dependencies you can create a new module that will import all 
 You should also keep your dependencies in direct hierarchical way
 
 ![BadGood](./img/di-bad-good-3.png)
-

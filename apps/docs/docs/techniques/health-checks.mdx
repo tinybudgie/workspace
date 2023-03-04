@@ -19,7 +19,6 @@ How to run an application that does not depend on a database, kafka or any other
 
 ## Solution
 
-
 Do not terminate the application if the connection to internal services failed. The application should work even if it is not connected to the database
 
 > A health check represents a summary of health indicators. A health indicator executes a check of a service, whether it is in a healthy or unhealthy state. A health check is positive if all the assigned health indicators are up and running.
@@ -27,47 +26,44 @@ Do not terminate the application if the connection to internal services failed. 
 Create a HealthCheckModule with a controller
 
 ```ts title="libs/core/health-checks/src/lib/health-checks.controller.ts"
-import { Controller, Get, Logger } from '@nestjs/common'
-import { CustomInject } from 'nestjs-custom-injector'
-import { HEALTH_CHECKS_PROVIDER } from './health-checks.config'
-import { HealthCheckResult } from './interfaces/health-check-result.interface'
-import { HealthIndicator } from './interfaces/health-indicator.interface'
+import { Controller, Get, Logger } from '@nestjs/common';
+import { CustomInject } from 'nestjs-custom-injector';
+import { HEALTH_CHECKS_PROVIDER } from './health-checks.config';
+import { HealthCheckResult } from './interfaces/health-check-result.interface';
+import { HealthIndicator } from './interfaces/health-indicator.interface';
 
 @Controller()
 export class HealthChecksController {
-    private _logger = new Logger(HealthChecksController.name)
-    private _appStartedAt: number = Date.now()
+  private _logger = new Logger(HealthChecksController.name);
+  private _appStartedAt: number = Date.now();
 
-    @CustomInject<HealthIndicator>(HEALTH_CHECKS_PROVIDER, {
-        multi: true,
-    })
-    private healthIndicators!: HealthIndicator[]
+  @CustomInject<HealthIndicator>(HEALTH_CHECKS_PROVIDER, {
+    multi: true,
+  })
+  private healthIndicators!: HealthIndicator[];
 
-    @Get('/health')
-    async check(): Promise<HealthCheckResult> {
-        const timestamp = Date.now()
-        const uptime = Math.floor((timestamp - this._appStartedAt) / 1000)
+  @Get('/health')
+  async check(): Promise<HealthCheckResult> {
+    const timestamp = Date.now();
+    const uptime = Math.floor((timestamp - this._appStartedAt) / 1000);
 
-        const services = await Promise.all(
-            this.healthIndicators.map(
-                async (indicator) => await indicator.isHealthy(),
-            ),
-        )
+    const services = await Promise.all(
+      this.healthIndicators.map(
+        async (indicator) => await indicator.isHealthy()
+      )
+    );
 
-        const successfulServices = services.filter(
-            (s) => s.status === 'up',
-        ).length
-        const ratio = +(successfulServices / services.length).toFixed(2)
+    const successfulServices = services.filter((s) => s.status === 'up').length;
+    const ratio = +(successfulServices / services.length).toFixed(2);
 
-        return {
-            ratio,
-            uptime,
-            timestamp,
-            services,
-        }
-    }
+    return {
+      ratio,
+      uptime,
+      timestamp,
+      services,
+    };
+  }
 }
-
 ```
 
 Then catch connection error of your ORM or transport service. As example I use Prisma client
@@ -87,41 +83,41 @@ async onModuleInit(): Promise<void> {
 Create a Prisma Health Indicator
 
 ```ts title="libs/core/prisma-client/src/lib/prisma-client-connection.health.ts"
-import { Injectable } from '@nestjs/common'
-import { HealthIndicator, HealthIndicatorResult } from '@nx/core/health-checks'
-import { PrismaClientService } from './prisma-client.service'
+import { Injectable } from '@nestjs/common';
+import { HealthIndicator, HealthIndicatorResult } from '@nx/core/health-checks';
+import { PrismaClientService } from './prisma-client.service';
 
 @Injectable()
 export class PrismaClientConnectionHealthIndicator implements HealthIndicator {
-    name = 'database'
+  name = 'database';
 
-    constructor(private readonly prismaClientService: PrismaClientService) {}
+  constructor(private readonly prismaClientService: PrismaClientService) {}
 
-    async isHealthy(): Promise<HealthIndicatorResult> {
-        try {
-            await this.prismaClientService.$queryRaw<
-                { dt: string }[]
-            >`SELECT now() dt`
+  async isHealthy(): Promise<HealthIndicatorResult> {
+    try {
+      await this.prismaClientService.$queryRaw<
+        { dt: string }[]
+      >`SELECT now() dt`;
 
-            // drop here everything you want
-            return {
-                name: this.name,
-                status: 'up',
-            }
-        } catch (error) {
-            return {
-                name: this.name,
-                status: 'down',
-                error: error.message,
-            }
-        }
+      // drop here everything you want
+      return {
+        name: this.name,
+        status: 'up',
+      };
+    } catch (error) {
+      return {
+        name: this.name,
+        status: 'down',
+        error: error.message,
+      };
     }
+  }
 }
 ```
 
-As a result we have 
+As a result we have
 
-```mdx-code-block
+````mdx-code-block
 <BrowserWindow url="http://localhost:3000/api/health" minHeight={240}>
 
 ```json
@@ -143,17 +139,15 @@ As a result we have
     }
   ]
 }
-```
+````
 
 </BrowserWindow>
 
 With Prisma connection error application is still working
 
-
 ![image](./img/hc-log.png)
 
-
-:::tip 
+:::tip
 
 Checkout full example [here](https://github.com/temarusanov/nx/tree/master/libs/core/health-checks/src/lib)
 

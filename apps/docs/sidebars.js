@@ -17,10 +17,7 @@ const sidebars = {
         slug: '/techniques',
         keywords: ['techniques'],
       },
-      items: [
-        'techniques/dependency-injection',
-        'techniques/health-checks'
-      ] 
+      items: ['techniques/dependency-injection', 'techniques/health-checks'],
     },
     {
       type: 'category',
@@ -39,14 +36,11 @@ const sidebars = {
             type: 'doc',
             id: 'tutorials/bitcoin-observer/introduction',
           },
-          items: [
-            'tutorials/bitcoin-observer/observer'
-          ]
-        }
-      ] 
-    }
+          items: ['tutorials/bitcoin-observer/observer'],
+        },
+      ],
+    },
   ],
-
 
   // But you can create a sidebar manually
   /*

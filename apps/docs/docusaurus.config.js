@@ -21,16 +21,18 @@ const config = {
     locales: ['en', 'ru'],
   },
   presets: [
-    ['@docusaurus/preset-classic',
-    {
-      docs: {
-        sidebarPath: require.resolve('./sidebars.js'),
-        routeBasePath: '/', // Serve the docs at the site's root
-        /* other docs plugin options */
+    [
+      '@docusaurus/preset-classic',
+      {
+        docs: {
+          sidebarPath: require.resolve('./sidebars.js'),
+          routeBasePath: '/', // Serve the docs at the site's root
+          /* other docs plugin options */
+        },
+        blog: false, // Optional: disable the blog plugin
+        // ...
       },
-      blog: false, // Optional: disable the blog plugin
-      // ...
-    },]
+    ],
   ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
