@@ -1,0 +1,9 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE IF NOT EXISTS "<%= className %>Users" (
+    id uuid DEFAULT uuid_generate_v4 () NOT NULL,
+    
+    "name" varchar(64) NOT NULL,
+
+    CONSTRAINT "PK_<%= constantName %>_USERS" PRIMARY KEY (id)
+);

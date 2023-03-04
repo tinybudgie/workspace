@@ -6,6 +6,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/webpack:webpack",
+      "dependsOn": ["prisma:generate"],
       "outputs": ["{options.outputPath}"],
       "options": {
         "target": "node",
@@ -40,6 +41,15 @@
         }
       }
     },
+    "prisma:generate": {
+      "executor": "@nx/schematics:prisma-generate"
+    },
+    "prisma:pull": {
+      "executor": "@nx/schematics:prisma-pull"
+    },
+    "prisma:migrate": {
+      "executor": "@nx/schematics:prisma-migrate"
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
@@ -53,6 +63,24 @@
       "options": {
         "jestConfig": "apps/api/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "dependsOn": ["build"],
+      "options": {
+        "engine": "docker",
+        "metadata": {
+          "images": ["nx/api"],
+          "load": true,
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=sha,prefix=sha-"
+          ]
+        }
       }
     }
   },

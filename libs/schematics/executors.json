@@ -1,10 +1,20 @@
 {
   "$schema": "http://json-schema.org/schema",
   "executors": {
-    "build": {
-      "implementation": "./src/executors/build/executor",
-      "schema": "./src/executors/build/schema.json",
-      "description": "build executor"
+    "prisma-generate": {
+      "implementation": "./src/executors/prisma/generate/executor",
+      "schema": "./src/executors/prisma/generate/schema.json",
+      "description": "Generate all affected Prisma schemas"
+    },
+    "prisma-pull": {
+      "implementation": "./src/executors/prisma/pull/executor",
+      "schema": "./src/executors/prisma/pull/schema.json",
+      "description": "Pull all affected Prisma schemas"
+    },
+    "prisma-migrate": {
+      "implementation": "./src/executors/prisma/migrate/executor",
+      "schema": "./src/executors/prisma/migrate/schema.json",
+      "description": "Run Prisma migrations"
     }
   }
 }

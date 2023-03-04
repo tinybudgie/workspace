@@ -1,0 +1,9 @@
+export const <%= constantName %>_PRISMA_CLIENT_CONFIG = Symbol(
+  '<%= constantName %>_PRISMA_CLIENT_CONFIG'
+);
+
+export interface <%= className %>PrismaClientConfig {
+  databaseUrl: string;
+  logging: 'all_queries' | 'long_queries';
+  maxQueryExecutionTime: number;
+}

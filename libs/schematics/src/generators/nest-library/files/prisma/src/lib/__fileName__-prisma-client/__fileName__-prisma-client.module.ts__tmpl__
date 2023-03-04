@@ -1,0 +1,51 @@
+import { DynamicModule, Module } from '@nestjs/common';
+import { HEALTH_CHECKS_PROVIDER } from '@nx/core/health-checks';
+import { CustomInjectorModule } from 'nestjs-custom-injector';
+import { <%= className %>PrismaClientConnectionHealthIndicator } from './<%= fileName %>-prisma-client-connection.health';
+import {
+  <%= className %>PrismaClientConfig,
+  <%= constantName %>_PRISMA_CLIENT_CONFIG,
+} from './<%= fileName %>-prisma-client.config';
+import { <%= className %>PrismaClientService } from './<%= fileName %>-prisma-client.service';
+
+@Module({
+  imports: [CustomInjectorModule],
+  providers: [
+    <%= className %>PrismaClientService.instance
+      ? {
+          provide: <%= className %>PrismaClientService,
+          useValue: <%= className %>PrismaClientService.instance,
+        }
+      : {
+          provide: <%= className %>PrismaClientService,
+          useClass: <%= className %>PrismaClientService,
+        },
+  ],
+  exports: [<%= className %>PrismaClientService],
+})
+class <%= className %>PrismaClientModuleCore {}
+
+@Module({
+  imports: [<%= className %>PrismaClientModuleCore],
+  exports: [<%= className %>PrismaClientModuleCore],
+})
+export class <%= className %>PrismaClientModule {
+  static forRoot(config: <%= className %>PrismaClientConfig): DynamicModule {
+    return {
+      module: <%= className %>PrismaClientModule,
+      providers: [
+        {
+          provide: <%= constantName %>_PRISMA_CLIENT_CONFIG,
+          useValue: {
+            ...config,
+            databaseUrl: config.databaseUrl,
+          },
+        },
+        {
+          provide: HEALTH_CHECKS_PROVIDER,
+          useClass: <%= className %>PrismaClientConnectionHealthIndicator,
+        },
+      ],
+    };
+  }
+}

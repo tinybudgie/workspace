@@ -1,11 +1,81 @@
-import { Module<% if(global) { %>, Global<% } %> } from '@nestjs/common';<% if(controller) { %>
-import { <%= className %>Controller } from './<%= fileName %>.controller';<% } %><% if(service) { %>
-import { <%= className %>Service } from './<%= fileName %>.service';<% } %>
-<% if(global) { %>
-@Global()<% } %>
+import { DynamicModule, Module } from '@nestjs/common';
+import { CustomInjectorModule } from 'nestjs-custom-injector';
+import {
+  <%= className %>ConfigurableModuleClass,
+  <%= constantName %>_ASYNC_OPTIONS_TYPE,
+  <%= constantName %>_CONFIG,
+  <%= constantName %>_OPTIONS_TYPE,
+  patch<%= className %>Config,
+} from './<%= fileName %>-configs/<%= fileName %>-module.config';
+import { <%= className %>PrismaClientModule } from './<%= fileName %>-prisma-client/<%= fileName %>-prisma-client.module';
+
 @Module({
-	controllers: [<% if(controller) { %><%= className %>Controller<% } %>],
-	providers: [<% if(service) { %><%= className %>Service<% } %>],
-	exports: [<% if(service) { %><%= className %>Service<% } %>],
+  imports: [
+    CustomInjectorModule,
+	<%= className %>PrismaClientModule
+  ],
+  providers: [],
+  exports: [],
 })
-export class <%= className %>Module {}
+class <%= className %>ModuleCore {}
+
+@Module({
+  imports: [<%= className %>ModuleCore],
+  exports: [<%= className %>ModuleCore],
+})
+export class <%= className %>Module extends <%= className %>ConfigurableModuleClass {
+  static forRoot(options: typeof <%= constantName %>_OPTIONS_TYPE): DynamicModule {
+    return {
+      ...this.forRootAsync({
+        useFactory: async () => options,
+      }),
+    };
+  }
+
+  static forRootAsync(
+    options?: typeof <%= constantName %>_ASYNC_OPTIONS_TYPE
+  ): DynamicModule {
+    const useFactory = options?.useFactory;
+    const useClass = options?.useClass;
+
+    if (options?.useExisting) {
+      throw new Error(`options?.useExisting is not supported!`);
+    }
+
+    return {
+      module: <%= className %>Module,
+      imports: [...(options?.imports || [])],
+      providers: [
+        ...(useClass
+          ? [
+              {
+                provide: `${String(<%= constantName %>_CONFIG)}_TEMP`,
+                useClass,
+              },
+              {
+                provide: <%= constantName %>_CONFIG,
+                useFactory: async (config) => patch<%= className %>Config(config),
+                inject: [`${String(<%= constantName %>_CONFIG)}_TEMP`],
+              },
+            ]
+          : []),
+        ...(useFactory
+          ? [
+              {
+                provide: <%= constantName %>_CONFIG,
+                useFactory: async (...args) =>
+                  patch<%= className %>Config(await useFactory(...args)),
+                inject: options?.inject || [],
+              },
+            ]
+          : [
+              {
+                provide: <%= constantName %>_CONFIG,
+                useValue: patch<%= className %>Config({}),
+              },
+            ]),
+      ],
+      exports: [<%= constantName %>_CONFIG],
+    };
+  }
+}

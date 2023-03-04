@@ -10,9 +10,9 @@
       "aliases": ["ng-add"],
       "hidden": true
     },
-    "library": {
-      "factory": "./src/generators/library/library#librarySchematic",
-      "schema": "./src/generators/library/schema.json",
+    "nest-library": {
+      "factory": "./src/generators/nest-library/library",
+      "schema": "./src/generators/nest-library/schema.json",
       "aliases": ["lib"],
       "x-type": "library",
       "description": "Create a new NestJS library."

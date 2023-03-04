@@ -32,12 +32,6 @@
       "enum": ["eslint", "none"],
       "default": "eslint"
     },
-    "unitTestRunner": {
-      "description": "Test runner to use for unit tests.",
-      "type": "string",
-      "enum": ["jest", "none"],
-      "default": "jest"
-    },
     "tags": {
       "description": "Add tags to the library (used for linting).",
       "type": "string",
@@ -75,15 +69,10 @@
       "type": "boolean",
       "default": false
     },
-    "service": {
-      "description": "Include a service with the library.",
+    "prisma": {
+      "description": "Include Prisma with the library.",
       "type": "boolean",
-      "default": false
-    },
-    "controller": {
-      "description": "Include a controller with the library.",
-      "type": "boolean",
-      "default": false
+      "default": true
     },
     "testEnvironment": {
       "description": "The test environment for jest, for node applications this should stay as node unless doing DOM testing.",

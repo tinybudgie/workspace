@@ -6,6 +6,12 @@
     "declaration": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/generators/nest-library/files/common/src/lib/__fileName__-prisma-client/__fileName__-prisma-client-connection.health.ts__tmpl__",
+    "src/generators/nest-library/files/common/src/lib/__fileName__-prisma-client/__fileName__-prisma-client.config.ts__tmpl__",
+    "src/generators/nest-library/files/common/src/lib/__fileName__-prisma-client/__fileName__-prisma-client.module.ts__tmpl__",
+    "src/generators/nest-library/files/common/src/lib/__fileName__-prisma-client/__fileName__-prisma-client.service.ts__tmpl__"
+  ],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

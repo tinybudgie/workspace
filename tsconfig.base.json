@@ -28,7 +28,6 @@
         "libs/core/eventloop-frozen-detector/src/index.ts"
       ],
       "@nx/core/health-checks": ["libs/core/health-checks/src/index.ts"],
-      "@nx/core/prisma-client": ["libs/core/prisma-client/src/index.ts"],
       "@nx/schematics": ["libs/schematics/src/index.ts"]
     }
   },

@@ -5,7 +5,15 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e",
+          "prisma:generate",
+          "prisma:pull",
+          "prisma:migrate"
+        ],
         "accessToken": "OWQ4ZDdhNjYtOTIwMi00MTU3LTkxZGEtMjY2ZDhlMTZiMGQxfHJlYWQtd3JpdGU="
       }
     }

@@ -9,6 +9,7 @@ tmp
 
 # dependencies
 node_modules/
+.nx-container
 
 # IDEs and editors
 /.idea

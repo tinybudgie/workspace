@@ -34,11 +34,10 @@ process.on('uncaughtException', exitHandler.bind(null, { exit: true }))
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
-
     const globalPrefix = 'api'
     app.setGlobalPrefix(globalPrefix)
 
-    const port = env.get('PORT').default(3333).asPortNumber()
+    const port = env.get('PORT').default(3000).asPortNumber()
 
     await app.listen(port)
 
