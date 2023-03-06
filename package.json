@@ -4,16 +4,14 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "build": "nx build",
+    "build": "nx run-many --target=build --all",
+    "container": "nx run-many --target=container --all",
+    "prisma:generate": "nx run-many --target=prisma:generate --all",
     "test": "nx test",
     "prepare": "husky install",
     "lint": "npm run tsc:lint && nx workspace-lint && npm run nx -- run-many --target=lint --all",
     "lint:fix": "npm run tsc:lint && nx workspace-lint --fix && nx run-many --target=lint --all --fix && nx format:write --all",
-    "tsc:lint": "tsc --noEmit -p tsconfig.base.json",
-    "prisma": "prisma",
-    "prisma:pull": "npm run -- prisma db pull && npm run prisma:generate",
-    "prisma:pull:local": "export $(xargs < ./.env) > /dev/null 2>&1 && export DATABASE_URL=$DATABASE_URL && npm run -- prisma db pull && npm run prisma:generate",
-    "prisma:generate": "npm run -- prisma generate"
+    "tsc:lint": "tsc --noEmit -p tsconfig.base.json"
   },
   "private": true,
   "dependencies": {
