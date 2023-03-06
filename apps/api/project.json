@@ -6,7 +6,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/webpack:webpack",
-      "dependsOn": ["prisma:generate"],
+      "dependsOn": ["^prisma:generate"],
       "outputs": ["{options.outputPath}"],
       "options": {
         "target": "node",
@@ -40,15 +40,6 @@
           "buildTarget": "api:build:production"
         }
       }
-    },
-    "prisma:generate": {
-      "executor": "@nx/schematics:prisma-generate"
-    },
-    "prisma:pull": {
-      "executor": "@nx/schematics:prisma-pull"
-    },
-    "prisma:migrate": {
-      "executor": "@nx/schematics:prisma-migrate"
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

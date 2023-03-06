@@ -28,6 +28,15 @@
     },
     "lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+    },
+    "prisma:generate": {
+      "inputs": ["{projectRoot}/**/schema.prisma"]
+    },
+    "prisma:pull": {
+      "inputs": ["{projectRoot}/**/schema.prisma"]
+    },
+    "prisma:migrate": {
+      "inputs": ["{projectRoot}/**/schema.prisma"]
     }
   },
   "namedInputs": {

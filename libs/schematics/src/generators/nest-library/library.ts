@@ -11,6 +11,7 @@ import {
     toJsLibraryGeneratorOptions,
     updateTsConfig,
 } from './lib'
+import { addPrismaCommands } from './lib/add-prisma-commands'
 import type { LibraryGeneratorOptions } from './schema'
 
 export async function libraryGenerator(
@@ -25,6 +26,7 @@ export async function libraryGenerator(
     addExportsToBarrelFile(tree, options)
     updateTsConfig(tree, options)
     addProject(tree, options)
+    addPrismaCommands(tree, options)
 
     if (!options.skipFormat) {
         await formatFiles(tree)

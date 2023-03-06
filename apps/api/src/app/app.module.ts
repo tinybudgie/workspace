@@ -1,11 +1,18 @@
 import { Module } from '@nestjs/common'
 import { HealthChecksModule } from '@nx/core/health-checks'
 import { EventloopFrozenDetectorModule } from '@nx/core/eventloop-frozen-detector'
+import { SampleModule, SamplePrismaClientModule } from '@nx/sample';
 import * as env from 'env-var'
 
 @Module({
     imports: [
         HealthChecksModule,
+        SamplePrismaClientModule.forRoot({
+            databaseUrl: env.get('DATABASE_URL').required().asString(),
+            logging: 'long_queries',
+            maxQueryExecutionTime: 5000
+        }),
+        SampleModule.forRoot({}),
         EventloopFrozenDetectorModule.forRoot({
             delay: 3000,
         }),
