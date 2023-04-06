@@ -1,4 +1,4 @@
-import { Controller, Get, Logger } from '@nestjs/common'
+import { Controller, Get } from '@nestjs/common'
 import { CustomInject } from 'nestjs-custom-injector'
 import { HEALTH_CHECKS_PROVIDER } from './health-checks.config'
 import { HealthCheckResult } from './interfaces/health-check-result.interface'
