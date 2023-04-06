@@ -8,6 +8,7 @@ import {
     patchSampleConfig,
 } from './sample-configs/sample-module.config'
 import { SamplePrismaClientModule } from './sample-prisma-client/sample-prisma-client.module'
+import { SampleResolver } from './sample.resolver'
 
 @Module({
     imports: [CustomInjectorModule, SamplePrismaClientModule],
@@ -43,6 +44,7 @@ export class SampleModule extends SampleConfigurableModuleClass {
             module: SampleModule,
             imports: [...(options?.imports || [])],
             providers: [
+                SampleResolver,
                 ...(useClass
                     ? [
                           {
