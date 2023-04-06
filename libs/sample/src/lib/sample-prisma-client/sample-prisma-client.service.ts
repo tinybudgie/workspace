@@ -49,7 +49,7 @@ export class SamplePrismaClientService
     async onModuleInit(): Promise<void> {
         this.logger.log('onModuleInit')
         try {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-extra-semi
             ;(this as any).$on('query', (e) => {
                 if (this.prismaClientConfig.logging === 'all_queries') {
                     if (e.query !== 'SELECT 1') {

@@ -6,7 +6,10 @@ import {
 } from '@nrwl/devkit'
 import type { NormalizedOptions } from '../schema'
 
-export function addPrismaCommands(tree: Tree, options: NormalizedOptions): void {
+export function addPrismaCommands(
+    tree: Tree,
+    options: NormalizedOptions,
+): void {
     if (!options.prisma) {
         return
     }
@@ -14,15 +17,15 @@ export function addPrismaCommands(tree: Tree, options: NormalizedOptions): void 
     const project = readProjectConfiguration(tree, options.projectName)
 
     project.targets!['prisma:generate'] = {
-        executor: '@nx/schematics:prisma-generate'
+        executor: '@nx/schematics:prisma-generate',
     }
 
     project.targets!['prisma:pull'] = {
-        executor: '@nx/schematics:prisma-pull'
+        executor: '@nx/schematics:prisma-pull',
     }
 
     project.targets!['prisma:migrate'] = {
-        executor: '@nx/schematics:prisma-migrate'
+        executor: '@nx/schematics:prisma-migrate',
     }
 
     updateProjectConfiguration(tree, options.projectName, project)

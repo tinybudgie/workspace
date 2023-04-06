@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ExecutorContext, logger } from '@nrwl/devkit'
 
-export function findPrismaSchemaPath(context: ExecutorContext): string | undefined {
+export function findPrismaSchemaPath(
+    context: ExecutorContext,
+): string | undefined {
     const projectName = context.projectName
 
     if (!projectName) {
