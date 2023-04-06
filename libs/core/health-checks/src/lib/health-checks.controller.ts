@@ -6,7 +6,6 @@ import { HealthIndicator } from './interfaces/health-indicator.interface'
 
 @Controller()
 export class HealthChecksController {
-    private _logger = new Logger(HealthChecksController.name)
     private _appStartedAt: number = Date.now()
 
     @CustomInject<HealthIndicator>(HEALTH_CHECKS_PROVIDER, {
@@ -31,6 +30,7 @@ export class HealthChecksController {
         const ratio = +(successfulServices / services.length).toFixed(2)
 
         return {
+            healthy: successfulServices === services.length,
             ratio,
             uptime,
             timestamp,
