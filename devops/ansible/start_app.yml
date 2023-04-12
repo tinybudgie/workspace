@@ -1,0 +1,19 @@
+---
+- name: start app
+  hosts: all
+  gather_facts: false
+  become: true
+  vars:
+    docker_network: nx
+  roles:
+    - role: create_docker_network
+    - role: start_postgres
+      docker_postgres__name: postgres
+      docker_postgres__wait_for_start: yes
+      docker_postgres__superuser_name: postgres
+      docker_postgres__superuser_password: postgres
+      docker_postgres__networks: 
+        - name:  "{{ docker_network }}" 
+    - role: start_app_api
+      docker_app__networks:
+        - name:  "{{ docker_network }}"

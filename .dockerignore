@@ -1,7 +1,6 @@
 tmp
 npm-debug.log
 Dockerfile
-node_modules
 .dockerignore
 /docker
 /devops

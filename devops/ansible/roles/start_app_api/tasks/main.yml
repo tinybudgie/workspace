@@ -1,0 +1,27 @@
+---
+- name: Remove existing {{ docker_app__name }} container
+  docker_container:
+    name: "{{ docker_app__name }}"
+    state: absent
+  when: docker_postgres__remove_existing_container
+
+- name: Run postgres container
+  docker_container:
+    name: "{{ docker_app__name }}"
+    image: "{{ docker_app__image }}"
+    restart_policy: always
+    network_mode: "{{ docker_app__network_mode }}"
+    networks: "{{ docker_app__networks }}"
+    expose:
+      - "{{ docker_app__port }}"
+    ports: "{{ docker_app__port }}"
+    env: "{{ docker_app__env }}"
+# - name: Wait for app to be started
+#   wait_for:
+#     host: "{{ docker_postgres__master_host }}"
+#     port: "{{ docker_postgres__port }}"
+#     state: started
+#     delay: 5
+#     connect_timeout: 15
+#     timeout: 30
+#   when: not docker_postgres__slave or docker_postgres__wait_for_start

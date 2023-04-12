@@ -1,0 +1,15 @@
+---
+docker_app__name: nx-api
+docker_app__image: nx/api:master
+docker_app__port: 3000
+docker_app__network_mode:
+docker_app__networks: []
+docker_app__remove_existing_container: yes
+
+docker_app__env:
+  PORT: "3000"
+  DATABASE_URL: "postgres://postgres:postgres@postgres:5432/postgres?schema=public"
+
+# Do not change
+docker_postgres__ports:
+  - "{{ docker_app__port }}:3000"

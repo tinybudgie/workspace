@@ -1,0 +1,10 @@
+---
+- name: prepare environment
+  hosts: all
+  gather_facts: false
+  become: true
+  roles:
+    - install_docker
+    - install_nvm
+      nvm_node_version: '16.20.0'
+      
