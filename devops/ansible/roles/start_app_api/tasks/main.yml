@@ -5,7 +5,7 @@
     state: absent
   when: docker_postgres__remove_existing_container
 
-- name: Run postgres container
+- name: Run {{ docker_app__name }} container
   docker_container:
     name: "{{ docker_app__name }}"
     image: "{{ docker_app__image }}"
@@ -13,8 +13,8 @@
     network_mode: "{{ docker_app__network_mode }}"
     networks: "{{ docker_app__networks }}"
     expose:
-      - "{{ docker_app__port }}"
-    ports: "{{ docker_app__port }}"
+      - "{{ docker_app__ports }}"
+    ports: "{{ docker_app__ports }}"
     env: "{{ docker_app__env }}"
 # - name: Wait for app to be started
 #   wait_for:

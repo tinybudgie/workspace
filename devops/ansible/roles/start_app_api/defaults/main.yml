@@ -11,5 +11,5 @@ docker_app__env:
   DATABASE_URL: "postgres://postgres:postgres@postgres:5432/postgres?schema=public"
 
 # Do not change
-docker_postgres__ports:
+docker_app__ports:
   - "{{ docker_app__port }}:3000"
