@@ -1,24 +1,34 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ExecutorContext, logger } from '@nrwl/devkit'
+import { ExecutorContext } from '@nx/devkit'
+import { join } from 'node:path'
+import { getProjectRoot } from '../../utils/get-project-root'
+import { PrismaGenerateExecutorSchema } from './generate/schema'
+import { existsSync } from 'node:fs'
 
 export function findPrismaSchemaPath(
+    options: PrismaGenerateExecutorSchema,
     context: ExecutorContext,
 ): string | undefined {
-    const projectName = context.projectName
+    const { schema } = options
 
-    if (!projectName) {
-        logger.error(`prisma-generate must run only in projects`)
-    }
+    if (!schema) {
+        const defaultProjectRoot = join(
+            getProjectRoot(context),
+            'src/prisma/schema.prisma',
+        )
 
-    const projectFiles = context.projectGraph?.nodes[projectName!].data.files
-
-    if (projectFiles) {
-        for (const { file } of projectFiles) {
-            if (file.indexOf('schema.prisma') !== -1) {
-                return file
-            }
+        if (!existsSync(defaultProjectRoot)) {
+            throw new Error(
+                `Can't find prisma schema in your lib, specify schema manually or add it to src/prisma/schema.prisma`,
+            )
         }
+
+        return defaultProjectRoot
     }
 
-    return undefined
+    if (!existsSync(schema)) {
+        throw new Error(`Provided --schema at ${schema} does not exist`)
+    }
+
+    return schema
 }

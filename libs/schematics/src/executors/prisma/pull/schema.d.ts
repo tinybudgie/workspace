@@ -1,1 +1,3 @@
-export interface BuildExecutorSchema {} // eslint-disable-line
+export interface PrismaPullExecutorSchema {
+    schema?: string
+} // eslint-disable-line

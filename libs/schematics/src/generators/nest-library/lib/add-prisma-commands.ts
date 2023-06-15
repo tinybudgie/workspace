@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import type { Tree } from '@nrwl/devkit'
+import { Tree, names } from '@nx/devkit'
 import {
     readProjectConfiguration,
     updateProjectConfiguration,
-} from '@nrwl/devkit'
+} from '@nx/devkit'
 import type { NormalizedOptions } from '../schema'
 
 export function addPrismaCommands(
@@ -14,10 +14,15 @@ export function addPrismaCommands(
         return
     }
 
+    const projectNames = names(options.projectName)
+
     const project = readProjectConfiguration(tree, options.projectName)
 
     project.targets!['prisma:generate'] = {
         executor: '@nx/schematics:prisma-generate',
+        outputs: [
+            `{workspaceRoot}/node_modules/@prisma/${projectNames.fileName}-client`,
+        ],
     }
 
     project.targets!['prisma:pull'] = {

@@ -1,8 +1,8 @@
-import type { Tree } from '@nrwl/devkit'
+import type { Tree } from '@nx/devkit'
 import {
     readProjectConfiguration,
     updateProjectConfiguration,
-} from '@nrwl/devkit'
+} from '@nx/devkit'
 import type { NormalizedOptions } from '../schema'
 
 export function addProject(tree: Tree, options: NormalizedOptions): void {
@@ -13,7 +13,7 @@ export function addProject(tree: Tree, options: NormalizedOptions): void {
     const project = readProjectConfiguration(tree, options.projectName)
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     project.targets!.build = {
-        executor: '@nrwl/js:tsc',
+        executor: '@nx/js:tsc',
         outputs: ['{options.outputPath}'],
         options: {
             outputPath:

@@ -1,26 +1,19 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ExecutorContext, logger, stripIndents } from '@nrwl/devkit'
+import { ExecutorContext } from '@nx/devkit'
 import { findPrismaSchemaPath } from '../find-prisma-schemas-paths'
 import { runCommand } from '../run-command'
-import { BuildExecutorSchema } from './schema'
+import { PrismaPullExecutorSchema } from './schema'
 
 export default async function runExecutor(
-    options: BuildExecutorSchema,
+    options: PrismaPullExecutorSchema,
     context: ExecutorContext,
 ) {
-    const prismaSchemasPath = findPrismaSchemaPath(context)
+    const prismaSchemasPath = findPrismaSchemaPath(options, context)
 
-    if (prismaSchemasPath) {
-        logger.debug(stripIndents`
-            Found prisma schema:
-            ${prismaSchemasPath}
-        `)
-
-        await runCommand({
-            command: `prisma db pull`,
-            args: [`--schema=${prismaSchemasPath}`],
-        })
-    }
+    await runCommand({
+        command: `prisma db pull`,
+        args: [`--schema=${prismaSchemasPath}`],
+    })
 
     return {
         success: true,

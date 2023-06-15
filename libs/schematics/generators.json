@@ -1,15 +1,8 @@
 {
   "name": "nx/nest",
   "version": "0.1",
-  "extends": ["@nrwl/workspace"],
+  "extends": ["@nx/workspace"],
   "schematics": {
-    "init": {
-      "factory": "./src/generators/init/init#initSchematic",
-      "schema": "./src/generators/init/schema.json",
-      "description": "Initialize the `@nrwl/nest` plugin.",
-      "aliases": ["ng-add"],
-      "hidden": true
-    },
     "nest-library": {
       "factory": "./src/generators/nest-library/library",
       "schema": "./src/generators/nest-library/schema.json",
@@ -19,13 +12,6 @@
     }
   },
   "generators": {
-    "init": {
-      "factory": "./src/generators/init/init",
-      "schema": "./src/generators/init/schema.json",
-      "description": "Initialize the `@nrwl/nest` plugin.",
-      "aliases": ["ng-add"],
-      "hidden": true
-    },
     "nest-library": {
       "factory": "./src/generators/nest-library/library",
       "schema": "./src/generators/nest-library/schema.json",

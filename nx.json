@@ -1,18 +1,15 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "nx",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
+      "runner": "nx-cloud",
       "options": {
         "cacheableOperations": [
           "build",
           "lint",
           "test",
           "e2e",
-          "prisma:generate",
-          "prisma:pull",
-          "prisma:migrate"
+          "prisma:generate"
         ],
         "accessToken": "OWQ4ZDdhNjYtOTIwMi00MTU3LTkxZGEtMjY2ZDhlMTZiMGQxfHJlYWQtd3JpdGU="
       }
@@ -20,27 +17,38 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
     },
     "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/jest.preset.js"
+      ]
     },
     "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json"
+      ]
     },
     "prisma:generate": {
-      "inputs": ["{projectRoot}/**/schema.prisma"]
-    },
-    "prisma:pull": {
-      "inputs": ["{projectRoot}/**/schema.prisma"]
-    },
-    "prisma:migrate": {
-      "inputs": ["{projectRoot}/**/schema.prisma"]
+      "inputs": [
+        "{projectRoot}/**/schema.prisma"
+      ]
     }
   },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",

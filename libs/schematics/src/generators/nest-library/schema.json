@@ -3,7 +3,6 @@
   "$id": "NxNestLibraryGenerator",
   "title": "Create a NestJS Library for Nx",
   "description": "Create a NestJS Library for Nx.",
-  "cli": "nx",
   "type": "object",
   "examples": [
     {
@@ -29,7 +28,10 @@
     "linter": {
       "description": "The tool to use for running lint checks.",
       "type": "string",
-      "enum": ["eslint", "none"],
+      "enum": [
+        "eslint",
+        "none"
+      ],
       "default": "eslint"
     },
     "tags": {
@@ -77,7 +79,10 @@
     "testEnvironment": {
       "description": "The test environment for jest, for node applications this should stay as node unless doing DOM testing.",
       "type": "string",
-      "enum": ["jsdom", "node"],
+      "enum": [
+        "jsdom",
+        "node"
+      ],
       "default": "node"
     },
     "target": {
@@ -114,5 +119,7 @@
     }
   },
   "additionalProperties": false,
-  "required": ["name"]
+  "required": [
+    "name"
+  ]
 }

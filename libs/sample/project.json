@@ -5,14 +5,14 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/sample/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/sample/jest.config.ts",
@@ -26,7 +26,10 @@
       }
     },
     "prisma:generate": {
-      "executor": "@nx/schematics:prisma-generate"
+      "executor": "@nx/schematics:prisma-generate",
+      "outputs": [
+        "{workspaceRoot}/node_modules/@prisma/sample-client"
+      ]
     },
     "prisma:pull": {
       "executor": "@nx/schematics:prisma-pull"
