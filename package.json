@@ -39,7 +39,7 @@
     "tslib": "^2.5.3"
   },
   "devDependencies": {
-    "@nestjs/schematics": "10.0.1",
+    "@nestjs/schematics": "^9.2.0",
     "@nx-go/nx-go": "^2.7.0",
     "@nx-tools/container-metadata": "^5.0.0",
     "@nx-tools/nx-container": "^5.0.0",
