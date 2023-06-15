@@ -3,8 +3,9 @@ import { HealthChecksModule } from 'core/health-checks'
 import { EventloopFrozenDetectorModule } from 'core/eventloop-frozen-detector'
 import { SampleModule, SamplePrismaClientModule } from 'sample'
 import { GraphQLModule } from '@nestjs/graphql'
-import { YogaDriver, YogaDriverConfig } from '@graphql-yoga/nestjs'
 import * as env from 'env-var'
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
+import { ApolloDriver } from '@nestjs/apollo'
 
 @Module({
     imports: [
@@ -12,9 +13,11 @@ import * as env from 'env-var'
         EventloopFrozenDetectorModule.forRoot({
             delay: 3000,
         }),
-        GraphQLModule.forRoot<YogaDriverConfig>({
-            driver: YogaDriver,
+        GraphQLModule.forRoot({
+            driver: ApolloDriver,
             autoSchemaFile: 'schema.graphql',
+            playground: false,
+            plugins: [ApolloServerPluginLandingPageLocalDefault()],
         }),
         SamplePrismaClientModule.forRoot({
             databaseUrl: env.get('SAMPLE_DATABASE_URL').required().asString(),
