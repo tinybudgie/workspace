@@ -27,9 +27,7 @@
     },
     "prisma:generate": {
       "executor": "@nx/schematics:prisma-generate",
-      "outputs": [
-        "{workspaceRoot}/node_modules/@prisma/sample-client"
-      ]
+      "outputs": ["{workspaceRoot}/node_modules/@prisma/sample-client"]
     },
     "prisma:pull": {
       "executor": "@nx/schematics:prisma-pull"
