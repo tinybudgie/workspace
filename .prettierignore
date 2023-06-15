@@ -6,3 +6,6 @@
 
 *.yml
 *.yaml
+
+*.graphql
+*.gql
