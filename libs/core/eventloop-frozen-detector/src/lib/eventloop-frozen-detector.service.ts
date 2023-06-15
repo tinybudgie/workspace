@@ -32,7 +32,9 @@ export class EventloopFrozenDetectorService
 
             if (diff >= this._config.delay) {
                 this._logger.error(
-                    `NodeJS event loop was frozen more than 3s. Freeze duration was: ${diff}ms.`,
+                    `NodeJS event loop was frozen more than ${(
+                        this._config.delay / 1000
+                    ).toFixed(4)}s. Freeze duration was: ${diff}ms.`,
                 )
             }
 
