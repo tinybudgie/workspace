@@ -26,14 +26,14 @@
       }
     },
     "prisma:generate": {
-      "executor": "@nx/schematics:prisma-generate",
+      "executor": "schematics:prisma-generate",
       "outputs": ["{workspaceRoot}/node_modules/@prisma/sample-client"]
     },
     "prisma:pull": {
-      "executor": "@nx/schematics:prisma-pull"
+      "executor": "schematics:prisma-pull"
     },
     "prisma:migrate": {
-      "executor": "@nx/schematics:prisma-migrate"
+      "executor": "schematics:prisma-migrate"
     }
   },
   "tags": []

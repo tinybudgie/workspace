@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { HealthIndicator, HealthIndicatorResult } from '@nx/core/health-checks'
+import { HealthIndicator, HealthIndicatorResult } from 'core/health-checks'
 import { SamplePrismaClientService } from './sample-prisma-client.service'
 
 @Injectable()

@@ -19,18 +19,18 @@ export function addPrismaCommands(
     const project = readProjectConfiguration(tree, options.projectName)
 
     project.targets!['prisma:generate'] = {
-        executor: '@nx/schematics:prisma-generate',
+        executor: 'schematics:prisma-generate',
         outputs: [
             `{workspaceRoot}/node_modules/@prisma/${projectNames.fileName}-client`,
         ],
     }
 
     project.targets!['prisma:pull'] = {
-        executor: '@nx/schematics:prisma-pull',
+        executor: 'schematics:prisma-pull',
     }
 
     project.targets!['prisma:migrate'] = {
-        executor: '@nx/schematics:prisma-migrate',
+        executor: 'schematics:prisma-migrate',
     }
 
     updateProjectConfiguration(tree, options.projectName, project)
