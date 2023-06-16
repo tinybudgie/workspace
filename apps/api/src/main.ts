@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common'
+import { INestApplication, Logger } from '@nestjs/common'
 
 const logger = new Logger('Application')
 
@@ -18,6 +18,7 @@ process.on('uncaughtException', exitHandler.bind(null, { exit: true }))
 import { NestFactory } from '@nestjs/core'
 import env from 'env-var'
 import { AppModule } from './app/app.module'
+import { SpelunkerModule } from 'nestjs-spelunker'
 
 //do something when app is closing
 process.on('exit', exitHandler.bind(null, { cleanup: true }))
@@ -34,6 +35,8 @@ process.on('uncaughtException', exitHandler.bind(null, { exit: true }))
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
+
+    buildDIGraph(app)
 
     const port = env.get('PORT').default(3000).asPortNumber()
 
@@ -64,4 +67,24 @@ function exitHandler(options, exitCode) {
     if (options.exit) {
         process.exit()
     }
+}
+
+function buildDIGraph(app: INestApplication) {
+    // 1. Generate the tree as text
+    const tree = SpelunkerModule.explore(app)
+    const root = SpelunkerModule.graph(tree)
+    const edges = SpelunkerModule.findGraphEdges(root)
+    const mermaidEdges = edges
+        .filter(
+            // I'm just filtering some extra Modules out
+            ({ from, to }) =>
+                !(
+                    from.module.name === 'ConfigHostModule' ||
+                    from.module.name === 'LoggerModule' ||
+                    to.module.name === 'ConfigHostModule' ||
+                    to.module.name === 'LoggerModule'
+                ),
+        )
+        .map(({ from, to }) => `${from.module.name}-->${to.module.name}`)
+    console.log(`graph TD\n\t${mermaidEdges.join('\n\t')}`)
 }
