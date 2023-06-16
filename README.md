@@ -2,6 +2,10 @@
 
 Checkout documentation: https://temarusanov.github.io/nx/
 
+## TODO:
+
+- [ ] Jest coverage bug [#13576](https://github.com/jestjs/jest/issues/13576)
+
 ## Installing
 
 ### Install Ansible
