@@ -1,5 +1,5 @@
 {
-  "name": "core-health-checks",
+  "name": "health-checks",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/core/health-checks/src",
   "projectType": "library",

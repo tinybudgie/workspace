@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-    displayName: 'core-health-checks',
+    displayName: 'health-checks',
     preset: '../../../jest.preset.js',
     globals: {
         'ts-jest': {

@@ -1,5 +1,5 @@
 {
-  "name": "core-eventloop-frozen-detector",
+  "name": "eventloop-frozen-detector",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/core/eventloop-frozen-detector/src",
   "projectType": "library",

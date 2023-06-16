@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-    displayName: 'core-eventloop-frozen-detector',
+    displayName: 'eventloop-frozen-detector',
     preset: '../../../jest.preset.js',
     globals: {
         'ts-jest': {
