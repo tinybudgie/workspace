@@ -6,6 +6,6 @@
     "nrwl.angular-console",
     "esbenp.prettier-vscode",
     "Prisma.prisma",
-    "firsttris.vscode-jest-runner",
+    "firsttris.vscode-jest-runner"
   ]
 }
