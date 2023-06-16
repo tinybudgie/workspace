@@ -1,4 +1,5 @@
 import { Linter } from '@nx/linter'
+import { UnitTestRunner } from '../utils/types'
 
 export interface LibraryGeneratorOptions {
     name: string
@@ -23,6 +24,7 @@ export interface LibraryGeneratorOptions {
         | 'es2018'
         | 'es2019'
         | 'es2020'
+    unitTestRunner?: UnitTestRunner
     testEnvironment?: 'jsdom' | 'node'
     standaloneConfig?: boolean
     setParserOptionsProject?: boolean

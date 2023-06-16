@@ -1,6 +1,5 @@
 import { DynamicModule, Module } from '@nestjs/common'
 import { HEALTH_CHECKS_PROVIDER } from 'core/health-checks'
-import { CustomInjectorModule } from 'nestjs-custom-injector'
 import { SamplePrismaClientConnectionHealthIndicator } from './sample-prisma-client-connection.health'
 import {
     SamplePrismaClientConfig,
@@ -8,32 +7,21 @@ import {
 } from './sample-prisma-client.config'
 import { SamplePrismaClientService } from './sample-prisma-client.service'
 
-@Module({
-    imports: [CustomInjectorModule],
-    providers: [
-        SamplePrismaClientService.instance
-            ? {
-                  provide: SamplePrismaClientService,
-                  useValue: SamplePrismaClientService.instance,
-              }
-            : {
-                  provide: SamplePrismaClientService,
-                  useClass: SamplePrismaClientService,
-              },
-    ],
-    exports: [SamplePrismaClientService],
-})
-class SamplePrismaClientModuleCore {}
-
-@Module({
-    imports: [SamplePrismaClientModuleCore],
-    exports: [SamplePrismaClientModuleCore],
-})
+@Module({})
 export class SamplePrismaClientModule {
     static forRoot(config: SamplePrismaClientConfig): DynamicModule {
         return {
             module: SamplePrismaClientModule,
             providers: [
+                SamplePrismaClientService.instance
+                    ? {
+                          provide: SamplePrismaClientService,
+                          useValue: SamplePrismaClientService.instance,
+                      }
+                    : {
+                          provide: SamplePrismaClientService,
+                          useClass: SamplePrismaClientService,
+                      },
                 {
                     provide: SAMPLE_PRISMA_CLIENT_CONFIG,
                     useValue: {

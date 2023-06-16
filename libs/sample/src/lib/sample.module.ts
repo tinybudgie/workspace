@@ -1,5 +1,4 @@
 import { DynamicModule, Module } from '@nestjs/common'
-import { CustomInjectorModule } from 'nestjs-custom-injector'
 import {
     SampleConfigurableModuleClass,
     SAMPLE_ASYNC_OPTIONS_TYPE,
@@ -8,19 +7,8 @@ import {
     patchSampleConfig,
 } from './sample-configs/sample-module.config'
 import { SamplePrismaClientModule } from './sample-prisma-client/sample-prisma-client.module'
-import { SampleResolver } from './sample.resolver'
 
-@Module({
-    imports: [CustomInjectorModule, SamplePrismaClientModule],
-    providers: [],
-    exports: [],
-})
-class SampleModuleCore {}
-
-@Module({
-    imports: [SampleModuleCore],
-    exports: [SampleModuleCore],
-})
+@Module({})
 export class SampleModule extends SampleConfigurableModuleClass {
     static forRoot(options: typeof SAMPLE_OPTIONS_TYPE): DynamicModule {
         return {
@@ -42,9 +30,8 @@ export class SampleModule extends SampleConfigurableModuleClass {
 
         return {
             module: SampleModule,
-            imports: [...(options?.imports || [])],
+            imports: [...(options?.imports || []), SamplePrismaClientModule],
             providers: [
-                SampleResolver,
                 ...(useClass
                     ? [
                           {

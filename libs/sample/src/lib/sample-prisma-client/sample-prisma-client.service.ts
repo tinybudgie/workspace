@@ -1,11 +1,11 @@
 import {
+    Inject,
     Injectable,
     Logger,
     OnModuleDestroy,
     OnModuleInit,
 } from '@nestjs/common'
 import { PrismaClient } from '@prisma/sample-client'
-import { CustomInject, CustomInjectorService } from 'nestjs-custom-injector'
 import {
     SamplePrismaClientConfig,
     SAMPLE_PRISMA_CLIENT_CONFIG,
@@ -20,16 +20,14 @@ export class SamplePrismaClientService
 
     private logger = new Logger(SamplePrismaClientService.name)
 
-    @CustomInject(SAMPLE_PRISMA_CLIENT_CONFIG)
-    private readonly prismaClientConfig!: SamplePrismaClientConfig
-
-    constructor(customInjectorService: CustomInjectorService) {
+    constructor(
+        @Inject(SAMPLE_PRISMA_CLIENT_CONFIG)
+        private readonly config: SamplePrismaClientConfig,
+    ) {
         super({
             datasources: {
                 db: {
-                    url: customInjectorService.getProvider<SamplePrismaClientConfig>(
-                        SAMPLE_PRISMA_CLIENT_CONFIG,
-                    ).databaseUrl,
+                    url: config.databaseUrl,
                 },
             },
             log: [
@@ -51,18 +49,15 @@ export class SamplePrismaClientService
         try {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-extra-semi
             ;(this as any).$on('query', (e) => {
-                if (this.prismaClientConfig.logging === 'all_queries') {
+                if (this.config.logging === 'all_queries') {
                     if (e.query !== 'SELECT 1') {
                         this.logger.log(
                             `query: ${e.query}, params: ${e.params}, duration: ${e.duration}`,
                         )
                     }
                 }
-                if (this.prismaClientConfig.logging === 'long_queries') {
-                    if (
-                        e.duration >=
-                        this.prismaClientConfig.maxQueryExecutionTime
-                    ) {
+                if (this.config.logging === 'long_queries') {
+                    if (e.duration >= this.config.maxQueryExecutionTime) {
                         this.logger.warn(
                             `query is slow: ${e.query}, params: ${e.params}, execution time: ${e.duration}`,
                         )

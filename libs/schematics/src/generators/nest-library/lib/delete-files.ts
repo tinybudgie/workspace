@@ -12,6 +12,15 @@ export function deleteFiles(tree: Tree, options: NormalizedOptions): void {
         ),
     )
 
+    tree.delete(
+        joinPathFragments(
+            options.projectRoot,
+            'src',
+            'lib',
+            `${options.fileName}.spec.ts`,
+        ),
+    )
+
     if (!options.buildable && !options.publishable) {
         tree.delete(joinPathFragments(options.projectRoot, 'package.json'))
     }

@@ -63,5 +63,6 @@ export function toJsLibraryGeneratorOptions(
         testEnvironment: options.testEnvironment,
         config: options.standaloneConfig ? 'project' : 'workspace',
         setParserOptionsProject: options.setParserOptionsProject,
+        unitTestRunner: options.unitTestRunner ?? 'jest',
     }
 }

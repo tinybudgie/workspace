@@ -19,10 +19,8 @@ export async function libraryGenerator(
     rawOptions: LibraryGeneratorOptions,
 ): Promise<GeneratorCallback> {
     const options = normalizeOptions(tree, rawOptions)
-    await jsLibraryGenerator(tree, {
-        ...toJsLibraryGeneratorOptions(options),
-        unitTestRunner: 'none',
-    })
+    await jsLibraryGenerator(tree, toJsLibraryGeneratorOptions(options))
+
     const installDepsTask = addDependencies(tree)
     deleteFiles(tree, options)
     createFiles(tree, options)
