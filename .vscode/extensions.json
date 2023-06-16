@@ -1,8 +1,11 @@
 {
   "recommendations": [
+    "redhat.ansible",
+    "ms-azuretools.vscode-docker",
+    "dbaeumer.vscode-eslint",
     "nrwl.angular-console",
     "esbenp.prettier-vscode",
+    "Prisma.prisma",
     "firsttris.vscode-jest-runner",
-    "dbaeumer.vscode-eslint"
   ]
 }
