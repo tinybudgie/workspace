@@ -48,25 +48,13 @@ export function addExportsToBarrelFile(
             tree,
             sourceFile,
             indexPath,
-            `export * from './lib/${options.fileName}-prisma-client/${options.fileName}-prisma-client-connection.health';`,
+            `export * from './lib/${options.fileName}-indicators/${options.fileName}-prisma-connection.health';`,
         )
         sourceFile = addGlobal(
             tree,
             sourceFile,
             indexPath,
-            `export * from './lib/${options.fileName}-prisma-client/${options.fileName}-prisma-client.config';`,
-        )
-        sourceFile = addGlobal(
-            tree,
-            sourceFile,
-            indexPath,
-            `export * from './lib/${options.fileName}-prisma-client/${options.fileName}-prisma-client.module';`,
-        )
-        sourceFile = addGlobal(
-            tree,
-            sourceFile,
-            indexPath,
-            `export * from './lib/${options.fileName}-prisma-client/${options.fileName}-prisma-client.service';`,
+            `export * from './lib/${options.fileName}-services/${options.fileName}-prisma.service';`,
         )
     }
 }

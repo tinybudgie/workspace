@@ -6,7 +6,11 @@ import {
     SAMPLE_OPTIONS_TYPE,
     patchSampleConfig,
 } from './sample-configs/sample-module.config'
-import { SamplePrismaClientModule } from './sample-prisma-client/sample-prisma-client.module'
+import { SampleResolver } from './sample.resolver'
+import { HEALTH_CHECKS_PROVIDER } from 'core/health-checks'
+import { SamplePrismaConnectionHealthIndicator } from './sample-indicators/sample-prisma-connection.health'
+import { SamplePrismaService } from './sample-services/sample-prisma.service'
+import { CustomInjectorModule } from 'nestjs-custom-injector'
 
 @Module({})
 export class SampleModule extends SampleConfigurableModuleClass {
@@ -30,8 +34,22 @@ export class SampleModule extends SampleConfigurableModuleClass {
 
         return {
             module: SampleModule,
-            imports: [...(options?.imports || []), SamplePrismaClientModule],
+            imports: [...(options?.imports || []), CustomInjectorModule],
             providers: [
+                SampleResolver,
+                SamplePrismaService.instance
+                    ? {
+                          provide: SamplePrismaService,
+                          useValue: SamplePrismaService.instance,
+                      }
+                    : {
+                          provide: SamplePrismaService,
+                          useClass: SamplePrismaService,
+                      },
+                {
+                    provide: HEALTH_CHECKS_PROVIDER,
+                    useClass: SamplePrismaConnectionHealthIndicator,
+                },
                 ...(useClass
                     ? [
                           {
@@ -62,7 +80,7 @@ export class SampleModule extends SampleConfigurableModuleClass {
                           },
                       ]),
             ],
-            exports: [SAMPLE_CONFIG],
+            exports: [SAMPLE_CONFIG, SampleResolver],
         }
     }
 }

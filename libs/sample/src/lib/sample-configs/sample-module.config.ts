@@ -2,6 +2,11 @@ import { ConfigurableModuleBuilder } from '@nestjs/common'
 import { merge } from 'lodash'
 
 export interface SampleConfig {
+    database: {
+        url: string
+        logging: 'all_queries' | 'long_queries'
+        maxQueryExecutionTime: number
+    }
     temp?: boolean
 }
 

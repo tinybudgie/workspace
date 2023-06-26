@@ -36,13 +36,14 @@ process.on('uncaughtException', exitHandler.bind(null, { exit: true }))
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
 
-    buildDIGraph(app)
+    const diGraph = buildDIGraph(app)
 
     const port = env.get('PORT').default(3000).asPortNumber()
 
-    await app.listen(port)
-
-    logger.log(`🚀 Application is running on: http://localhost:${port}`)
+    await app.listen(port, () => {
+        logger.log(`🚀 Application is running on: http://localhost:${port}`)
+        logger.debug(`DI Graph tree\n${diGraph}`)
+    })
 }
 
 try {
@@ -69,14 +70,14 @@ function exitHandler(options, exitCode) {
     }
 }
 
+// Copy output to mermaid.live
 function buildDIGraph(app: INestApplication) {
-    // 1. Generate the tree as text
     const tree = SpelunkerModule.explore(app)
     const root = SpelunkerModule.graph(tree)
     const edges = SpelunkerModule.findGraphEdges(root)
+
     const mermaidEdges = edges
         .filter(
-            // I'm just filtering some extra Modules out
             ({ from, to }) =>
                 !(
                     from.module.name === 'ConfigHostModule' ||
@@ -86,5 +87,6 @@ function buildDIGraph(app: INestApplication) {
                 ),
         )
         .map(({ from, to }) => `${from.module.name}-->${to.module.name}`)
-    console.log(`graph TD\n\t${mermaidEdges.join('\n\t')}`)
+
+    return `graph TD\n\t${mermaidEdges.join('\n\t')}`
 }

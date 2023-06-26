@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { HealthChecksModule } from 'core/health-checks'
 import { EventloopFrozenDetectorModule } from 'core/eventloop-frozen-detector'
-import { SampleModule, SamplePrismaClientModule } from 'sample'
+import { SampleModule } from 'sample'
 import { GraphQLModule } from '@nestjs/graphql'
 import * as env from 'env-var'
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
@@ -19,12 +19,13 @@ import { ApolloDriver } from '@nestjs/apollo'
             playground: false,
             plugins: [ApolloServerPluginLandingPageLocalDefault()],
         }),
-        SamplePrismaClientModule.forRoot({
-            databaseUrl: env.get('SAMPLE_DATABASE_URL').required().asString(),
-            logging: 'long_queries',
-            maxQueryExecutionTime: 5000,
+        SampleModule.forRoot({
+            database: {
+                url: env.get('SAMPLE_DATABASE_URL').required().asString(),
+                logging: 'long_queries',
+                maxQueryExecutionTime: 5000,
+            },
         }),
-        SampleModule.forRoot({}),
     ],
     controllers: [],
     providers: [],

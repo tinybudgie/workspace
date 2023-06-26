@@ -5,29 +5,29 @@ import {
     OnModuleDestroy,
     OnModuleInit,
 } from '@nestjs/common'
-import { PrismaClient } from '@prisma/sample-client'
+import { PrismaClient } from '@prisma/<%= fileName %>-client'
 import {
-    SamplePrismaClientConfig,
-    SAMPLE_PRISMA_CLIENT_CONFIG,
-} from './sample-prisma-client.config'
+    <%= constantName %>_CONFIG,
+    <%= className %>Config,
+} from '../<%= fileName %>-configs/<%= fileName %>-module.config'
 
 @Injectable()
-export class SamplePrismaClientService
+export class <%= className %>PrismaService
     extends PrismaClient
     implements OnModuleInit, OnModuleDestroy
 {
-    public static instance: SamplePrismaClientService
+    public static instance: <%= className %>PrismaService
 
-    private logger = new Logger(SamplePrismaClientService.name)
+    private logger = new Logger(<%= className %>PrismaService.name)
 
     constructor(
-        @Inject(SAMPLE_PRISMA_CLIENT_CONFIG)
-        private readonly config: SamplePrismaClientConfig,
+        @Inject(<%= constantName %>_CONFIG)
+        private readonly config: <%= className %>Config,
     ) {
         super({
             datasources: {
                 db: {
-                    url: config.databaseUrl,
+                    url: config.database.url,
                 },
             },
             log: [
@@ -41,23 +41,24 @@ export class SamplePrismaClientService
                 },
             ],
         })
-        SamplePrismaClientService.instance = this
+        <%= className %>PrismaService.instance = this
     }
 
     async onModuleInit(): Promise<void> {
-        this.logger.log('onModuleInit')
+        const { logging, maxQueryExecutionTime } = this.config.database
+
         try {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-extra-semi
             ;(this as any).$on('query', (e) => {
-                if (this.config.logging === 'all_queries') {
+                if (logging === 'all_queries') {
                     if (e.query !== 'SELECT 1') {
                         this.logger.log(
                             `query: ${e.query}, params: ${e.params}, duration: ${e.duration}`,
                         )
                     }
                 }
-                if (this.config.logging === 'long_queries') {
-                    if (e.duration >= this.config.maxQueryExecutionTime) {
+                if (logging === 'long_queries') {
+                    if (e.duration >= maxQueryExecutionTime) {
                         this.logger.warn(
                             `query is slow: ${e.query}, params: ${e.params}, execution time: ${e.duration}`,
                         )
@@ -82,7 +83,6 @@ export class SamplePrismaClientService
     }
 
     async onModuleDestroy(): Promise<void> {
-        this.logger.log('onModuleDestroy')
         await this.$disconnect()
     }
 }
