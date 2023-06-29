@@ -5,7 +5,10 @@ import { SampleModule } from 'sample'
 import { GraphQLModule } from '@nestjs/graphql'
 import * as env from 'env-var'
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
-import { ApolloDriver } from '@nestjs/apollo'
+import {
+    ApolloFederationDriver,
+    ApolloFederationDriverConfig,
+} from '@nestjs/apollo'
 
 @Module({
     imports: [
@@ -13,9 +16,9 @@ import { ApolloDriver } from '@nestjs/apollo'
         EventloopFrozenDetectorModule.forRoot({
             delay: 3000,
         }),
-        GraphQLModule.forRoot({
-            driver: ApolloDriver,
-            autoSchemaFile: '../../schema.graphql',
+        GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+            driver: ApolloFederationDriver,
+            autoSchemaFile: { federation: 2 },
             playground: false,
             introspection: true,
             plugins: [ApolloServerPluginLandingPageLocalDefault()],

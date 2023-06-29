@@ -3,7 +3,7 @@
   docker_container:
     name: "{{ docker_app__name }}"
     state: absent
-  when: docker_postgres__remove_existing_container
+  when: docker_app__remove_existing_container
 
 - name: Run {{ docker_app__name }} container
   docker_container:
@@ -16,12 +16,3 @@
       - "{{ docker_app__ports }}"
     ports: "{{ docker_app__ports }}"
     env: "{{ docker_app__env }}"
-# - name: Wait for app to be started
-#   wait_for:
-#     host: "{{ docker_postgres__master_host }}"
-#     port: "{{ docker_postgres__port }}"
-#     state: started
-#     delay: 5
-#     connect_timeout: 15
-#     timeout: 30
-#   when: not docker_postgres__slave or docker_postgres__wait_for_start

@@ -1,8 +1,7 @@
 import { Logger } from '@nestjs/common'
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
-import { ApolloGateway } from '@apollo/gateway'
-import { readFileSync } from 'fs'
+import { ApolloGateway, IntrospectAndCompose } from '@apollo/gateway'
 const logger = new Logger('Application')
 
 //do something when app is closing
@@ -19,7 +18,6 @@ process.on('SIGUSR2', exitHandler.bind(null, { exit: true }))
 process.on('uncaughtException', exitHandler.bind(null, { exit: true }))
 
 import env from 'env-var'
-import { join } from 'path'
 
 //do something when app is closing
 process.on('exit', exitHandler.bind(null, { cleanup: true }))
@@ -36,12 +34,18 @@ process.on('uncaughtException', exitHandler.bind(null, { exit: true }))
 
 async function bootstrap() {
     const port = env.get('GATEWAY_PORT').default(3052).asPortNumber()
+    const subgraphs = env.get('GATEWAY_SUBGRAPHS').required().asJsonArray() as {
+        name: string
+        url: string
+    }[]
 
     const server = new ApolloServer({
         gateway: new ApolloGateway({
-            supergraphSdl: readFileSync(
-                join(__dirname, 'assets', 'supergraph.graphql'),
-            ).toString(),
+            supergraphSdl: new IntrospectAndCompose({
+                subgraphs,
+                subgraphHealthCheck: true,
+                pollIntervalInMs: 10000,
+            }),
         }),
     })
 

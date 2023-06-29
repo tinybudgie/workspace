@@ -1,5 +1,5 @@
 ---
-- name: start app
+- name: start project
   hosts: all
   gather_facts: false
   become: true
@@ -7,6 +7,7 @@
     docker_network: nx
   roles:
     - role: create_docker_network
+
     - role: start_postgres
       docker_postgres__name: postgres
       docker_postgres__wait_for_start: yes
@@ -14,6 +15,28 @@
       docker_postgres__superuser_password: postgres
       docker_postgres__networks: 
         - name:  "{{ docker_network }}" 
-    - role: start_app_api
+
+    - role: start_app
+      docker_app__networks:
+        - name: "{{ docker_network }}"
+      docker_app__name: 'api'
+      docker_app__image: nx/api:master
+      docker_app__port: 3000
+      docker_app__network_mode:
+      docker_app__remove_existing_container: yes
+      docker_app__env:
+        PORT: "3000"
+        SAMPLE_DATABASE_URL: "postgres://postgres:postgres@postgres:5432/postgres?schema=public"
+
+    - role: start_app
       docker_app__networks:
         - name:  "{{ docker_network }}"
+      docker_app__name: gateway
+      docker_app__image: nx/gateway:master
+      docker_app__port: 3052
+      docker_app__network_mode:
+      docker_app__remove_existing_container: yes
+      docker_app__env:
+        NODE_ENV: "development"
+        GATEWAY_PORT: "3000"
+        GATEWAY_SUBGRAPHS: '[{ "name": "api", "url": "http://api:3000/graphql" }]'

@@ -6,7 +6,7 @@
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",
-      "dependsOn": ["graphql:compose"],
+      "dependsOn": [],
       "outputs": ["{options.outputPath}"],
       "options": {
         "target": "node",
@@ -55,9 +55,6 @@
         "jestConfig": "apps/gateway/jest.config.ts",
         "passWithNoTests": true
       }
-    },
-    "graphql:compose": {
-      "executor": "schematics:graphql-gateway-compose"
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
