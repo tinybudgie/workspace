@@ -17,6 +17,7 @@ import { ApolloDriver } from '@nestjs/apollo'
             driver: ApolloDriver,
             autoSchemaFile: '../../schema.graphql',
             playground: false,
+            introspection: true,
             plugins: [ApolloServerPluginLandingPageLocalDefault()],
         }),
         SampleModule.forRoot({

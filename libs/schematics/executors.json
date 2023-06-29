@@ -15,6 +15,11 @@
       "implementation": "./src/executors/prisma/migrate/executor",
       "schema": "./src/executors/prisma/migrate/schema.json",
       "description": "Run Prisma migrations"
+    },
+    "graphql-gateway-compose": {
+      "implementation": "./src/executors/graphql/gateway-compose/executor",
+      "schema": "./src/executors/graphql/gateway-compose/schema.json",
+      "description": "Run Apollo Rover supergraph composer"
     }
   }
 }

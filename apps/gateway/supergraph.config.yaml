@@ -1,0 +1,5 @@
+subgraphs:
+  api:
+    routing_url: http://localhost:3000/graphql
+    schema:
+      file: ./../api/schema.graphql
