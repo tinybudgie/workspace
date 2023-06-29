@@ -1,62 +1,36 @@
-import { Logger } from '@nestjs/common'
-import { ApolloServer } from '@apollo/server'
-import { startStandaloneServer } from '@apollo/server/standalone'
-import { ApolloGateway, IntrospectAndCompose } from '@apollo/gateway'
+import env from 'env-var'
+import { INestApplication, Logger } from '@nestjs/common'
+import { NestFactory } from '@nestjs/core'
+import { AppModule } from './app/app.module'
+import { SpelunkerModule } from 'nestjs-spelunker'
+
 const logger = new Logger('Application')
 
-//do something when app is closing
-process.on('exit', exitHandler.bind(null, { cleanup: true }))
-
-//catches ctrl+c event
-process.on('SIGINT', exitHandler.bind(null, { exit: true }))
-
-// catches "kill pid" (for example: nodemon restart)
-process.on('SIGUSR1', exitHandler.bind(null, { exit: true }))
-process.on('SIGUSR2', exitHandler.bind(null, { exit: true }))
-
-//catches uncaught exceptions
-process.on('uncaughtException', exitHandler.bind(null, { exit: true }))
-
-import env from 'env-var'
-
-//do something when app is closing
-process.on('exit', exitHandler.bind(null, { cleanup: true }))
-
-//catches ctrl+c event
-process.on('SIGINT', exitHandler.bind(null, { exit: true }))
-
-// catches "kill pid" (for example: nodemon restart)
-process.on('SIGUSR1', exitHandler.bind(null, { exit: true }))
-process.on('SIGUSR2', exitHandler.bind(null, { exit: true }))
-
-//catches uncaught exceptions
-process.on('uncaughtException', exitHandler.bind(null, { exit: true }))
-
 async function bootstrap() {
+    const app = await NestFactory.create(AppModule)
+
+    // const diGraph = buildDIGraph(app)
+
     const port = env.get('GATEWAY_PORT').default(3052).asPortNumber()
-    const subgraphs = env.get('GATEWAY_SUBGRAPHS').required().asJsonArray() as {
-        name: string
-        url: string
-    }[]
 
-    const server = new ApolloServer({
-        gateway: new ApolloGateway({
-            supergraphSdl: new IntrospectAndCompose({
-                subgraphs,
-                subgraphHealthCheck: true,
-                pollIntervalInMs: 10000,
-            }),
-        }),
+    await app.listen(port, () => {
+        logger.log(`🚀 Gateway is running on: http://localhost:${port}/graphql`)
+        // logger.debug(`DI Graph tree\n${diGraph}`)
     })
-
-    const { url } = await startStandaloneServer(server, {
-        listen: {
-            port,
-        },
-    })
-
-    logger.log(`Gateway ready at ${url}`)
 }
+
+//do something when app is closing
+process.on('exit', exitHandler.bind(null, { cleanup: true }))
+
+//catches ctrl+c event
+process.on('SIGINT', exitHandler.bind(null, { exit: true }))
+
+// catches "kill pid" (for example: nodemon restart)
+process.on('SIGUSR1', exitHandler.bind(null, { exit: true }))
+process.on('SIGUSR2', exitHandler.bind(null, { exit: true }))
+
+//catches uncaught exceptions
+process.on('uncaughtException', exitHandler.bind(null, { exit: true }))
 
 try {
     bootstrap().catch((err) => {
@@ -80,4 +54,25 @@ function exitHandler(options, exitCode) {
     if (options.exit) {
         process.exit()
     }
+}
+
+// Copy output to mermaid.live
+function buildDIGraph(app: INestApplication) {
+    const tree = SpelunkerModule.explore(app)
+    const root = SpelunkerModule.graph(tree)
+    const edges = SpelunkerModule.findGraphEdges(root)
+
+    const mermaidEdges = edges
+        .filter(
+            ({ from, to }) =>
+                !(
+                    from.module.name === 'ConfigHostModule' ||
+                    from.module.name === 'LoggerModule' ||
+                    to.module.name === 'ConfigHostModule' ||
+                    to.module.name === 'LoggerModule'
+                ),
+        )
+        .map(({ from, to }) => `${from.module.name}-->${to.module.name}`)
+
+    return `graph TD\n\t${mermaidEdges.join('\n\t')}`
 }
