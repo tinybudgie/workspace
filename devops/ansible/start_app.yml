@@ -16,6 +16,11 @@
       docker_postgres__networks: 
         - name:  "{{ docker_network }}" 
 
+    - role: start_nats
+      docker_nats__remove_existing_container: no
+      docker_nats__networks: 
+        - name:  "{{ docker_network }}" 
+
     - role: start_app
       docker_app__networks:
         - name: "{{ docker_network }}"
@@ -26,6 +31,7 @@
       docker_app__remove_existing_container: yes
       docker_app__env:
         PORT: "3000"
+        NATS_URL: "nats://nats:4222"
         SAMPLE_DATABASE_URL: "postgres://postgres:postgres@postgres:5432/postgres?schema=public"
 
     - role: start_app
