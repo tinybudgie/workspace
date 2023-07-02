@@ -10,7 +10,6 @@ import { SampleResolver } from './sample.resolver'
 import { HEALTH_CHECKS_PROVIDER } from 'core/health-checks'
 import { SamplePrismaConnectionHealthIndicator } from './sample-indicators/sample-prisma-connection.health'
 import { SamplePrismaService } from './sample-services/sample-prisma.service'
-import { CustomInjectorModule } from 'nestjs-custom-injector'
 
 @Module({})
 export class SampleModule extends SampleConfigurableModuleClass {
@@ -34,7 +33,7 @@ export class SampleModule extends SampleConfigurableModuleClass {
 
         return {
             module: SampleModule,
-            imports: [...(options?.imports || []), CustomInjectorModule],
+            imports: [...(options?.imports || [])],
             providers: [
                 SampleResolver,
                 SamplePrismaService.instance

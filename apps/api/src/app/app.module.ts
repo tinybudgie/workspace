@@ -9,6 +9,7 @@ import {
     ApolloFederationDriver,
     ApolloFederationDriverConfig,
 } from '@nestjs/apollo'
+import { NatsModule } from 'core/nats'
 
 @Module({
     imports: [
@@ -29,6 +30,9 @@ import {
                 logging: 'long_queries',
                 maxQueryExecutionTime: 5000,
             },
+        }),
+        NatsModule.forRoot({
+            servers: env.get('NATS_URL').required().asString(),
         }),
     ],
     controllers: [],
