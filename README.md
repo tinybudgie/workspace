@@ -1,6 +1,8 @@
 # NX Useful libs collection
 
-Checkout documentation: https://temarusanov.github.io/nx/
+## Documentation
+
+Checkout documentation: https://temarusanov.github.io/dev-notes/workspace/getting-started
 
 ## TODO:
 
