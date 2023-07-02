@@ -7,11 +7,17 @@ export interface SampleConfig {
         logging: 'all_queries' | 'long_queries'
         maxQueryExecutionTime: number
     }
-    temp?: boolean
+    api?: {
+        nats?: boolean
+        graphql?: boolean
+    }
 }
 
-export const DEFAULT_SAMPLE_CONFIG: Pick<SampleConfig, 'temp'> = {
-    temp: false,
+export const DEFAULT_SAMPLE_CONFIG: Pick<SampleConfig, 'api'> = {
+    api: {
+        nats: true,
+        graphql: true,
+    },
 }
 
 export function patchSampleConfig(

@@ -1,0 +1,12 @@
+import { Query, Resolver } from '@nestjs/graphql'
+import { <%= className %>PrismaService } from '../<%= fileName %>-services/<%= fileName %>-prisma.service'
+
+@Resolver()
+export class <%= className %>Resolver {
+    constructor(private readonly prisma: <%= className %>PrismaService) {}
+
+    @Query(() => String)
+    async <%= fileName %>Ping(): Promise<string> {
+        return 'pong'
+    }
+}

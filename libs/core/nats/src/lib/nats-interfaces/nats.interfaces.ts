@@ -2,7 +2,7 @@ import { MsgHdrs, RequestOptions as NatsRequestOptions } from 'nats'
 
 export interface NatsResponse<T> {
     subject: string
-    data?: T
+    data: T
     headers?: MsgHdrs
 }
 

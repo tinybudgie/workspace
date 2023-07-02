@@ -42,6 +42,24 @@ export function addExportsToBarrelFile(
         indexPath,
         `export * from './lib/${options.fileName}-configs/${options.fileName}-module.config';`,
     )
+    sourceFile = addGlobal(
+        tree,
+        sourceFile,
+        indexPath,
+        `export * from './lib/${options.fileName}-nats/${options.fileName}-nats.controller';`,
+    )
+    sourceFile = addGlobal(
+        tree,
+        sourceFile,
+        indexPath,
+        `export * from './lib/${options.fileName}-nats/${options.fileName}-nats.routes';`,
+    )
+    sourceFile = addGlobal(
+        tree,
+        sourceFile,
+        indexPath,
+        `export * from './lib/${options.fileName}-graphql/${options.fileName}.resolver';`,
+    )
 
     if (options.prisma) {
         sourceFile = addGlobal(

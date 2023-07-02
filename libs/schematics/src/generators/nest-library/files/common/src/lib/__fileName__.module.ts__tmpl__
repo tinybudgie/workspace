@@ -1,86 +1,55 @@
-import { DynamicModule, Module } from '@nestjs/common'
+import { DynamicModule, Module, Provider, Type } from '@nestjs/common'
 import {
     <%= className %>ConfigurableModuleClass,
-    <%= constantName %>_ASYNC_OPTIONS_TYPE,
     <%= constantName %>_CONFIG,
     <%= constantName %>_OPTIONS_TYPE,
     patch<%= className %>Config,
 } from './<%= fileName %>-configs/<%= fileName %>-module.config'
-import { <%= className %>Resolver } from './<%= fileName %>.resolver'
+import { <%= className %>Resolver } from './<%= fileName %>-graphql/<%= fileName %>.resolver'
 import { HEALTH_CHECKS_PROVIDER } from 'core/health-checks'
 import { <%= className %>PrismaConnectionHealthIndicator } from './<%= fileName %>-indicators/<%= fileName %>-prisma-connection.health'
 import { <%= className %>PrismaService } from './<%= fileName %>-services/<%= fileName %>-prisma.service'
-import { CustomInjectorModule } from 'nestjs-custom-injector'
+import { <%= className %>NatsController } from './<%= fileName %>-nats/<%= fileName %>-nats.controller'
 
 @Module({})
 export class <%= className %>Module extends <%= className %>ConfigurableModuleClass {
     static forRoot(options: typeof <%= constantName %>_OPTIONS_TYPE): DynamicModule {
-        return {
-            ...this.forRootAsync({
-                useFactory: async () => options,
-            }),
+        const controllers: Type<any>[] = []
+        const exports: any[] = [<%= constantName %>_CONFIG]
+        const providers: Provider[] = [
+            <%= className %>PrismaService.instance
+                ? {
+                      provide: <%= className %>PrismaService,
+                      useValue: <%= className %>PrismaService.instance,
+                  }
+                : {
+                      provide: <%= className %>PrismaService,
+                      useClass: <%= className %>PrismaService,
+                  },
+            {
+                provide: HEALTH_CHECKS_PROVIDER,
+                useClass: <%= className %>PrismaConnectionHealthIndicator,
+            },
+            {
+                provide: <%= constantName %>_CONFIG,
+                useValue: patch<%= className %>Config(options),
+            },
+        ]
+
+        if (options.api?.graphql !== false) {
+            providers.push(<%= className %>Resolver)
+            exports.push(<%= className %>Resolver)
         }
-    }
 
-    static forRootAsync(
-        options?: typeof <%= constantName %>_ASYNC_OPTIONS_TYPE,
-    ): DynamicModule {
-        const useFactory = options?.useFactory
-        const useClass = options?.useClass
-
-        if (options?.useExisting) {
-            throw new Error(`options?.useExisting is not supported!`)
+        if (options.api?.nats !== false) {
+            controllers.push(<%= className %>NatsController)
         }
 
         return {
             module: <%= className %>Module,
-            imports: [...(options?.imports || []), CustomInjectorModule],
-            providers: [
-                <%= className %>Resolver,
-                <%= className %>PrismaService.instance
-                    ? {
-                          provide: <%= className %>PrismaService,
-                          useValue: <%= className %>PrismaService.instance,
-                      }
-                    : {
-                          provide: <%= className %>PrismaService,
-                          useClass: <%= className %>PrismaService,
-                      },
-                {
-                    provide: HEALTH_CHECKS_PROVIDER,
-                    useClass: <%= className %>PrismaConnectionHealthIndicator,
-                },
-                ...(useClass
-                    ? [
-                          {
-                              provide: `${String(<%= constantName %>_CONFIG)}_TEMP`,
-                              useClass,
-                          },
-                          {
-                              provide: <%= constantName %>_CONFIG,
-                              useFactory: async (config) =>
-                                  patch<%= className %>Config(config),
-                              inject: [`${String(<%= constantName %>_CONFIG)}_TEMP`],
-                          },
-                      ]
-                    : []),
-                ...(useFactory
-                    ? [
-                          {
-                              provide: <%= constantName %>_CONFIG,
-                              useFactory: async (...args) =>
-                                  patch<%= className %>Config(await useFactory(...args)),
-                              inject: options?.inject || [],
-                          },
-                      ]
-                    : [
-                          {
-                              provide: <%= constantName %>_CONFIG,
-                              useValue: patch<%= className %>Config({}),
-                          },
-                      ]),
-            ],
-            exports: [<%= constantName %>_CONFIG, <%= className %>Resolver],
+            controllers,
+            providers,
+            exports,
         }
     }
 }

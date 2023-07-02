@@ -7,6 +7,7 @@ Checkout documentation: https://temarusanov.github.io/nx/
 - [ ] Jest coverage bug [#13576](https://github.com/jestjs/jest/issues/13576)
 - [ ] Localization
 - [ ] GraphQL format error
+- [ ] Disable any rule in eslint
 
 ## Installing
 

@@ -49,7 +49,7 @@ export class NatsClientService {
             return {
                 subject,
                 headers: msg.headers,
-                data: this.decodeMessage(msg.data),
+                data: this.decodeMessage(msg.data) as K,
             }
         } catch (error) {
             if (error.code === ErrorCode.NoResponders) {

@@ -6,7 +6,6 @@ import {
     NATS_OPTIONS_TYPE,
     patchNatsConfig,
 } from './nats-configs/nats-module.config'
-import { CustomInjectorModule } from 'nestjs-custom-injector'
 import { NatsConnectionService } from './nats-services/nats-connection.service'
 import { NatsConnectionHealthIndicator } from './nats-indicators/nats-connection-health.indicator'
 import { HEALTH_CHECKS_PROVIDER } from 'core/health-checks'
@@ -33,8 +32,9 @@ export class NatsModule extends NatsConfigurableModuleClass {
         }
 
         return {
+            global: true,
             module: NatsModule,
-            imports: [...(options?.imports || []), CustomInjectorModule],
+            imports: [...(options?.imports || [])],
             providers: [
                 NatsConnectionService,
                 NatsClientService,

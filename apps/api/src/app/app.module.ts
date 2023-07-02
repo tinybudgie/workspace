@@ -17,6 +17,9 @@ import { NatsModule } from 'core/nats'
         EventloopFrozenDetectorModule.forRoot({
             delay: 3000,
         }),
+        NatsModule.forRoot({
+            servers: env.get('NATS_URL').required().asString(),
+        }),
         GraphQLModule.forRoot<ApolloFederationDriverConfig>({
             driver: ApolloFederationDriver,
             autoSchemaFile: { federation: 2 },
@@ -30,9 +33,10 @@ import { NatsModule } from 'core/nats'
                 logging: 'long_queries',
                 maxQueryExecutionTime: 5000,
             },
-        }),
-        NatsModule.forRoot({
-            servers: env.get('NATS_URL').required().asString(),
+            api: {
+                nats: true,
+                graphql: true,
+            },
         }),
     ],
     controllers: [],
