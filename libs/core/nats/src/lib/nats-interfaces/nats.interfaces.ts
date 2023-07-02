@@ -1,10 +1,16 @@
-import { MsgHdrs, RequestOptions as NatsRequestOptions } from 'nats'
+import {
+    MsgHdrs,
+    RequestOptions as NatsRequestOptions,
+    SubscriptionOptions as NatsSubscriptionOptions,
+} from 'nats'
 
 export interface NatsResponse<T> {
     subject: string
     data: T
     headers?: MsgHdrs
 }
+
+export type SubscriptionOptions = Omit<NatsSubscriptionOptions, 'callback'>
 
 export interface RequestOptions
     extends Omit<NatsRequestOptions, 'headers' | 'timeout'> {

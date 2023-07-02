@@ -21,6 +21,7 @@
     "@apollo/gateway": "^2.4.8",
     "@apollo/server": "^4.6.0",
     "@apollo/subgraph": "^2.4.8",
+    "@golevelup/nestjs-discovery": "^3.0.0",
     "@nestjs/apollo": "^11.0.4",
     "@nestjs/common": "9.4.3",
     "@nestjs/core": "9.4.3",

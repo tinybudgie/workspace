@@ -10,6 +10,9 @@ import { NatsConnectionService } from './nats-services/nats-connection.service'
 import { NatsConnectionHealthIndicator } from './nats-indicators/nats-connection-health.indicator'
 import { HEALTH_CHECKS_PROVIDER } from 'core/health-checks'
 import { NatsClientService } from './nats-services/nats-client.service'
+import { NatsListenerService } from './nats-services/nats-listener.service'
+import { DiscoveryModule } from '@golevelup/nestjs-discovery'
+import { CustomInjectorModule } from 'nestjs-custom-injector'
 
 @Module({})
 export class NatsModule extends NatsConfigurableModuleClass {
@@ -34,10 +37,15 @@ export class NatsModule extends NatsConfigurableModuleClass {
         return {
             global: true,
             module: NatsModule,
-            imports: [...(options?.imports || [])],
+            imports: [
+                ...(options?.imports || []),
+                DiscoveryModule,
+                CustomInjectorModule,
+            ],
             providers: [
                 NatsConnectionService,
                 NatsClientService,
+                NatsListenerService,
                 {
                     provide: HEALTH_CHECKS_PROVIDER,
                     useClass: NatsConnectionHealthIndicator,
@@ -72,7 +80,12 @@ export class NatsModule extends NatsConfigurableModuleClass {
                           },
                       ]),
             ],
-            exports: [NATS_CONFIG, NatsConnectionService, NatsClientService],
+            exports: [
+                NATS_CONFIG,
+                NatsConnectionService,
+                NatsClientService,
+                NatsListenerService,
+            ],
         }
     }
 }

@@ -10,10 +10,12 @@ import { HEALTH_CHECKS_PROVIDER } from 'core/health-checks'
 import { SamplePrismaConnectionHealthIndicator } from './sample-indicators/sample-prisma-connection.health'
 import { SamplePrismaService } from './sample-services/sample-prisma.service'
 import { SampleNatsController } from './sample-nats/sample-nats.controller'
+import { CustomInjectorModule } from 'nestjs-custom-injector'
 
 @Module({})
 export class SampleModule extends SampleConfigurableModuleClass {
     static forRoot(options: typeof SAMPLE_OPTIONS_TYPE): DynamicModule {
+        const imports: any[] = [CustomInjectorModule]
         const controllers: Type<any>[] = []
         const exports: any[] = [SAMPLE_CONFIG]
         const providers: Provider[] = [
@@ -47,6 +49,7 @@ export class SampleModule extends SampleConfigurableModuleClass {
 
         return {
             module: SampleModule,
+            imports,
             controllers,
             providers,
             exports,

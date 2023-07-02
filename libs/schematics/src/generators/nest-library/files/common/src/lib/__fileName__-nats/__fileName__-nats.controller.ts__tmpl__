@@ -1,20 +1,11 @@
-import { Controller, OnApplicationBootstrap } from '@nestjs/common'
-import { NatsClientService } from 'core/nats'
+import { Controller } from '@nestjs/common'
+import { Reply } from 'core/nats'
 import { <%= className %>NatsRoutesEnum } from './<%= fileName %>-nats.routes'
 
 @Controller()
-export class <%= className %>NatsController implements OnApplicationBootstrap {
-    constructor(private readonly natsClient: NatsClientService) {}
-
-    async onApplicationBootstrap() {
-        this.ping()
-    }
-
+export class <%= className %>NatsController {
+    @Reply(<%= className %>NatsRoutesEnum.PING)
     async ping() {
-        this.natsClient.reply(<%= className %>NatsRoutesEnum.PING, {
-            callback: (_error, message) => {
-                message.respond(this.natsClient.encodeMessage('pong'))
-            },
-        })
+        return 'pong'
     }
 }
