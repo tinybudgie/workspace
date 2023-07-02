@@ -33,6 +33,7 @@
     "clsx": "^1.2.1",
     "env-var": "^7.3.1",
     "graphql": "^16.6.0",
+    "nats": "^2.15.1",
     "nestjs-custom-injector": "^2.2.3",
     "nestjs-spelunker": "^1.1.5",
     "pg": "^8.11.0",
