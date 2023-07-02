@@ -8,6 +8,8 @@ Checkout documentation: https://temarusanov.github.io/nx/
 - [ ] Localization
 - [ ] GraphQL format error
 - [ ] Disable any rule in eslint
+- [ ] Nats clusters with Ansible
+- [ ] Nats debug option to log info
 
 ## Installing
 
