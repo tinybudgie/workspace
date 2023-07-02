@@ -1,23 +1,24 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { NatsConnectionService } from './nats-connection.service'
+import { isObject, isUndefined } from '@nestjs/common/utils/shared.utils'
+import { CommonError, CommonErrorsEnum } from 'core/common'
 import {
+    Empty,
+    ErrorCode,
+    headers,
+    JSONCodec,
     Payload,
     StringCodec,
-    JSONCodec,
-    Empty,
-    SubscriptionOptions,
     Subscription,
-    headers,
-    ErrorCode,
+    SubscriptionOptions,
 } from 'nats'
+
+import { NATS_ERROR_TITLES } from '../nats-errors/nats-errors.enum'
+import { NatsErrorsEnum } from '../nats-errors/nats-errors.enum'
 import {
     NatsResponse,
     RequestOptions,
 } from '../nats-interfaces/nats.interfaces'
-import { isObject, isUndefined } from '@nestjs/common/utils/shared.utils'
-import { CommonError, CommonErrorsEnum } from 'core/common'
-import { NatsErrorsEnum } from '../nats-errors/nats-errors.enum'
-import { NATS_ERROR_TITLES } from '../nats-errors/nats-errors.enum'
+import { NatsConnectionService } from './nats-connection.service'
 
 @Injectable()
 export class NatsClientService {

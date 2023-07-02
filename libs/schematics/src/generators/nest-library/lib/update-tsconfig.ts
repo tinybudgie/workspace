@@ -1,5 +1,6 @@
 import type { Tree } from '@nx/devkit'
 import { readProjectConfiguration, updateJson } from '@nx/devkit'
+
 import type { NormalizedOptions } from '../schema'
 
 export function updateTsConfig(tree: Tree, options: NormalizedOptions): void {

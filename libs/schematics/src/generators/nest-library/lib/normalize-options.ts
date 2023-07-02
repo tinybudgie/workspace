@@ -2,6 +2,7 @@ import { extractLayoutDirectory, Tree } from '@nx/devkit'
 import { getWorkspaceLayout, joinPathFragments, names } from '@nx/devkit'
 import type { LibraryGeneratorSchema as JsLibraryGeneratorSchema } from '@nx/js/src/utils/schema'
 import { Linter } from '@nx/linter'
+
 import type { LibraryGeneratorOptions, NormalizedOptions } from '../schema'
 
 export function normalizeOptions(

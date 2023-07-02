@@ -1,5 +1,6 @@
 import type { GeneratorCallback, Tree } from '@nx/devkit'
 import { addDependenciesToPackageJson } from '@nx/devkit'
+
 import {
     nestJsVersion,
     nxVersion,

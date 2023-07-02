@@ -1,8 +1,9 @@
-import env from 'env-var'
 import { INestApplication, Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
-import { AppModule } from './app/app.module'
+import env from 'env-var'
 import { SpelunkerModule } from 'nestjs-spelunker'
+
+import { AppModule } from './app/app.module'
 
 const logger = new Logger('Application')
 

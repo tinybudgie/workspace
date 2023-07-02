@@ -1,5 +1,6 @@
 import { Controller } from '@nestjs/common'
 import { Reply } from 'core/nats'
+
 import { SampleNatsRoutesEnum } from './sample-nats.routes'
 
 @Controller()

@@ -1,5 +1,5 @@
-import { getPackageManagerCommand } from '@nx/devkit'
 import { getExecOutput } from '@actions/exec'
+import { getPackageManagerCommand } from '@nx/devkit'
 
 export interface PrismaCommands {
     command: string

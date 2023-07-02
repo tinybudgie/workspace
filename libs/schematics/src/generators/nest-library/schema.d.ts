@@ -1,4 +1,5 @@
 import { Linter } from '@nx/linter'
+
 import { UnitTestRunner } from '../utils/types'
 
 export interface LibraryGeneratorOptions {

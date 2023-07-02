@@ -1,9 +1,10 @@
+import { DiscoveryService } from '@golevelup/nestjs-discovery'
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common'
 import { ExternalContextCreator } from '@nestjs/core'
 import { SubscriptionOptions } from 'nats'
-import { NatsClientService } from './nats-client.service'
+
 import { REPLY_METADATA } from '../nats-decorators/reply.decorator'
-import { DiscoveryService } from '@golevelup/nestjs-discovery'
+import { NatsClientService } from './nats-client.service'
 
 @Injectable()
 export class NatsListenerService implements OnApplicationBootstrap {

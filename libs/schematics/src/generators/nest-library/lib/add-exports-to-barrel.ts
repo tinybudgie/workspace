@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Tree } from '@nx/devkit'
-import type { NormalizedOptions } from '../schema'
-import { ensureTypescript } from '@nx/js/src/utils/typescript/ensure-typescript'
 import { addGlobal, removeChange } from '@nx/js'
+import { ensureTypescript } from '@nx/js/src/utils/typescript/ensure-typescript'
+
+import type { NormalizedOptions } from '../schema'
 
 let tsModule: typeof import('typescript')
 

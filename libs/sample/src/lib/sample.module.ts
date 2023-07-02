@@ -1,16 +1,17 @@
 import { DynamicModule, Module, Provider, Type } from '@nestjs/common'
+import { HEALTH_CHECKS_PROVIDER } from 'core/health-checks'
+import { CustomInjectorModule } from 'nestjs-custom-injector'
+
 import {
-    SampleConfigurableModuleClass,
+    patchSampleConfig,
     SAMPLE_CONFIG,
     SAMPLE_OPTIONS_TYPE,
-    patchSampleConfig,
+    SampleConfigurableModuleClass,
 } from './sample-configs/sample-module.config'
 import { SampleResolver } from './sample-graphql/sample.resolver'
-import { HEALTH_CHECKS_PROVIDER } from 'core/health-checks'
 import { SamplePrismaConnectionHealthIndicator } from './sample-indicators/sample-prisma-connection.health'
-import { SamplePrismaService } from './sample-services/sample-prisma.service'
 import { SampleNatsController } from './sample-nats/sample-nats.controller'
-import { CustomInjectorModule } from 'nestjs-custom-injector'
+import { SamplePrismaService } from './sample-services/sample-prisma.service'
 
 @Module({})
 export class SampleModule extends SampleConfigurableModuleClass {

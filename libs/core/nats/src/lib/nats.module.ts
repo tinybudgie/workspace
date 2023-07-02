@@ -1,18 +1,19 @@
+import { DiscoveryModule } from '@golevelup/nestjs-discovery'
 import { DynamicModule, Module } from '@nestjs/common'
+import { HEALTH_CHECKS_PROVIDER } from 'core/health-checks'
+import { CustomInjectorModule } from 'nestjs-custom-injector'
+
 import {
-    NatsConfigurableModuleClass,
     NATS_ASYNC_OPTIONS_TYPE,
     NATS_CONFIG,
     NATS_OPTIONS_TYPE,
+    NatsConfigurableModuleClass,
     patchNatsConfig,
 } from './nats-configs/nats-module.config'
-import { NatsConnectionService } from './nats-services/nats-connection.service'
 import { NatsConnectionHealthIndicator } from './nats-indicators/nats-connection-health.indicator'
-import { HEALTH_CHECKS_PROVIDER } from 'core/health-checks'
 import { NatsClientService } from './nats-services/nats-client.service'
+import { NatsConnectionService } from './nats-services/nats-connection.service'
 import { NatsListenerService } from './nats-services/nats-listener.service'
-import { DiscoveryModule } from '@golevelup/nestjs-discovery'
-import { CustomInjectorModule } from 'nestjs-custom-injector'
 
 @Module({})
 export class NatsModule extends NatsConfigurableModuleClass {

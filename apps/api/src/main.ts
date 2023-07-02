@@ -4,8 +4,9 @@ const logger = new Logger('Application')
 
 import { NestFactory } from '@nestjs/core'
 import env from 'env-var'
-import { AppModule } from './app/app.module'
 import { SpelunkerModule } from 'nestjs-spelunker'
+
+import { AppModule } from './app/app.module'
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)

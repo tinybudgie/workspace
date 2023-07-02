@@ -1,6 +1,7 @@
 import type { GeneratorCallback, Tree } from '@nx/devkit'
 import { convertNxGenerator, formatFiles } from '@nx/devkit'
 import { libraryGenerator as jsLibraryGenerator } from '@nx/js'
+
 import {
     addExportsToBarrelFile,
     addProject,
@@ -10,9 +11,9 @@ import {
     toJsLibraryGeneratorOptions,
     updateTsConfig,
 } from './lib'
+import { addDependencies } from './lib/add-dependencies'
 import { addPrismaCommands } from './lib/add-prisma-commands'
 import type { LibraryGeneratorOptions } from './schema'
-import { addDependencies } from './lib/add-dependencies'
 
 export async function libraryGenerator(
     tree: Tree,

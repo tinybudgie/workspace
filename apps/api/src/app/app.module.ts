@@ -1,15 +1,15 @@
-import { Module } from '@nestjs/common'
-import { HealthChecksModule } from 'core/health-checks'
-import { EventloopFrozenDetectorModule } from 'core/eventloop-frozen-detector'
-import { SampleModule } from 'sample'
-import { GraphQLModule } from '@nestjs/graphql'
-import * as env from 'env-var'
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 import {
     ApolloFederationDriver,
     ApolloFederationDriverConfig,
 } from '@nestjs/apollo'
+import { Module } from '@nestjs/common'
+import { GraphQLModule } from '@nestjs/graphql'
+import { EventloopFrozenDetectorModule } from 'core/eventloop-frozen-detector'
+import { HealthChecksModule } from 'core/health-checks'
 import { NatsModule } from 'core/nats'
+import * as env from 'env-var'
+import { SampleModule } from 'sample'
 
 @Module({
     imports: [

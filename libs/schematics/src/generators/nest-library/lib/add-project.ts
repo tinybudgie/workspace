@@ -3,6 +3,7 @@ import {
     readProjectConfiguration,
     updateProjectConfiguration,
 } from '@nx/devkit'
+
 import type { NormalizedOptions } from '../schema'
 
 export function addProject(tree: Tree, options: NormalizedOptions): void {

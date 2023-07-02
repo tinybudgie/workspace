@@ -1,4 +1,5 @@
-import { SetMetadata, applyDecorators } from '@nestjs/common'
+import { applyDecorators, SetMetadata } from '@nestjs/common'
+
 import { SubscriptionOptions } from '../nats-interfaces/nats.interfaces'
 
 export const REPLY_METADATA = 'nats.reply.metadata'

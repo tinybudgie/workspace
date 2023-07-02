@@ -1,7 +1,8 @@
 import { DynamicModule, Module } from '@nestjs/common'
+
 import {
-    EventloopFrozenDetectorConfig,
     EVENTLOOP_FROZEN_DETECTOR_CONFIG,
+    EventloopFrozenDetectorConfig,
 } from './eventloop-frozen-detector.config'
 import { EventloopFrozenDetectorService } from './eventloop-frozen-detector.service'
 

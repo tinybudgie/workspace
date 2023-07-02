@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ExecutorContext } from '@nx/devkit'
+import { existsSync } from 'node:fs'
 import { join } from 'node:path'
+
+import { ExecutorContext } from '@nx/devkit'
+
 import { getProjectRoot } from '../../utils/get-project-root'
 import { PrismaGenerateExecutorSchema } from './generate/schema'
-import { existsSync } from 'node:fs'
 
 export function findPrismaSchemaPath(
     options: PrismaGenerateExecutorSchema,

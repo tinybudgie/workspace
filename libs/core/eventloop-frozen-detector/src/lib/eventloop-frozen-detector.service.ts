@@ -5,9 +5,10 @@ import {
     OnModuleDestroy,
     OnModuleInit,
 } from '@nestjs/common'
+
 import {
-    EventloopFrozenDetectorConfig,
     EVENTLOOP_FROZEN_DETECTOR_CONFIG,
+    EventloopFrozenDetectorConfig,
 } from './eventloop-frozen-detector.config'
 
 @Injectable()

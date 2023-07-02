@@ -1,5 +1,6 @@
-import { ExecutorContext } from '@nx/devkit'
 import { join } from 'node:path'
+
+import { ExecutorContext } from '@nx/devkit'
 
 export const getProjectRoot = (
     context: Pick<ExecutorContext, 'root' | 'workspace' | 'projectName'>,

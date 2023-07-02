@@ -7,14 +7,15 @@ import {
     OnModuleDestroy,
     OnModuleInit,
 } from '@nestjs/common'
+import { isObject } from '@nestjs/common/utils/shared.utils'
 import {
     connect,
-    NatsConnection,
     JetStreamManager,
     JetStreamOptions,
+    NatsConnection,
 } from 'nats'
+
 import { NATS_CONFIG, NatsConfig } from '../nats-configs/nats-module.config'
-import { isObject } from '@nestjs/common/utils/shared.utils'
 
 @Injectable()
 export class NatsConnectionService implements OnModuleInit, OnModuleDestroy {

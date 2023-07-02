@@ -1,5 +1,6 @@
 import type { Tree } from '@nx/devkit'
 import { joinPathFragments } from '@nx/devkit'
+
 import type { NormalizedOptions } from '../schema'
 
 export function deleteFiles(tree: Tree, options: NormalizedOptions): void {

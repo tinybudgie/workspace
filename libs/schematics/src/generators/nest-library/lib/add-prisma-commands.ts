@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Tree, names } from '@nx/devkit'
+import { names, Tree } from '@nx/devkit'
 import {
     readProjectConfiguration,
     updateProjectConfiguration,
 } from '@nx/devkit'
+
 import type { NormalizedOptions } from '../schema'
 
 export function addPrismaCommands(
