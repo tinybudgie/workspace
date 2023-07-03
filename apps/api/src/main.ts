@@ -11,13 +11,13 @@ import { AppModule } from './app/app.module'
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
 
-    const diGraph = buildDIGraph(app)
+    // const diGraph = buildDIGraph(app)
 
     const port = env.get('PORT').default(3000).asPortNumber()
 
     await app.listen(port, () => {
         logger.log(`🚀 Application is running on: http://localhost:${port}`)
-        logger.debug(`DI Graph tree\n${diGraph}`)
+        // logger.debug(`DI Graph tree\n${diGraph}`)
     })
 }
 
@@ -59,6 +59,7 @@ function exitHandler(options, exitCode) {
 }
 
 // Copy output to mermaid.live
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function buildDIGraph(app: INestApplication) {
     const tree = SpelunkerModule.explore(app)
     const root = SpelunkerModule.graph(tree)

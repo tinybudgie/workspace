@@ -8,6 +8,7 @@ import {
     OnModuleInit,
 } from '@nestjs/common'
 import { isObject } from '@nestjs/common/utils/shared.utils'
+import { CommonError } from 'core/common'
 import {
     connect,
     JetStreamManager,
@@ -16,6 +17,10 @@ import {
 } from 'nats'
 
 import { NATS_CONFIG, NatsConfig } from '../nats-configs/nats-module.config'
+import {
+    NATS_ERROR_TITLES,
+    NatsErrorsEnum,
+} from '../nats-errors/nats-errors.enum'
 
 @Injectable()
 export class NatsConnectionService implements OnModuleInit, OnModuleDestroy {
@@ -70,7 +75,14 @@ export class NatsConnectionService implements OnModuleInit, OnModuleDestroy {
     }
 
     getNatsConnection(): NatsConnection {
-        return this.natsConnection!
+        if (!this.natsConnection) {
+            throw new CommonError(
+                NatsErrorsEnum.NoConnection,
+                NATS_ERROR_TITLES,
+            )
+        }
+
+        return this.natsConnection
     }
 
     async getJetStreamManager(
