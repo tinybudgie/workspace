@@ -1,16 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { isObject, isUndefined } from '@nestjs/common/utils/shared.utils'
 import { CommonError, CommonErrorsEnum } from 'core/common'
-import {
-    Empty,
-    ErrorCode,
-    headers,
-    JSONCodec,
-    Payload,
-    StringCodec,
-    Subscription,
-    SubscriptionOptions,
-} from 'nats'
+import { ErrorCode, Payload, Subscription, SubscriptionOptions } from 'nats'
 
 import { NATS_ERROR_TITLES } from '../nats-errors/nats-errors.enum'
 import { NatsErrorsEnum } from '../nats-errors/nats-errors.enum'
@@ -18,6 +8,11 @@ import {
     NatsResponse,
     RequestOptions,
 } from '../nats-interfaces/nats.interfaces'
+import {
+    decodeMessage,
+    encodeMessage,
+    parseHeaders,
+} from '../nats-utils/nats.utils'
 import { NatsConnectionService } from './nats-connection.service'
 
 @Injectable()
@@ -31,36 +26,29 @@ export class NatsClientService {
     ): Promise<NatsResponse<K>> {
         const nc = this.natsConnection.getNatsConnection()
 
-        const encodedPayload: Payload = this.encodeMessage(payload)
-
-        const requestHeaders = headers()
-        if (options?.headers) {
-            for (const [k, v] of Object.entries(options.headers)) {
-                requestHeaders.append(k, v)
-            }
-        }
+        const encodedPayload: Payload = encodeMessage(payload)
 
         try {
             const msg = await nc.request(subject, encodedPayload, {
                 timeout: 10000,
                 ...options,
-                headers: requestHeaders,
+                headers: parseHeaders(options?.headers),
             })
 
             return {
                 subject,
                 headers: msg.headers,
-                data: this.decodeMessage(msg.data) as K,
+                data: decodeMessage(msg.data) as K,
             }
         } catch (error) {
-            if (error.code === ErrorCode.NoResponders) {
+            if (error?.code === ErrorCode.NoResponders) {
                 throw new CommonError(
                     NatsErrorsEnum.NoResponders,
                     NATS_ERROR_TITLES,
                 )
             }
 
-            if (error.code === ErrorCode.Timeout) {
+            if (error?.code === ErrorCode.Timeout) {
                 throw new CommonError(NatsErrorsEnum.Timeout, NATS_ERROR_TITLES)
             }
 
@@ -95,29 +83,5 @@ export class NatsClientService {
         const nc = this.natsConnection.getNatsConnection()
 
         return nc.subscribe(subject, options)
-    }
-
-    decodeMessage<T>(data: Uint8Array): T {
-        const sc = StringCodec()
-        const jc = JSONCodec<T>()
-
-        try {
-            return jc.decode(data)
-        } catch {
-            return sc.decode(data) as T
-        }
-    }
-
-    encodeMessage<T>(data?: T): Uint8Array {
-        const sc = StringCodec()
-        const jc = JSONCodec<T>()
-
-        if (isObject(data)) {
-            return jc.encode(data)
-        } else if (!isUndefined(data)) {
-            return sc.encode(`${data}`)
-        }
-
-        return Empty
     }
 }

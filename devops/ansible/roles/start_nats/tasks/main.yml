@@ -10,6 +10,7 @@
     name: "{{ docker_nats__name }}"
     image: "{{ docker_nats__image }}"
     restart_policy: always
+    command: ["--jetstream"]
     network_mode: "{{ docker_nats__network_mode }}"
     networks: "{{ docker_nats__networks }}"
     expose:

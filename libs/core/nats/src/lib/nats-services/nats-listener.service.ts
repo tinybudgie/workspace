@@ -4,6 +4,7 @@ import { ExternalContextCreator } from '@nestjs/core'
 import { SubscriptionOptions } from 'nats'
 
 import { REPLY_METADATA } from '../nats-constants/nats.constants'
+import { decodeMessage, encodeMessage } from '../nats-utils/nats.utils'
 import { NatsClientService } from './nats-client.service'
 
 @Injectable()
@@ -17,6 +18,10 @@ export class NatsListenerService implements OnApplicationBootstrap {
     ) {}
 
     async onApplicationBootstrap() {
+        await this.setupReplyListeners()
+    }
+
+    async setupReplyListeners() {
         const listeners = await this.discovery.controllerMethodsWithMetaAtKey<{
             subject: string
             options: SubscriptionOptions
@@ -36,17 +41,15 @@ export class NatsListenerService implements OnApplicationBootstrap {
             this.natsClient.reply(listener.meta.subject, {
                 ...listener.meta.options,
                 callback: async (_error, message) => {
-                    const args = this.natsClient.decodeMessage(message.data)
+                    const args = decodeMessage(message.data)
                     const headers = message.headers
 
                     try {
                         message.respond(
-                            this.natsClient.encodeMessage(
-                                await methodHandler(args, headers),
-                            ),
+                            encodeMessage(await methodHandler(args, headers)),
                         )
                     } catch (error) {
-                        message.respond(this.natsClient.encodeMessage(error))
+                        message.respond(encodeMessage(error))
                     }
                 },
             })

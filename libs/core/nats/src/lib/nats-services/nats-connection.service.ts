@@ -88,7 +88,14 @@ export class NatsConnectionService implements OnModuleInit, OnModuleDestroy {
     async getJetStreamManager(
         options?: JetStreamOptions,
     ): Promise<JetStreamManager> {
-        return await this.natsConnection!.jetstreamManager(options)
+        if (!this.natsConnection) {
+            throw new CommonError(
+                NatsErrorsEnum.NoConnection,
+                NATS_ERROR_TITLES,
+            )
+        }
+
+        return await this.natsConnection.jetstreamManager(options)
     }
 
     // TODO: add LDM mode
