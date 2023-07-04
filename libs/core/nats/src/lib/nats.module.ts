@@ -88,6 +88,7 @@ export class NatsModule extends NatsConfigurableModuleClass {
                 NatsConnectionService,
                 NatsClientService,
                 NatsListenerService,
+                NatsJetStreamClientService,
             ],
         }
     }

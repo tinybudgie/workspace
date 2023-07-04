@@ -11,6 +11,7 @@ import {
 import { SampleResolver } from './sample-graphql/sample.resolver'
 import { SamplePrismaConnectionHealthIndicator } from './sample-indicators/sample-prisma-connection.health'
 import { SampleNatsController } from './sample-nats/sample-nats.controller'
+import { SampleNatsStream } from './sample-nats/sample-nats.stream'
 import { SamplePrismaService } from './sample-services/sample-prisma.service'
 
 @Module({})
@@ -46,6 +47,7 @@ export class SampleModule extends SampleConfigurableModuleClass {
 
         if (options.api?.nats !== false) {
             controllers.push(SampleNatsController)
+            providers.push(SampleNatsStream)
         }
 
         return {

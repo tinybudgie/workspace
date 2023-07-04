@@ -53,7 +53,7 @@ export function addExportsToBarrelFile(
         tree,
         sourceFile,
         indexPath,
-        `export * from './lib/${options.fileName}-nats/${options.fileName}-nats.routes';`,
+        `export * from './lib/${options.fileName}-nats/${options.fileName}-nats.stream';`,
     )
     sourceFile = addGlobal(
         tree,

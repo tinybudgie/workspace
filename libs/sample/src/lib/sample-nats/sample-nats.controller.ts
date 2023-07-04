@@ -1,19 +1,52 @@
-import { Controller } from '@nestjs/common'
-import { Reply } from 'core/nats'
-import { MsgHdrs } from 'nats'
+import { Controller, Logger } from '@nestjs/common'
+import {
+    Consume,
+    ConsumePayload,
+    ConsumerAcks,
+    Reply,
+    ReplyPayload,
+    ReplyResponse,
+} from 'core/nats'
+import { AckPolicy } from 'nats'
 
-import { SampleNatsRoutesEnum } from './sample-nats.routes'
+import {
+    SAMPLE_STREAM_NAME,
+    SampleNatsJetStreamSubjectsEnum,
+} from './sample-nats.stream'
+
+export enum SampleNatsRoutesEnum {
+    PING = 'sample.ping',
+}
 
 @Controller()
 export class SampleNatsController {
-    @Reply(SampleNatsRoutesEnum.PING)
-    async ping(payload: any, headers: MsgHdrs) {
-        const allHeaders = headers
-            .keys()
-            .map((k) => `"${k}" => "${headers.get(k)}"`)
+    private logger = new Logger(SampleNatsController.name)
 
-        return `pong with message ${JSON.stringify(
-            payload,
-        )} and headers: [${allHeaders.join(', ')}]`
+    @Reply(SampleNatsRoutesEnum.PING)
+    async ping(payload: ReplyPayload<any>): Promise<ReplyResponse<string>> {
+        const response = `pong with message ${JSON.stringify(payload.data)}`
+
+        const responseHeaders = {
+            ping: 'pong',
+        }
+
+        return {
+            data: response,
+            headers: responseHeaders,
+        }
+    }
+
+    @Consume({
+        stream: SAMPLE_STREAM_NAME,
+        consumer: {
+            durable_name: 'sample-consumer',
+            filter_subject: SampleNatsJetStreamSubjectsEnum.PING,
+            ack_policy: AckPolicy.All,
+        },
+    })
+    async listenPing(payload: ConsumePayload<any>, acks: ConsumerAcks) {
+        this.logger.log(`New message: ${JSON.stringify(payload, null, 2)}`)
+
+        acks.ack()
     }
 }

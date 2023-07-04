@@ -1,0 +1,34 @@
+import { Injectable, OnModuleInit } from '@nestjs/common'
+import { NatsJetStreamClientService, PublishOptions } from 'core/nats'
+import { PubAck, RetentionPolicy, StorageType } from 'nats'
+
+export enum <%= className %>NatsJetStreamSubjectsEnum {
+    PING = 'js.<%= fileName %>.ping',
+}
+
+export const <%= constantName %>_STREAM_NAME = '<%= fileName %>_stream'
+
+@Injectable()
+export class <%= className %>NatsStream implements OnModuleInit {
+    constructor(
+        private readonly natsJetStreamClient: NatsJetStreamClientService,
+    ) {}
+
+    async onModuleInit() {
+        await this.natsJetStreamClient.createStream({
+            autoupdate: true,
+            name: <%= constantName %>_STREAM_NAME,
+            retention: RetentionPolicy.Limits,
+            storage: StorageType.File,
+            subjects: Object.values(<%= className %>NatsJetStreamSubjectsEnum),
+        })
+    }
+
+    async publish<T>(
+        subject: <%= className %>NatsJetStreamSubjectsEnum,
+        payload: T,
+        options?: PublishOptions,
+    ): Promise<PubAck> {
+        return await this.natsJetStreamClient.publish(subject, payload, options)
+    }
+}

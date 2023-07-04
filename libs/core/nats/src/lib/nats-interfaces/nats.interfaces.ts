@@ -1,4 +1,6 @@
 import {
+    ConsumeOptions as NatsConsumeOptions,
+    ConsumerConfig,
     JetStreamPublishOptions,
     MsgHdrs,
     RequestOptions as NatsRequestOptions,
@@ -30,4 +32,59 @@ export interface PublishOptions
 
 export interface CreateStream extends Partial<StreamConfig> {
     autoupdate?: boolean
+}
+
+export interface ReplyPayload<T> {
+    subject: string
+    data: T
+    headers?: MsgHdrs
+}
+
+export interface ReplyResponse<T> {
+    data: T
+    headers?: Record<string, string>
+}
+
+export interface ConsumePayload<T> {
+    data: T
+    headers?: MsgHdrs
+    subject: string
+}
+
+export interface ConsumerAcks {
+    /**
+     * Indicate to the JetStream server that the message was processed
+     * successfully.
+     */
+    ack(): void
+    /**
+     * Indicate to the JetStream server that processing of the message
+     * failed, and that it should be resent after the spefied number of
+     * milliseconds.
+     * @param millis
+     */
+    nak(millis?: number): void
+    /**
+     * Indicate to the JetStream server that processing of the message
+     * is on going, and that the ack wait timer for the message should be
+     * reset preventing a redelivery.
+     */
+    working(): void
+    /**
+     * Indicate to the JetStream server that processing of the message
+     * failed and that the message should not be sent to the consumer again.
+     */
+    term(): void
+    /**
+     * Indicate to the JetStream server that the message was processed
+     * successfully and that the JetStream server should acknowledge back
+     * that the acknowledgement was received.
+     */
+    ackAck(): Promise<boolean>
+}
+
+export interface ConsumeOptions {
+    stream: string
+    consumer: Partial<ConsumerConfig>
+    options?: Omit<NatsConsumeOptions, 'callback'>
 }

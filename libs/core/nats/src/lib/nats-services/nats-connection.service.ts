@@ -64,6 +64,7 @@ export class NatsConnectionService implements OnModuleInit, OnModuleDestroy {
         await this.natsConnection?.drain()
 
         const error = await connectionClosed
+        this.logger.log('NATS connection closed')
 
         if (error) {
             this.logger.error(`Error closing NATS:`, error)

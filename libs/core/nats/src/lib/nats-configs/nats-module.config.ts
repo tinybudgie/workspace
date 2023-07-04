@@ -3,11 +3,14 @@ import { merge } from 'lodash'
 import { ConnectionOptions } from 'nats'
 
 export interface NatsConfig extends ConnectionOptions {
-    temp?: false
+    /**
+     * @default: true
+     */
+    enableJetstream?: boolean
 }
 
-export const DEFAULT_NATS_CONFIG: Pick<NatsConfig, 'temp'> = {
-    temp: false,
+export const DEFAULT_NATS_CONFIG: Pick<NatsConfig, 'enableJetstream'> = {
+    enableJetstream: true,
 }
 
 export function patchNatsConfig(

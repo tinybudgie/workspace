@@ -1,15 +1,29 @@
-import { Controller } from '@nestjs/common'
-import { Reply } from 'core/nats'
-import { MsgHdrs } from 'nats'
+import { Controller, Logger } from '@nestjs/common'
+import {
+    Reply,
+    ReplyPayload,
+    ReplyResponse,
+} from 'core/nats'
 
-import { <%= className %>NatsRoutesEnum } from './<%= fileName %>-nats.routes'
+export enum <%= className %>NatsRoutesEnum {
+    PING = '<%= fileName %>.ping',
+}
 
 @Controller()
 export class <%= className %>NatsController {
-    @Reply(<%= className %>NatsRoutesEnum.PING)
-    async ping(payload: any, headers: MsgHdrs) {
-        const allHeaders = headers.keys().map(k => `"${k}" => "${headers.get(k)}"`)
+    private logger = new Logger(<%= className %>NatsController.name)
 
-        return `pong with message ${JSON.stringify(payload)} and headers: [${allHeaders.join(', ')}]`
+    @Reply(<%= className %>NatsRoutesEnum.PING)
+    async ping(payload: ReplyPayload<any>): Promise<ReplyResponse<string>> {
+        const response = `pong with message ${JSON.stringify(payload.data)}`
+
+        const responseHeaders = {
+            ping: 'pong',
+        }
+
+        return {
+            data: response,
+            headers: responseHeaders,
+        }
     }
 }

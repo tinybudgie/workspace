@@ -1,3 +1,0 @@
-export enum <%= className %>NatsRoutesEnum {
-    PING = '<%= fileName %>.ping',
-}
