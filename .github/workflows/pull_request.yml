@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  main:
+  master:
     name: Nx Cloud - Main Job
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.13.0
     with:
