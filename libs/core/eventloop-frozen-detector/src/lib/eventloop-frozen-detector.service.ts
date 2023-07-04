@@ -44,8 +44,6 @@ export class EventloopFrozenDetectorService
     }
 
     onModuleDestroy() {
-        this._logger.log('onModuleDestroy')
-
         if (this._intervalRef) {
             clearInterval(this._intervalRef)
         }
