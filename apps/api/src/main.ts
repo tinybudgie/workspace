@@ -11,6 +11,8 @@ import { AppModule } from './app/app.module'
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
 
+    app.enableShutdownHooks()
+
     // const diGraph = buildDIGraph(app)
 
     const port = env.get('PORT').default(3000).asPortNumber()
