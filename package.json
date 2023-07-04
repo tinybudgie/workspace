@@ -12,7 +12,8 @@
     "test": "nx test",
     "prepare": "husky install",
     "lint": "npm run nx -- run-many --target=lint --all",
-    "lint:fix": "nx run-many --target=lint --all --fix && nx format:write --all"
+    "lint:fix": "npm run tsc:lint && nx run-many --target=lint --all --fix && nx format:write --all",
+    "tsc:lint": "tsc --noEmit -p tsconfig.base.json"
   },
   "private": true,
   "dependencies": {
