@@ -50,7 +50,7 @@
     "@nx-tools/nx-container": "^5.0.2",
     "@nx/devkit": "16.4.3",
     "@nx/eslint-plugin": "16.4.3",
-    "@nx/jest": "16.3.2",
+    "@nx/jest": "16.4.3",
     "@nx/js": "16.3.2",
     "@nx/linter": "16.4.3",
     "@nx/nest": "16.3.2",
