@@ -41,7 +41,7 @@
     "pg-promise": "^11.5.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "tslib": "^2.5.3"
+    "tslib": "^2.6.0"
   },
   "devDependencies": {
     "@nestjs/schematics": "^9.2.0",
