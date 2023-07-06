@@ -7,6 +7,7 @@ docker_nats__monitoring_port: 8222
 
 docker_nats__network_mode:
 docker_nats__networks: []
+docker_nats__jetstream_volume: /var/lib/nats
 docker_nats__remove_existing_container: yes
 
 docker_nats__env:

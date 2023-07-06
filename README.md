@@ -11,7 +11,7 @@ Checkout documentation: https://temarusanov.github.io/dev-notes/workspace/gettin
 - [ ] GraphQL format error
 - [x] Disable any rule in eslint
 - [ ] Nats clusters with Ansible
-- [ ] Nats file location volume
+- [X] Nats file location volume
 - [ ] Nats authorization
 
 ## Installing
