@@ -62,8 +62,6 @@ export class NatsListenerService implements OnApplicationBootstrap {
                     }
                 },
             })
-
-            this.logger.log(`Mapped {${listener.meta.subject}, NATS} route`)
         }
     }
 
@@ -104,10 +102,6 @@ export class NatsListenerService implements OnApplicationBootstrap {
                     )
                 },
             })
-
-            this.logger.log(
-                `Mapped {${stream} -> ${consumerInfo.name}, NATS JetStream} route`,
-            )
         }
     }
 }

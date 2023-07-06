@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common'
+import { Inject, Injectable, Logger } from '@nestjs/common'
 import { CommonError } from 'core/common'
 import {
     ConsumeOptions,
@@ -27,6 +27,8 @@ import { NatsConnectionService } from './nats-connection.service'
 
 @Injectable()
 export class NatsJetStreamClientService {
+    private logger = new Logger(NatsJetStreamClientService.name)
+
     constructor(
         @Inject(NATS_CONFIG)
         private readonly config: NatsConfig,
@@ -105,6 +107,10 @@ export class NatsJetStreamClientService {
         const consumer = await js.consumers.get(stream, consumerName)
 
         consumer.consume(options)
+
+        this.logger.log(
+            `Mapped {${stream} -> ${consumerName}, NATS JetStream} route`,
+        )
     }
 
     async createConsumer(

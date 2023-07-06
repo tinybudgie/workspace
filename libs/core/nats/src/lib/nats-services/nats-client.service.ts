@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { CommonError, CommonErrorsEnum } from 'core/common'
 import { ErrorCode, Payload, Subscription, SubscriptionOptions } from 'nats'
 
@@ -17,6 +17,8 @@ import { NatsConnectionService } from './nats-connection.service'
 
 @Injectable()
 export class NatsClientService {
+    private logger = new Logger(NatsClientService.name)
+
     constructor(private readonly natsConnection: NatsConnectionService) {}
 
     async request<T, K>(
@@ -82,6 +84,10 @@ export class NatsClientService {
     ): Promise<Subscription> {
         const nc = this.natsConnection.getNatsConnection()
 
-        return nc.subscribe(subject, options)
+        const subscription = nc.subscribe(subject, options)
+
+        this.logger.log(`Mapped {${subject}, NATS} route`)
+
+        return subscription
     }
 }
