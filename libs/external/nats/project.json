@@ -21,7 +21,10 @@
       "dependsOn": ["build"]
     },
     "version": {
-      "executor": "@jscutlery/semver:version"
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "push": true
+      }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
