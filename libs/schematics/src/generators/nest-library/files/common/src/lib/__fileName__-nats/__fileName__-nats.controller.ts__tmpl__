@@ -3,7 +3,7 @@ import {
     Reply,
     ReplyPayload,
     ReplyResponse,
-} from 'core/nats'
+} from '@tematools/nats'
 
 export enum <%= className %>NatsRoutesEnum {
     PING = '<%= fileName %>.ping',

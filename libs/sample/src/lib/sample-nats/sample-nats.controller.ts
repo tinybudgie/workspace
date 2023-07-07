@@ -1,4 +1,12 @@
 import { Controller, Logger } from '@nestjs/common'
+import {
+    Consume,
+    ConsumePayload,
+    ConsumerAcks,
+    Reply,
+    ReplyPayload,
+    ReplyResponse,
+} from '@tematools/nats'
 import { AckPolicy } from 'nats'
 
 import {

@@ -30,6 +30,7 @@
     "@nestjs/testing": "9.4.3",
     "@prisma/client": "^4.16.2",
     "@tematools/health-checks": "^0.1.0",
+    "@tematools/nats": "^0.1.0",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "clsx": "^1.2.1",
@@ -42,7 +43,7 @@
     "pg-promise": "^11.5.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "tslib": "^2.6.0"
+    "tslib": "^2.5.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.0",
@@ -78,7 +79,7 @@
     "lint-staged": "^13.2.3",
     "nx": "16.5.0",
     "nx-cloud": "16.0.5",
-    "prettier": "^3.0.0",
+    "prettier": "^2.8.8",
     "prisma": "^4.16.2",
     "ts-jest": "29.1.1",
     "ts-node": "10.9.1",

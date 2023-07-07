@@ -5,9 +5,9 @@ import {
 } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
+import { HealthChecksModule } from '@tematools/health-checks'
+import { NatsModule } from '@tematools/nats'
 import { EventloopFrozenDetectorModule } from 'core-eventloop-frozen-detector'
-import { HealthChecksModule } from 'core-health-checks'
-import { NatsModule } from 'core/nats'
 import * as env from 'env-var'
 import { SampleModule } from 'sample'
 

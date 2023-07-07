@@ -27,6 +27,7 @@
         "libs/core/eventloop-frozen-detector/src/index.ts"
       ],
       "core-health-checks": ["libs/core/health-checks/src/index.ts"],
+      "core-nats": ["libs/core/nats/src/index.ts"],
       "sample": ["libs/sample/src/index.ts"],
       "schematics": ["libs/schematics/src/index.ts"]
     }

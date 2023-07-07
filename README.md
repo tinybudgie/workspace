@@ -22,7 +22,6 @@ Checkout documentation: https://temarusanov.github.io/dev-notes/workspace/gettin
 - [ ] GraphQL format error
 - [x] Disable any rule in eslint
 
-
 ## Installing
 
 ### Install Ansible

@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { HealthIndicator, HealthIndicatorResult } from 'core-health-checks'
+import {
+    HealthIndicator,
+    HealthIndicatorResult,
+} from '@tematools/health-checks'
 
 import { SamplePrismaService } from '../sample-services/sample-prisma.service'
 

@@ -1,4 +1,3 @@
-
 /**
  * This is a minimal script to publish your package to "npm".
  * This is meant to be used as-is or customize as you see fit.
@@ -31,7 +30,6 @@ invariant(
   version && validVersion.test(version),
   `No version provided or version did not match Semantic Versioning, expected: #.#.#-tag.# or #.#.#, got ${version}.`
 );
-
 
 const graph = readCachedProjectGraph();
 const project = graph.nodes[name];
