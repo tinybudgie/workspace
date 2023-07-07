@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.1](https://github.com/temarusanov/nx/compare/nats-0.2.0...nats-0.2.1) (2023-07-07)
+
+
+### Bug Fixes
+
+* remove common package ([3a64210](https://github.com/temarusanov/nx/commit/3a6421001f1b673778b76c110e0af39520c1cc52))
+
+
+
 # [0.2.0](https://github.com/temarusanov/nx/compare/nats-0.1.0...nats-0.2.0) (2023-07-07)
 
 
