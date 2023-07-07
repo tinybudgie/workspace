@@ -148,7 +148,9 @@ export class NatsJetStreamClientService {
 
     async jsm() {
         if (!this.config.enableJetstream) {
-            throw new Error(NATS_ERROR_TITLES[NatsErrorsEnum.JetStreamNotEnabledConfig])
+            throw new Error(
+                NATS_ERROR_TITLES[NatsErrorsEnum.JetStreamNotEnabledConfig],
+            )
         }
 
         try {
@@ -157,7 +159,9 @@ export class NatsJetStreamClientService {
             return jsm
         } catch (error) {
             if (error?.code === ErrorCode.JetStreamNotEnabled) {
-                throw new Error(NATS_ERROR_TITLES[NatsErrorsEnum.JetStreamNotEnabled])
+                throw new Error(
+                    NATS_ERROR_TITLES[NatsErrorsEnum.JetStreamNotEnabled],
+                )
             }
 
             throw error

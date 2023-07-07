@@ -6,24 +6,18 @@
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "buildableProjectDepsInPackageJsonType": "dependencies",
         "outputPath": "dist/libs/core/nats",
         "main": "libs/core/nats/src/index.ts",
         "tsConfig": "libs/core/nats/tsconfig.lib.json",
-        "assets": [
-          "libs/core/nats/*.md"
-        ]
+        "assets": ["libs/core/nats/*.md"]
       }
     },
     "publish": {
       "command": "node tools/scripts/publish.mjs nats {args.ver} {args.tag}",
-      "dependsOn": [
-        "build"
-      ]
+      "dependsOn": ["build"]
     },
     "version": {
       "executor": "@jscutlery/semver:version"
