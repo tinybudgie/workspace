@@ -12,5 +12,5 @@ export default {
         '^.+\\.[tj]s$': 'ts-jest',
     },
     moduleFileExtensions: ['ts', 'js', 'html'],
-    coverageDirectory: '../../../coverage/libs/core/health-checks',
+    coverageDirectory: '../../../coverage/libs/external/health-checks',
 }

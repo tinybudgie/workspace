@@ -10,5 +10,5 @@ export default {
         ],
     },
     moduleFileExtensions: ['ts', 'js', 'html'],
-    coverageDirectory: '../../../coverage/libs/core/nats',
+    coverageDirectory: '../../../coverage/libs/external/nats',
 }

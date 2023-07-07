@@ -1,23 +1,23 @@
 {
-  "name": "health-checks",
+  "name": "eventloop-frozen-detector",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/core/health-checks/src",
+  "sourceRoot": "libs/external/eventloop-frozen-detector/src",
   "projectType": "library",
   "targets": {
     "build": {
-      "clean": true,
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "clean": true,
         "buildableProjectDepsInPackageJsonType": "dependencies",
-        "outputPath": "dist/libs/core/health-checks",
-        "main": "libs/core/health-checks/src/index.ts",
-        "tsConfig": "libs/core/health-checks/tsconfig.lib.json",
-        "assets": ["libs/core/health-checks/*.md"]
+        "outputPath": "dist/libs/external/eventloop-frozen-detector",
+        "main": "libs/external/eventloop-frozen-detector/src/index.ts",
+        "tsConfig": "libs/external/eventloop-frozen-detector/tsconfig.lib.json",
+        "assets": ["libs/external/eventloop-frozen-detector/*.md"]
       }
     },
     "publish": {
-      "command": "node tools/scripts/publish.mjs health-checks {args.ver} {args.tag}",
+      "command": "node tools/scripts/publish.mjs eventloop-frozen-detector {args.ver} {args.tag}",
       "dependsOn": ["build"]
     },
     "version": {
@@ -27,14 +27,14 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/core/health-checks/**/*.ts"]
+        "lintFilePatterns": ["libs/external/eventloop-frozen-detector/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/core/health-checks/jest.config.ts",
+        "jestConfig": "libs/external/eventloop-frozen-detector/jest.config.ts",
         "passWithNoTests": true
       }
     }

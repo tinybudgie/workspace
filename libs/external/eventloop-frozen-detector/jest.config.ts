@@ -12,5 +12,6 @@ export default {
         '^.+\\.[tj]s$': 'ts-jest',
     },
     moduleFileExtensions: ['ts', 'js', 'html'],
-    coverageDirectory: '../../../coverage/libs/core/eventloop-frozen-detector',
+    coverageDirectory:
+        '../../../coverage/libs/external/eventloop-frozen-detector',
 }
