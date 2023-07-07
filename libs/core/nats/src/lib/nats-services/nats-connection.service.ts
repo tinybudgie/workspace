@@ -8,7 +8,6 @@ import {
     OnModuleInit,
 } from '@nestjs/common'
 import { isObject } from '@nestjs/common/utils/shared.utils'
-import { CommonError } from 'core-common'
 import {
     connect,
     JetStreamManager,
@@ -77,10 +76,7 @@ export class NatsConnectionService implements OnModuleInit, OnModuleDestroy {
 
     getNatsConnection(): NatsConnection {
         if (!this.natsConnection) {
-            throw new CommonError(
-                NatsErrorsEnum.NoConnection,
-                NATS_ERROR_TITLES,
-            )
+            throw new Error(NATS_ERROR_TITLES[NatsErrorsEnum.NoConnection])
         }
 
         return this.natsConnection
@@ -90,10 +86,7 @@ export class NatsConnectionService implements OnModuleInit, OnModuleDestroy {
         options?: JetStreamOptions,
     ): Promise<JetStreamManager> {
         if (!this.natsConnection) {
-            throw new CommonError(
-                NatsErrorsEnum.NoConnection,
-                NATS_ERROR_TITLES,
-            )
+            throw new Error(NATS_ERROR_TITLES[NatsErrorsEnum.NoConnection])
         }
 
         return await this.natsConnection.jetstreamManager(options)

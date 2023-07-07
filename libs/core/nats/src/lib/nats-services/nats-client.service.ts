@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { CommonError, CommonErrorsEnum } from 'core-common'
 import { ErrorCode, Payload, Subscription, SubscriptionOptions } from 'nats'
 
 import { NATS_ERROR_TITLES } from '../nats-errors/nats-errors.enum'
@@ -44,20 +43,14 @@ export class NatsClientService {
             }
         } catch (error) {
             if (error?.code === ErrorCode.NoResponders) {
-                throw new CommonError(
-                    NatsErrorsEnum.NoResponders,
-                    NATS_ERROR_TITLES,
-                )
+                throw new Error(NATS_ERROR_TITLES[NatsErrorsEnum.NoResponders])
             }
 
             if (error?.code === ErrorCode.Timeout) {
-                throw new CommonError(NatsErrorsEnum.Timeout, NATS_ERROR_TITLES)
+                throw new Error(NATS_ERROR_TITLES[NatsErrorsEnum.Timeout])
             }
 
-            throw new CommonError(
-                CommonErrorsEnum.UnexpectedError,
-                error.message,
-            )
+            throw error
         }
     }
 

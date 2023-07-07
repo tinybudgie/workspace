@@ -1,5 +1,4 @@
 import { Inject, Injectable, Logger } from '@nestjs/common'
-import { CommonError } from 'core-common'
 import {
     ConsumeOptions,
     ConsumerConfig,
@@ -149,10 +148,7 @@ export class NatsJetStreamClientService {
 
     async jsm() {
         if (!this.config.enableJetstream) {
-            throw new CommonError(
-                NatsErrorsEnum.JetStreamNotEnabledConfig,
-                NATS_ERROR_TITLES,
-            )
+            throw new Error(NATS_ERROR_TITLES[NatsErrorsEnum.JetStreamNotEnabledConfig])
         }
 
         try {
@@ -161,10 +157,7 @@ export class NatsJetStreamClientService {
             return jsm
         } catch (error) {
             if (error?.code === ErrorCode.JetStreamNotEnabled) {
-                throw new CommonError(
-                    NatsErrorsEnum.JetStreamNotEnabled,
-                    NATS_ERROR_TITLES,
-                )
+                throw new Error(NATS_ERROR_TITLES[NatsErrorsEnum.JetStreamNotEnabled])
             }
 
             throw error

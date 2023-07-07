@@ -23,8 +23,6 @@
     "esModuleInterop": true,
     "noImplicitAny": false,
     "paths": {
-      "@temz/nats": ["libs/core/nats/nats/src/index.ts"],
-      "core-common": ["libs/core/common/src/index.ts"],
       "core-eventloop-frozen-detector": [
         "libs/core/eventloop-frozen-detector/src/index.ts"
       ],
