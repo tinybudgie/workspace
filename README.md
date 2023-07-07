@@ -13,7 +13,7 @@ Checkout documentation: https://temarusanov.github.io/dev-notes/workspace/gettin
 - [ ] Nats clusters with Ansible
 - [x] Nats file location volume
 - [ ] Nats authorization
-
+- [ ] Update NestJS to 10 (wait for golevelup/discovery bump)
 ## Installing
 
 ### Install Ansible
