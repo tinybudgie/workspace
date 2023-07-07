@@ -6,15 +6,22 @@ Checkout documentation: https://temarusanov.github.io/dev-notes/workspace/gettin
 
 ## TODO:
 
+### Nats
+
+- [ ] Nats clusters with Ansible
+- [x] Nats file location volume
+- [ ] Nats authorization
+- [ ] Make nats module npm package
+- [ ] Nats tests
+
+### Others
+
+- [ ] Update NestJS to 10 (wait for golevelup/discovery bump)
 - [ ] Jest coverage bug [#13576](https://github.com/jestjs/jest/issues/13576)
 - [ ] Localization
 - [ ] GraphQL format error
 - [x] Disable any rule in eslint
-- [ ] Nats clusters with Ansible
-- [x] Nats file location volume
-- [ ] Nats authorization
-- [ ] Update NestJS to 10 (wait for golevelup/discovery bump)
-- [ ] Make nats module npm package
+
 
 ## Installing
 
