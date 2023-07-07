@@ -1,6 +1,6 @@
 import { DiscoveryModule } from '@golevelup/nestjs-discovery'
 import { DynamicModule, Module } from '@nestjs/common'
-import { HEALTH_CHECKS_PROVIDER } from 'core/health-checks'
+import { HEALTH_CHECKS_PROVIDER } from '@tematools/health-checks'
 import { CustomInjectorModule } from 'nestjs-custom-injector'
 
 import {

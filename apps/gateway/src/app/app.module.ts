@@ -3,7 +3,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
-import { EventloopFrozenDetectorModule } from 'core/eventloop-frozen-detector'
+import { EventloopFrozenDetectorModule } from 'core-eventloop-frozen-detector'
 import * as env from 'env-var'
 
 @Module({

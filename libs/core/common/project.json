@@ -4,6 +4,30 @@
   "sourceRoot": "libs/core/common/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "outputPath": "dist/libs/core/common",
+        "main": "libs/core/common/src/index.ts",
+        "tsConfig": "libs/core/common/tsconfig.lib.json",
+        "assets": [
+          "libs/core/common/*.md"
+        ]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs common {args.ver} {args.tag}",
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version"
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

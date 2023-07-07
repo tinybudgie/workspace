@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { HealthIndicator, HealthIndicatorResult } from 'core/health-checks'
+import { HealthIndicator, HealthIndicatorResult } from '@tematools/health-checks'
 
 import { NatsConnectionService } from '../nats-services/nats-connection.service'
 

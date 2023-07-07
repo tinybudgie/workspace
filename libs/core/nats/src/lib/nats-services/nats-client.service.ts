@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { CommonError, CommonErrorsEnum } from 'core/common'
+import { CommonError, CommonErrorsEnum } from 'core-common'
 import { ErrorCode, Payload, Subscription, SubscriptionOptions } from 'nats'
 
 import { NATS_ERROR_TITLES } from '../nats-errors/nats-errors.enum'
@@ -85,7 +85,6 @@ export class NatsClientService {
         const nc = this.natsConnection.getNatsConnection()
 
         const subscription = nc.subscribe(subject, options)
-
         this.logger.log(`Mapped {${subject}, NATS} route`)
 
         return subscription

@@ -8,7 +8,7 @@ import {
     OnModuleInit,
 } from '@nestjs/common'
 import { isObject } from '@nestjs/common/utils/shared.utils'
-import { CommonError } from 'core/common'
+import { CommonError } from 'core-common'
 import {
     connect,
     JetStreamManager,

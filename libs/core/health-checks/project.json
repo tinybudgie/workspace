@@ -4,6 +4,30 @@
   "sourceRoot": "libs/core/health-checks/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "outputPath": "dist/libs/core/health-checks",
+        "main": "libs/core/health-checks/src/index.ts",
+        "tsConfig": "libs/core/health-checks/tsconfig.lib.json",
+        "assets": [
+          "libs/core/health-checks/*.md"
+        ]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs health-checks {args.ver} {args.tag}",
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version"
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

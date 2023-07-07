@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common'
-import { CommonError } from 'core/common'
+import { CommonError } from 'core-common'
 import {
     ConsumeOptions,
     ConsumerConfig,

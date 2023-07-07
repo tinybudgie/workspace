@@ -6,7 +6,7 @@ import {
     patch<%= className %>Config,
 } from './<%= fileName %>-configs/<%= fileName %>-module.config'
 import { <%= className %>Resolver } from './<%= fileName %>-graphql/<%= fileName %>.resolver'
-import { HEALTH_CHECKS_PROVIDER } from 'core/health-checks'
+import { HEALTH_CHECKS_PROVIDER } from 'core-health-checks'
 import { <%= className %>PrismaConnectionHealthIndicator } from './<%= fileName %>-indicators/<%= fileName %>-prisma-connection.health'
 import { <%= className %>PrismaService } from './<%= fileName %>-services/<%= fileName %>-prisma.service'
 import { <%= className %>NatsController } from './<%= fileName %>-nats/<%= fileName %>-nats.controller'
