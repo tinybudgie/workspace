@@ -11,7 +11,7 @@ Checkout documentation: https://temarusanov.github.io/dev-notes/workspace/gettin
 - [ ] Nats clusters with Ansible
 - [x] Nats file location volume
 - [ ] Nats authorization
-- [ ] Make nats module npm package
+- [x] Make nats module npm package
 - [ ] Nats tests
 
 ### Others
