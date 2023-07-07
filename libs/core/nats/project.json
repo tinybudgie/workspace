@@ -8,6 +8,7 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "clean": true,
         "buildableProjectDepsInPackageJsonType": "dependencies",
         "outputPath": "dist/libs/core/nats",
         "main": "libs/core/nats/src/index.ts",
