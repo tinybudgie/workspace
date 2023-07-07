@@ -14,6 +14,8 @@ Checkout documentation: https://temarusanov.github.io/dev-notes/workspace/gettin
 - [x] Nats file location volume
 - [ ] Nats authorization
 - [ ] Update NestJS to 10 (wait for golevelup/discovery bump)
+- [ ] Make nats module npm package
+
 ## Installing
 
 ### Install Ansible
