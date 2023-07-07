@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.2.0](https://github.com/temarusanov/nx/compare/health-checks-0.1.0...health-checks-0.2.0) (2023-07-07)
+
+
+### Bug Fixes
+
+* format code to external libraries ([450245a](https://github.com/temarusanov/nx/commit/450245a5793ec9ce9dfcc3950ad1c2fbfe638248))
+
+
+### Features
+
+* **draft:** add npm publish support ([ef333b7](https://github.com/temarusanov/nx/commit/ef333b7567c3df1f99393205cccd75443f28f065))
+
+
+
 # 0.1.0 (2023-07-07)
 
 ### Features
