@@ -25,6 +25,7 @@
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     },
     "lint": {
+      "dependsOn": ["^prisma:generate"],
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
     },
     "prisma:generate": {
@@ -43,10 +44,5 @@
     ],
     "sharedGlobals": []
   },
-  "defaultProject": "api",
-  "pluginsConfig": {
-    "@nx/js": {
-      "analyzeSourceFiles": true
-    }
-  }
+  "defaultProject": "api"
 }

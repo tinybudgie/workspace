@@ -4,6 +4,25 @@
   "sourceRoot": "libs/core/eventloop-frozen-detector/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "clean": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "outputPath": "dist/libs/core/eventloop-frozen-detector",
+        "main": "libs/core/eventloop-frozen-detector/src/index.ts",
+        "tsConfig": "libs/core/eventloop-frozen-detector/tsconfig.lib.json",
+        "assets": ["libs/core/eventloop-frozen-detector/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs eventloop-frozen-detector {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version"
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
