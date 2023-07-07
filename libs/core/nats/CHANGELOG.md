@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.2](https://github.com/temarusanov/nx/compare/nats-0.2.1...nats-0.2.2) (2023-07-07)
+
+
+### Bug Fixes
+
+* remove local deps from nats ([061487d](https://github.com/temarusanov/nx/commit/061487d3a6b9f05ba484623f724fdb11db6ec636))
+
+
+
 ## [0.2.1](https://github.com/temarusanov/nx/compare/nats-0.2.0...nats-0.2.1) (2023-07-07)
 
 ### Bug Fixes
