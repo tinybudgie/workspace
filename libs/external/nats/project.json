@@ -9,7 +9,6 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "clean": true,
-        "buildableProjectDepsInPackageJsonType": "dependencies",
         "outputPath": "dist/libs/external/nats",
         "main": "libs/external/nats/src/index.ts",
         "tsConfig": "libs/external/nats/tsconfig.lib.json",
