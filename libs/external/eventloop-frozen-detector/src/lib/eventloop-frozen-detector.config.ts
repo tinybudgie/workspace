@@ -4,4 +4,5 @@ export const EVENTLOOP_FROZEN_DETECTOR_CONFIG = Symbol(
 
 export interface EventloopFrozenDetectorConfig {
     delay: number
+    interval?: number
 }

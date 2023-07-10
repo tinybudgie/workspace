@@ -16,36 +16,36 @@ export class EventloopFrozenDetectorService
     implements OnModuleInit, OnModuleDestroy
 {
     private readonly _logger = new Logger(EventloopFrozenDetectorService.name)
-    private _intervalRef!: NodeJS.Timer
+    private intervalRef!: NodeJS.Timer
 
     constructor(
         @Inject(EVENTLOOP_FROZEN_DETECTOR_CONFIG)
-        private readonly _config: EventloopFrozenDetectorConfig,
+        private readonly config: EventloopFrozenDetectorConfig,
     ) {}
 
     onModuleInit() {
         this._logger.log('onModuleInit')
         let tmStart = new Date().getTime()
 
-        this._intervalRef = setInterval(() => {
+        this.intervalRef = setInterval(() => {
             const endTime = new Date().getTime()
             const diff = endTime - tmStart
 
-            if (diff >= this._config.delay) {
+            if (diff >= this.config.delay) {
                 this._logger.error(
                     `NodeJS event loop was frozen more than ${(
-                        this._config.delay / 1000
+                        this.config.delay / 1000
                     ).toFixed(4)}s. Freeze duration was: ${diff}ms.`,
                 )
             }
 
             tmStart = endTime
-        }, 1000)
+        }, this.config.interval || 1000)
     }
 
     onModuleDestroy() {
-        if (this._intervalRef) {
-            clearInterval(this._intervalRef)
+        if (this.intervalRef) {
+            clearInterval(this.intervalRef)
         }
     }
 }
