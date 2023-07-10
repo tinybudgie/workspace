@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.1](https://github.com/temarusanov/nx/compare/health-checks-0.2.0...health-checks-0.2.1) (2023-07-10)
+
+
+### Bug Fixes
+
+* remove deps flag from build ([7d4766a](https://github.com/temarusanov/nx/commit/7d4766a63260ba1cb4051569531797e6e5b9752c))
+
+
+
 # [0.2.0](https://github.com/temarusanov/nx/compare/health-checks-0.1.0...health-checks-0.2.0) (2023-07-07)
 
 
