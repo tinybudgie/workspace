@@ -16,8 +16,7 @@
       }
     },
     "publish": {
-      "command": "node tools/scripts/publish.mjs nats {args.ver} {args.tag}",
-      "dependsOn": ["build"]
+      "command": "node tools/scripts/publish.mjs nats {args.ver} {args.tag}"
     },
     "version": {
       "executor": "@jscutlery/semver:version",
