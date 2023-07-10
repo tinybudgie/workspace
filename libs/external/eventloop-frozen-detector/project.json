@@ -9,7 +9,6 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "clean": true,
-        "buildableProjectDepsInPackageJsonType": "dependencies",
         "outputPath": "dist/libs/external/eventloop-frozen-detector",
         "main": "libs/external/eventloop-frozen-detector/src/index.ts",
         "tsConfig": "libs/external/eventloop-frozen-detector/tsconfig.lib.json",
@@ -17,8 +16,7 @@
       }
     },
     "publish": {
-      "command": "node tools/scripts/publish.mjs eventloop-frozen-detector {args.ver} {args.tag}",
-      "dependsOn": ["build"]
+      "command": "node tools/scripts/publish.mjs eventloop-frozen-detector {args.ver} {args.tag}"
     },
     "version": {
       "executor": "@jscutlery/semver:version",
