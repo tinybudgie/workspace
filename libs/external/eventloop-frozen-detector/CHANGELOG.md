@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.1](https://github.com/temarusanov/nx/compare/eventloop-frozen-detector-0.1.0...eventloop-frozen-detector-0.1.1) (2023-07-10)
+
+
+### Bug Fixes
+
+* remove deps flag from build ([7d4766a](https://github.com/temarusanov/nx/commit/7d4766a63260ba1cb4051569531797e6e5b9752c))
+
+
+
 # 0.1.0 (2023-07-07)
 
 
