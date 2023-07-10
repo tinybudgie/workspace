@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.2.0](https://github.com/temarusanov/nx/compare/eventloop-frozen-detector-0.1.1...eventloop-frozen-detector-0.2.0) (2023-07-10)
+
+
+### Features
+
+* add interval option ([0f98a35](https://github.com/temarusanov/nx/commit/0f98a3574c77109daec6d6540de23f8b51e7c1fe))
+
+
+
 ## [0.1.1](https://github.com/temarusanov/nx/compare/eventloop-frozen-detector-0.1.0...eventloop-frozen-detector-0.1.1) (2023-07-10)
 
 
