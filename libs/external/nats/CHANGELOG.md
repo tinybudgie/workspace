@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.3](https://github.com/temarusanov/nx/compare/nats-0.2.2...nats-0.2.3) (2023-07-10)
+
+
+### Bug Fixes
+
+* remove dep flag ([87170b0](https://github.com/temarusanov/nx/commit/87170b016ee8df35f811bc06c9eabd99c6544781))
+
+
+
 ## [0.2.2](https://github.com/temarusanov/nx/compare/nats-0.2.1...nats-0.2.2) (2023-07-07)
 
 
