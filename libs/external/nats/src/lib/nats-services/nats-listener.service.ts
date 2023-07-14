@@ -1,5 +1,5 @@
 import { DiscoveryService } from '@golevelup/nestjs-discovery'
-import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common'
+import { Injectable, OnApplicationBootstrap } from '@nestjs/common'
 import { ExternalContextCreator } from '@nestjs/core'
 import { JsMsg, SubscriptionOptions } from 'nats'
 
