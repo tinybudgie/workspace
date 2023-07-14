@@ -16,8 +16,6 @@ import { NatsJetStreamClientService } from './nats-jetstream-client.service'
 
 @Injectable()
 export class NatsListenerService implements OnApplicationBootstrap {
-    private logger = new Logger(NatsListenerService.name)
-
     constructor(
         private readonly natsClient: NatsClientService,
         private readonly natsJetStreamClient: NatsJetStreamClientService,
