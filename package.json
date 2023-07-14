@@ -31,7 +31,7 @@
     "@prisma/client": "^4.16.2",
     "@tematools/eventloop-frozen-detector": "^0.1.0",
     "@tematools/health-checks": "^0.2.0",
-    "@tematools/nats": "^0.2.2",
+    "@tematools/nats": "^0.2.5",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "clsx": "^1.2.1",
