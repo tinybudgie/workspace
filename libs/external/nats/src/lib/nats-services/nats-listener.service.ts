@@ -4,7 +4,9 @@ import { ExternalContextCreator } from '@nestjs/core'
 import { JsMsg, SubscriptionOptions } from 'nats'
 
 import {
+    CONSUME_ARGS_METADATA,
     CONSUME_METADATA,
+    REPLY_ARGS_METADATA,
     REPLY_METADATA,
 } from '../nats-constants/nats.constants'
 import { ConsumeOptions } from '../nats-interfaces/nats.interfaces'
@@ -42,6 +44,12 @@ export class NatsListenerService implements OnApplicationBootstrap {
                 parentClass.instance,
                 handler,
                 methodName,
+                REPLY_ARGS_METADATA,
+                undefined,
+                undefined, // contextId
+                undefined, // inquirerId
+                undefined, // options
+                'nats', // contextType
             )
 
             this.natsClient.reply(listener.meta.subject, {
@@ -79,6 +87,12 @@ export class NatsListenerService implements OnApplicationBootstrap {
                 parentClass.instance,
                 handler,
                 methodName,
+                CONSUME_ARGS_METADATA,
+                undefined,
+                undefined, // contextId
+                undefined, // inquirerId
+                undefined, // options
+                'nats', // contextType
             )
 
             const { stream, consumer, options } = listener.meta
