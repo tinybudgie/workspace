@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.4](https://github.com/temarusanov/nx/compare/nats-0.2.3...nats-0.2.4) (2023-07-14)
+
+
+### Bug Fixes
+
+* add metadata key to external context ([e045a2c](https://github.com/temarusanov/nx/commit/e045a2ca192428c0b2be9526f3f03642f345afa5))
+
+
+
 ## [0.2.3](https://github.com/temarusanov/nx/compare/nats-0.2.2...nats-0.2.3) (2023-07-10)
 
 
