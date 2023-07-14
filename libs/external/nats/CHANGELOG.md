@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.5](https://github.com/temarusanov/nx/compare/nats-0.2.4...nats-0.2.5) (2023-07-14)
+
+
+### Bug Fixes
+
+* force bump new version ([53a1ad6](https://github.com/temarusanov/nx/commit/53a1ad659375ee72f5edc8a40b9502c2ca9a3076))
+
+
+
 ## [0.2.4](https://github.com/temarusanov/nx/compare/nats-0.2.3...nats-0.2.4) (2023-07-14)
 
 
