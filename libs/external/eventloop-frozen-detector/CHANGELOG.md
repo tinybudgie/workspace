@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.3.0](https://github.com/temarusanov/nx/compare/eventloop-frozen-detector-0.2.0...eventloop-frozen-detector-0.3.0) (2023-07-18)
+
+
+### Features
+
+* force bump new version ([5cab41e](https://github.com/temarusanov/nx/commit/5cab41e3d65cea0639830dd8f4ed3278e34d7d19))
+
+
+
 # [0.2.0](https://github.com/temarusanov/nx/compare/eventloop-frozen-detector-0.1.1...eventloop-frozen-detector-0.2.0) (2023-07-10)
 
 
