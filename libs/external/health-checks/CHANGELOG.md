@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.3.0](https://github.com/temarusanov/nx/compare/health-checks-0.2.1...health-checks-0.3.0) (2023-07-18)
+
+
+### Features
+
+* force bump new version ([6e1ac7c](https://github.com/temarusanov/nx/commit/6e1ac7ccb930b1e9f8a77afb65178b994637902c))
+
+
+
 ## [0.2.1](https://github.com/temarusanov/nx/compare/health-checks-0.2.0...health-checks-0.2.1) (2023-07-10)
 
 
