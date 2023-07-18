@@ -34,5 +34,9 @@ export function addPrismaCommands(
         executor: 'schematics:prisma-migrate',
     }
 
+    project.targets!['prisma:studio'] = {
+        executor: 'schematics:prisma-studio',
+    }
+
     updateProjectConfiguration(tree, options.projectName, project)
 }

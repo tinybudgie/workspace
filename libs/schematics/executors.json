@@ -15,6 +15,11 @@
       "implementation": "./src/executors/prisma/migrate/executor",
       "schema": "./src/executors/prisma/migrate/schema.json",
       "description": "Run Prisma migrations"
+    },
+    "prisma-studio": {
+      "implementation": "./src/executors/prisma/studio/executor",
+      "schema": "./src/executors/prisma/studio/schema.json",
+      "description": "Run Prisma Studio"
     }
   }
 }

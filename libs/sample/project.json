@@ -34,6 +34,9 @@
     },
     "prisma:migrate": {
       "executor": "schematics:prisma-migrate"
+    },
+    "prisma:studio": {
+      "executor": "schematics:prisma-studio"
     }
   },
   "tags": []
