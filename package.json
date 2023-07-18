@@ -18,7 +18,7 @@
   "private": true,
   "dependencies": {
     "@actions/exec": "^1.1.1",
-    "@apollo/gateway": "^2.4.9",
+    "@apollo/gateway": "^2.4.10",
     "@apollo/server": "^4.7.5",
     "@apollo/subgraph": "^2.4.9",
     "@golevelup/nestjs-discovery": "^3.0.1",
