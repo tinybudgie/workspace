@@ -26,17 +26,17 @@
       }
     },
     "prisma:generate": {
-      "executor": "schematics:prisma-generate",
+      "executor": "@tematools/schematics:prisma-generate",
       "outputs": ["{workspaceRoot}/node_modules/@prisma/sample-client"]
     },
     "prisma:pull": {
-      "executor": "schematics:prisma-pull"
+      "executor": "@tematools/schematics:prisma-pull"
     },
     "prisma:migrate": {
-      "executor": "schematics:prisma-migrate"
+      "executor": "@tematools/schematics:prisma-migrate"
     },
     "prisma:studio": {
-      "executor": "schematics:prisma-studio"
+      "executor": "@tematools/schematics:prisma-studio"
     }
   },
   "tags": []
