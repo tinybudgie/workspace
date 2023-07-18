@@ -28,8 +28,8 @@
       ],
       "external/health-checks": ["libs/external/health-checks/src/index.ts"],
       "external/nats": ["libs/external/nats/src/index.ts"],
-      "sample": ["libs/sample/src/index.ts"],
-      "schematics": ["libs/schematics/src/index.ts"]
+      "external/schematics": ["libs/external/schematics/src/index.ts"],
+      "sample": ["libs/sample/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

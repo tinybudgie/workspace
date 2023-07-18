@@ -1,5 +1,5 @@
 {
-  "name": "schematics",
+  "name": "@tematools/schematics",
   "version": "0.0.1",
   "main": "src/index.js",
   "generators": "./generators.json",
