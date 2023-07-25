@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.0.0](https://github.com/temarusanov/nx/compare/health-checks-0.3.0...health-checks-1.0.0) (2023-07-25)
+
+
+### Features
+
+* custominjector to discovery ([377c801](https://github.com/temarusanov/nx/commit/377c801a84a4e9d9aed5c2ff6db47dfedaf40f02))
+
+
+### BREAKING CHANGES
+
+* use @HealthIndicator() decorator now
+
+
+
 # [0.3.0](https://github.com/temarusanov/nx/compare/health-checks-0.2.1...health-checks-0.3.0) (2023-07-18)
 
 
