@@ -5,15 +5,15 @@
   "license": "MIT",
   "scripts": {
     "nx": "nx",
-    "start": "nx serve",
+    "start": "nx run api:serve",
     "build": "nx run-many -t build",
+    "test": "nx run-many -t test",
     "container": "nx run-many -t container",
     "prisma:generate": "nx run-many -t prisma:generate",
-    "test": "nx run-many -t test",
-    "prepare": "husky install",
-    "lint": "npm run nx -- run-many --target=lint --all",
-    "lint:fix": "nx run-many --target=lint --all --fix && npm run tsc:lint && nx format:write --all ",
-    "tsc:lint": "tsc --noEmit -p tsconfig.base.json"
+    "lint": "npm run nx -- run-many --t lint",
+    "lint:fix": "nx run-many --t lint --fix && npm run tsc:lint && nx format:write --all ",
+    "tsc:lint": "tsc --noEmit -p tsconfig.base.json",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
