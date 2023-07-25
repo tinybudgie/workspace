@@ -1,4 +1,4 @@
 # Health Checks
 
-This library was generated with [Nx](https://nx.dev).
+Checkout documentation: https://temarusanov.github.io/dev-notes/workspace/techniques/health-checks
 
