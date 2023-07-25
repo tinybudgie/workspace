@@ -38,6 +38,7 @@
       }
     },
     "publish": {
+      "dependsOn": ["build"],
       "command": "node tools/scripts/publish.mjs schematics {args.ver} {args.tag}"
     },
     "version": {
