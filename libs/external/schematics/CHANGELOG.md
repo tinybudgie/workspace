@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.2.0](https://github.com/temarusanov/nx/compare/schematics-0.1.0...schematics-0.2.0) (2023-07-25)
+
+
+### Bug Fixes
+
+* move sample test to src dir ([cf41371](https://github.com/temarusanov/nx/commit/cf41371447da728be3736a6b1c516f0feee99e38))
+* moved to lib executor ([e095690](https://github.com/temarusanov/nx/commit/e095690e64bca7d255cb441cbfc6813b1ed18e93))
+
+
+### Features
+
+* move to new health-checks version ([851d655](https://github.com/temarusanov/nx/commit/851d655a8676a5e708f849d08338394a14f60263))
+
+
+
 # 0.1.0 (2023-07-18)
 
 
