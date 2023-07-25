@@ -1,0 +1,61 @@
+---
+- name: start local
+  hosts: local
+  gather_facts: false
+  become: true
+  vars:
+    docker_network: nxproject
+  roles:
+    - role: create_docker_network
+
+    - role: start_docker
+      docker__name: nats
+      docker__image: nats:latest
+      docker__command: "--jetstream --store_dir /data/nats-server/"
+      docker__volumes:
+        - "/var/lib/bw-nats:/data/nats-server/jetstream"
+      docker__networks: 
+        - name:  "{{ docker_network }}" 
+      docker__remove_existing_container: yes
+      docker__ports: 
+        - 4222:4222
+        - 6222:6222
+        - 8222:8222
+
+    - role: start_postgres
+      docker_postgres__name: postgres
+      docker_postgres__wait_for_start: yes
+      docker_postgres__superuser_name: postgres
+      docker_postgres__superuser_password: postgres
+      docker_postgres__networks: 
+        - name:  "{{ docker_network }}" 
+
+    - role: start_docker
+      docker__networks:
+        - name: "{{ docker_network }}"
+      docker__name: 'api'
+      docker__image: nx/api:master
+      docker__network_mode:
+      docker__remove_existing_container: yes
+      docker__ports: 
+        - 3000:3000
+      docker__env:
+        PORT: "3000"
+        NATS_URL: "nats://nats:4222"
+        SAMPLE_DATABASE_URL: "postgres://postgres:postgres@postgres:5432/postgres?schema=public"
+
+    - role: start_docker
+      docker__networks:
+        - name:  "{{ docker_network }}"
+      docker__name: gateway
+      docker__image: nx/gateway:master
+      docker__network_mode:
+      docker__remove_existing_container: yes
+      docker__ports: 
+        - 3052:3000
+      docker__env:
+        NODE_ENV: "development"
+        GATEWAY_PORT: "3000"
+        GATEWAY_SUBGRAPHS: '[{ "name": "api", "url": "http://api:3000/graphql" }]'
+
+  

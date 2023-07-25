@@ -1,0 +1,11 @@
+---
+docker__name: 
+docker__image: 
+docker__network_mode:
+docker__networks: []
+docker__remove_existing_container: yes
+docker__env:
+docker__ports:
+docker__command:
+docker__volumes:
+docker__restart_policy: always
