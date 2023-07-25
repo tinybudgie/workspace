@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.4.0](https://github.com/temarusanov/nx/compare/nats-0.3.0...nats-0.4.0) (2023-07-25)
+
+
+### Bug Fixes
+
+* move tests location, add mocks ([8d107b3](https://github.com/temarusanov/nx/commit/8d107b3f0de140fba91635fb3d0a626e15f6e452))
+
+
+### Features
+
+* move to new health-checks version ([851d655](https://github.com/temarusanov/nx/commit/851d655a8676a5e708f849d08338394a14f60263))
+
+
+
 # [0.3.0](https://github.com/temarusanov/nx/compare/nats-0.2.5...nats-0.3.0) (2023-07-18)
 
 
