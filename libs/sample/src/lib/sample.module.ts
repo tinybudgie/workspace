@@ -1,6 +1,4 @@
 import { DynamicModule, Module, Provider, Type } from '@nestjs/common'
-import { HEALTH_CHECKS_PROVIDER } from '@tematools/health-checks'
-import { CustomInjectorModule } from 'nestjs-custom-injector'
 
 import {
     patchSampleConfig,
@@ -17,7 +15,7 @@ import { SamplePrismaService } from './sample-services/sample-prisma.service'
 @Module({})
 export class SampleModule extends SampleConfigurableModuleClass {
     static forRoot(options: typeof SAMPLE_OPTIONS_TYPE): DynamicModule {
-        const imports: any[] = [CustomInjectorModule]
+        const imports: any[] = []
         const controllers: Type<any>[] = []
         const exports: any[] = [SAMPLE_CONFIG]
         const providers: Provider[] = [
@@ -30,10 +28,7 @@ export class SampleModule extends SampleConfigurableModuleClass {
                       provide: SamplePrismaService,
                       useClass: SamplePrismaService,
                   },
-            {
-                provide: HEALTH_CHECKS_PROVIDER,
-                useClass: SamplePrismaConnectionHealthIndicator,
-            },
+            SamplePrismaConnectionHealthIndicator,
             {
                 provide: SAMPLE_CONFIG,
                 useValue: patchSampleConfig(options),

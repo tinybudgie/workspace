@@ -1,7 +1,5 @@
 import { DiscoveryModule } from '@golevelup/nestjs-discovery'
 import { DynamicModule, Module } from '@nestjs/common'
-import { HEALTH_CHECKS_PROVIDER } from '@tematools/health-checks'
-import { CustomInjectorModule } from 'nestjs-custom-injector'
 
 import {
     NATS_ASYNC_OPTIONS_TYPE,
@@ -39,20 +37,13 @@ export class NatsModule extends NatsConfigurableModuleClass {
         return {
             global: true,
             module: NatsModule,
-            imports: [
-                ...(options?.imports || []),
-                DiscoveryModule,
-                CustomInjectorModule,
-            ],
+            imports: [...(options?.imports || []), DiscoveryModule],
             providers: [
                 NatsConnectionService,
                 NatsClientService,
                 NatsJetStreamClientService,
                 NatsListenerService,
-                {
-                    provide: HEALTH_CHECKS_PROVIDER,
-                    useClass: NatsConnectionHealthIndicator,
-                },
+                NatsConnectionHealthIndicator,
                 ...(useClass
                     ? [
                           {

@@ -7,22 +7,19 @@ import {
 import { SamplePrismaService } from '../sample-services/sample-prisma.service'
 
 @Injectable()
-export class SamplePrismaConnectionHealthIndicator implements HealthIndicator {
-    name = 'sample-database'
-
+export class SamplePrismaConnectionHealthIndicator {
     constructor(private readonly prisma: SamplePrismaService) {}
 
+    @HealthIndicator('sample-database')
     async isHealthy(): Promise<HealthIndicatorResult> {
         try {
             await this.prisma.$queryRaw<{ dt: string }[]>`SELECT now() dt`
 
             return {
-                name: this.name,
                 status: 'up',
             }
         } catch (error) {
             return {
-                name: this.name,
                 status: 'down',
                 error: error.message,
             }

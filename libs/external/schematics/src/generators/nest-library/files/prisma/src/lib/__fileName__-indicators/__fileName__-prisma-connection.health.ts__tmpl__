@@ -1,26 +1,22 @@
 import { Injectable } from '@nestjs/common'
 import { HealthIndicator, HealthIndicatorResult } from '@tematools/health-checks'
+
 import { <%= className %>PrismaService } from '../<%= fileName %>-services/<%= fileName %>-prisma.service'
 
 @Injectable()
-export class <%= className %>PrismaConnectionHealthIndicator implements HealthIndicator {
-    name = '<%= fileName %>-database'
-
+export class <%= className %>PrismaConnectionHealthIndicator {
     constructor(private readonly prisma: <%= className %>PrismaService) {}
 
+    @HealthIndicator('<%= fileName %>-database')
     async isHealthy(): Promise<HealthIndicatorResult> {
         try {
-            await this.prisma.$queryRaw<
-                { dt: string }[]
-            >`SELECT now() dt`
+            await this.prisma.$queryRaw<{ dt: string }[]>`SELECT now() dt`
 
             return {
-                name: this.name,
                 status: 'up',
             }
         } catch (error) {
             return {
-                name: this.name,
                 status: 'down',
                 error: error.message,
             }

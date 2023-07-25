@@ -6,16 +6,14 @@ import {
     patch<%= className %>Config,
 } from './<%= fileName %>-configs/<%= fileName %>-module.config'
 import { <%= className %>Resolver } from './<%= fileName %>-graphql/<%= fileName %>.resolver'
-import { HEALTH_CHECKS_PROVIDER } from '@tematools/health-checks'
 import { <%= className %>PrismaConnectionHealthIndicator } from './<%= fileName %>-indicators/<%= fileName %>-prisma-connection.health'
 import { <%= className %>PrismaService } from './<%= fileName %>-services/<%= fileName %>-prisma.service'
 import { <%= className %>NatsController } from './<%= fileName %>-nats/<%= fileName %>-nats.controller'
-import { CustomInjectorModule } from 'nestjs-custom-injector'
 
 @Module({})
 export class <%= className %>Module extends <%= className %>ConfigurableModuleClass {
     static forRoot(options: typeof <%= constantName %>_OPTIONS_TYPE): DynamicModule {
-        const imports: any[] = [CustomInjectorModule]
+        const imports: any[] = []
         const controllers: Type<any>[] = []
         const exports: any[] = [<%= constantName %>_CONFIG]
         const providers: Provider[] = [
@@ -28,10 +26,7 @@ export class <%= className %>Module extends <%= className %>ConfigurableModuleCl
                       provide: <%= className %>PrismaService,
                       useClass: <%= className %>PrismaService,
                   },
-            {
-                provide: HEALTH_CHECKS_PROVIDER,
-                useClass: <%= className %>PrismaConnectionHealthIndicator,
-            },
+            <%= className %>PrismaConnectionHealthIndicator,
             {
                 provide: <%= constantName %>_CONFIG,
                 useValue: patch<%= className %>Config(options),

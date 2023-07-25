@@ -30,7 +30,7 @@
     "@nestjs/testing": "9.4.3",
     "@prisma/client": "^5.0.0",
     "@tematools/eventloop-frozen-detector": "^0.3.0",
-    "@tematools/health-checks": "^0.3.0",
+    "@tematools/health-checks": "^1.0.0",
     "@tematools/nats": "^0.3.0",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
