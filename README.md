@@ -54,12 +54,6 @@ sudo apt update
 sudo apt install ansible
 ```
 
-If you don't have `docker` and `nvm` install then locate to `devops/ansible` and run
-
-```bash
-ansible-playbook prepare_environment.yml --ask-become-pass
-```
-
 ## Run
 
 Install dependencies
@@ -77,5 +71,5 @@ npx nx container
 Run full environment in docker containers
 
 ```
-ansible-playbook start_app.yml --ask-become-pass
+ansible-playbook local.yml --ask-become-pass
 ```
