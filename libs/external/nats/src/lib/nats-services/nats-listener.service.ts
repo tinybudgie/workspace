@@ -1,5 +1,5 @@
 import { DiscoveryService } from '@golevelup/nestjs-discovery'
-import { Injectable, OnApplicationBootstrap } from '@nestjs/common'
+import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common'
 import { ExternalContextCreator } from '@nestjs/core'
 import { JsMsg, SubscriptionOptions } from 'nats'
 
@@ -16,6 +16,8 @@ import { NatsJetStreamClientService } from './nats-jetstream-client.service'
 
 @Injectable()
 export class NatsListenerService implements OnApplicationBootstrap {
+    private readonly logger = new Logger(NatsListenerService.name)
+
     constructor(
         private readonly natsClient: NatsClientService,
         private readonly natsJetStreamClient: NatsJetStreamClientService,
@@ -78,42 +80,58 @@ export class NatsListenerService implements OnApplicationBootstrap {
             )
 
         for (const listener of listeners) {
-            const { parentClass, handler, methodName } =
-                listener.discoveredMethod
+            try {
+                const { parentClass, handler, methodName } =
+                    listener.discoveredMethod
 
-            const methodHandler = this.externalContextCreator.create(
-                parentClass.instance,
-                handler,
-                methodName,
-                CONSUME_ARGS_METADATA,
-                undefined,
-                undefined, // contextId
-                undefined, // inquirerId
-                undefined, // options
-                'nats', // contextType
-            )
+                const methodHandler = this.externalContextCreator.create(
+                    parentClass.instance,
+                    handler,
+                    methodName,
+                    CONSUME_ARGS_METADATA,
+                    undefined,
+                    undefined, // contextId
+                    undefined, // inquirerId
+                    undefined, // options
+                    'nats', // contextType
+                )
 
-            const { stream, consumer, options } = listener.meta
+                const { stream, consumer, options } = listener.meta
 
-            const consumerInfo = await this.natsJetStreamClient.createConsumer(
-                stream,
-                consumer,
-            )
-
-            this.natsJetStreamClient.consume(stream, consumerInfo.name, {
-                ...options,
-                callback: async (message: JsMsg) => {
-                    await methodHandler(
-                        {
-                            data: decodeMessage(message.data),
-                            headers: message.headers,
-                            subject: message.subject,
-                        },
-                        // pass message to be able to use acks
-                        message,
+                const consumerInfo =
+                    await this.natsJetStreamClient.createConsumer(
+                        stream,
+                        consumer,
                     )
-                },
-            })
+
+                this.natsJetStreamClient.consume(stream, consumerInfo.name, {
+                    ...options,
+                    callback: async (message: JsMsg) => {
+                        await methodHandler(
+                            {
+                                data: decodeMessage(message.data),
+                                headers: message.headers,
+                                subject: message.subject,
+                            },
+                            // pass message to be able to use acks
+                            message,
+                        )
+                    },
+                })
+            } catch (error) {
+                this.logger.error(
+                    `${error.message}: ${JSON.stringify({
+                        moduleName:
+                            listener?.discoveredMethod?.parentClass
+                                ?.parentModule?.name,
+                        className:
+                            listener?.discoveredMethod?.parentClass?.name,
+                        methodName: listener?.discoveredMethod?.methodName,
+                        consumerName: listener?.meta?.consumer?.durable_name,
+                        streamName: listener?.meta?.stream,
+                    })}`,
+                )
+            }
         }
     }
 }
