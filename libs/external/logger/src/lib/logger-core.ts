@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { LogLevel } from '@nestjs/common'
 import chalk from 'chalk'
 import { get } from 'env-var'
 import { isMatch } from 'micromatch'
@@ -10,6 +9,7 @@ import {
     JsonLog,
     LoggerConfig,
     LoggerInterface,
+    LogLevel,
     LogMethodOptions,
 } from './logger-interfaces/logger.interfaces'
 import { clc } from './logger-utils/cli-colors.util'
