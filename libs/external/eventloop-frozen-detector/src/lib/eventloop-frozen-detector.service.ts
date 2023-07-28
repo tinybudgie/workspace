@@ -24,7 +24,6 @@ export class EventloopFrozenDetectorService
     ) {}
 
     onModuleInit() {
-        this._logger.log('onModuleInit')
         let tmStart = new Date().getTime()
 
         this.intervalRef = setInterval(() => {
