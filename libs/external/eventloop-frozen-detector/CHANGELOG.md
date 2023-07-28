@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.3.1](https://github.com/temarusanov/nx/compare/eventloop-frozen-detector-0.3.0...eventloop-frozen-detector-0.3.1) (2023-07-28)
+
+
+### Bug Fixes
+
+* remove unused onModuleInit log ([b57fd45](https://github.com/temarusanov/nx/commit/b57fd459e7e38200729be63aea22a95fab6494c5))
+
+
+
 # [0.3.0](https://github.com/temarusanov/nx/compare/eventloop-frozen-detector-0.2.0...eventloop-frozen-detector-0.3.0) (2023-07-18)
 
 
