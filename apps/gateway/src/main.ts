@@ -1,14 +1,15 @@
-import { INestApplication, Logger } from '@nestjs/common'
+import { INestApplication } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+import { Logger } from '@tematools/logger'
 import env from 'env-var'
 import { SpelunkerModule } from 'nestjs-spelunker'
 
 import { AppModule } from './app/app.module'
 
-const logger = new Logger('Application')
+const logger = new Logger()
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule)
+    const app = await NestFactory.create(AppModule, { logger })
 
     // const diGraph = buildDIGraph(app)
 
