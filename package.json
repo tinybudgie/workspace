@@ -35,16 +35,19 @@
     "@tematools/nats": "^0.4.0",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
+    "chalk": "^4.1.2",
     "clsx": "^1.2.1",
     "env-var": "^7.3.1",
     "graphql": "^16.7.1",
+    "micromatch": "^4.0.5",
+    "nanoid": "^4.0.2",
     "nats": "^2.15.1",
     "nestjs-spelunker": "^1.1.5",
     "pg": "^8.11.1",
     "pg-promise": "^11.5.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "tslib": "^2.5.0"
+    "tslib": "^2.6.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.0",

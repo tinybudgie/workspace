@@ -1,0 +1,51 @@
+{
+  "name": "logger",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/external/logger/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "clean": true,
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/external/logger",
+        "main": "libs/external/logger/src/index.ts",
+        "tsConfig": "libs/external/logger/tsconfig.lib.json",
+        "assets": ["libs/external/logger/*.md"]
+      }
+    },
+    "publish": {
+      "dependsOn": ["build"],
+      "command": "node tools/scripts/publish.mjs logger {args.ver} {args.tag}"
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "push": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/external/logger/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/external/logger/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

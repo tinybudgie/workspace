@@ -27,6 +27,7 @@
         "libs/external/eventloop-frozen-detector/src/index.ts"
       ],
       "external/health-checks": ["libs/external/health-checks/src/index.ts"],
+      "external/logger": ["libs/external/logger/src/index.ts"],
       "external/nats": ["libs/external/nats/src/index.ts"],
       "external/schematics": ["libs/external/schematics/src/index.ts"],
       "sample": ["libs/sample/src/index.ts"]
