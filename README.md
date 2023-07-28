@@ -35,6 +35,7 @@ Checkout documentation: https://temarusanov.github.io/dev-notes/workspace/gettin
 - [ ] Localization
 - [ ] GraphQL format error
 - [x] Disable any rule in eslint
+- [ ] Add logger context
 
 ## Installing
 
