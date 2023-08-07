@@ -1,5 +1,7 @@
 # Workspace boilerplate
 
+![image](/.github/images//logo.png)
+
 Workspace is a boilerplate and my work experience of making backend applications. Its contains best-practices of writing code 
 I try to make conventions of code, to prevent your project being difficult to read and support
 This is a customized workspace using [NestJS](https://docs.nestjs.com/), orchestrator [Nx](https://nx.dev) with ready solutions like
@@ -36,41 +38,3 @@ Checkout documentation: https://temarusanov.github.io/dev-notes/workspace/gettin
 - [ ] GraphQL format error
 - [x] Disable any rule in eslint
 - [ ] Add logger context
-
-## Installing
-
-### Install Ansible
-
-Check full tutorial about Ansible installing [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-ubuntu-20-04)
-
-```bash
-sudo apt-add-repository ppa:ansible/ansible
-```
-
-```bash
-sudo apt update
-```
-
-```bash
-sudo apt install ansible
-```
-
-## Run
-
-Install dependencies
-
-```bash
-npm install
-```
-
-Use container command to create a docker image
-
-```bash
-npx nx container
-```
-
-Run full environment in docker containers
-
-```
-ansible-playbook local.yml --ask-become-pass
-```
