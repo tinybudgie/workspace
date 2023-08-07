@@ -54,7 +54,7 @@
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
     "@jscutlery/semver": "^3.0.0",
-    "@nestjs/schematics": "^9.2.0",
+    "@nestjs/schematics": "^10.0.2",
     "@nx-go/nx-go": "^2.7.0",
     "@nx-tools/container-metadata": "^5.0.2",
     "@nx-tools/nx-container": "^5.0.2",
