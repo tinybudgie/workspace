@@ -32,8 +32,11 @@
     "prisma:pull": {
       "executor": "@tematools/schematics:prisma-pull"
     },
-    "prisma:migrate": {
-      "executor": "@tematools/schematics:prisma-migrate"
+    "prisma:migrate:dev": {
+      "executor": "@tematools/schematics:prisma-migrate-dev"
+    },
+    "prisma:migrate:deploy": {
+      "executor": "@tematools/schematics:prisma-migrate-deploy"
     },
     "prisma:studio": {
       "executor": "@tematools/schematics:prisma-studio"
