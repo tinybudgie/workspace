@@ -30,8 +30,12 @@ export function addPrismaCommands(
         executor: '@tematools/schematics:prisma-pull',
     }
 
-    project.targets!['prisma:migrate'] = {
-        executor: '@tematools/schematics:prisma-migrate',
+    project.targets!['prisma:migrate:dev'] = {
+        executor: '@tematools/schematics:prisma-migrate-dev',
+    }
+
+    project.targets!['prisma:migrate:deploy'] = {
+        executor: '@tematools/schematics:prisma-migrate-deploy',
     }
 
     project.targets!['prisma:studio'] = {
