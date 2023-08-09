@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.0.1](https://github.com/temarusanov/nx/compare/schematics-1.0.0...schematics-1.0.1) (2023-08-09)
+
+
+### Bug Fixes
+
+* add correct command to lib generator ([d05ddc2](https://github.com/temarusanov/nx/commit/d05ddc27d6a709289f8f49f5c08089060d11ff32))
+
+
+
 # [1.0.0](https://github.com/temarusanov/nx/compare/schematics-0.2.0...schematics-1.0.0) (2023-08-09)
 
 
