@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.0.0](https://github.com/temarusanov/nx/compare/schematics-0.2.0...schematics-1.0.0) (2023-08-09)
+
+
+### Features
+
+* add prisma migrate commands ([da849b9](https://github.com/temarusanov/nx/commit/da849b9df052ba47dd5082bff319faffcec2f0ed))
+
+
+### BREAKING CHANGES
+
+* prisma migrate now has prisma-migrate-dev
+
+
+
 # [0.2.0](https://github.com/temarusanov/nx/compare/schematics-0.1.0...schematics-0.2.0) (2023-07-25)
 
 
