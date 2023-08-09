@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "version": 2,
+  "title": "Prisma Migrate executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "type": "string",
+      "description": "The path to the prisma schema eg. 'prisma/schema.prisma'"
+    },
+    "replaceUrlEnv": {
+      "type": "object",
+      "description": "Database url"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name the migration"
+    },
+    "createOnly": {
+      "type": "boolean",
+      "default": false,
+      "description": "Create a new migration but do not apply it"
+    },
+    "skipGenerate": {
+      "type": "boolean",
+      "default": false,
+      "description": "Skip triggering generators (e.g. Prisma Client)"
+    },
+    "skipSeed": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": []
+}

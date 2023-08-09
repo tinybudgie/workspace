@@ -1,4 +1,4 @@
-export interface PrismaMigrateExecutorSchema {
+export interface PrismaMigrateResetExecutorSchema {
     schema?: string
     replaceUrlEnv?: {
         from: string

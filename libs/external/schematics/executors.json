@@ -11,10 +11,20 @@
       "schema": "./src/executors/prisma/pull/schema.json",
       "description": "Pull all affected Prisma schemas"
     },
-    "prisma-migrate": {
-      "implementation": "./src/executors/prisma/migrate/executor",
-      "schema": "./src/executors/prisma/migrate/schema.json",
-      "description": "Run Prisma migrations"
+    "prisma-migrate-dev": {
+      "implementation": "./src/executors/prisma/migrate-dev/executor",
+      "schema": "./src/executors/prisma/migrate-dev/schema.json",
+      "description": "Create Prisma migrations (development)"
+    },
+    "prisma-migrate-reset": {
+      "implementation": "./src/executors/prisma/migrate-reset/executor",
+      "schema": "./src/executors/prisma/migrate-reset/schema.json",
+      "description": "Reset database (development)"
+    },
+    "prisma-migrate-deploy": {
+      "implementation": "./src/executors/prisma/migrate-deploy/executor",
+      "schema": "./src/executors/prisma/migrate-deploy/schema.json",
+      "description": "Run Prisma migrations (production)"
     },
     "prisma-studio": {
       "implementation": "./src/executors/prisma/studio/executor",

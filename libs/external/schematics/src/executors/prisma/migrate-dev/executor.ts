@@ -3,10 +3,10 @@ import { getExecOutput } from '@actions/exec'
 import { ExecutorContext } from '@nx/devkit'
 
 import { findPrismaSchemaPath } from '../find-prisma-schemas-paths'
-import { PrismaMigrateExecutorSchema } from './schema'
+import { PrismaMigrateDevExecutorSchema } from './schema'
 
 export default async function runExecutor(
-    options: PrismaMigrateExecutorSchema,
+    options: PrismaMigrateDevExecutorSchema,
     context: ExecutorContext,
 ) {
     const prismaSchemasPath = findPrismaSchemaPath(options, context)
@@ -23,14 +23,30 @@ export default async function runExecutor(
         ...replaceEnv,
     }
 
-    await getExecOutput(
-        `npx prisma migrate deploy`,
-        [`--schema=${prismaSchemasPath}`],
-        {
-            ignoreReturnCode: true,
-            env,
-        },
-    ).then((res) => {
+    if (!options.name) {
+        throw new Error('Specify migration name, ex. --name init')
+    }
+
+    const args = [`--schema=${prismaSchemasPath}`, `--name=${options.name}`]
+
+    if (options.skipGenerate) {
+        args.push(`--skip-generate`)
+    }
+
+    if (options.createOnly) {
+        args.push(`--create-only`)
+    }
+
+    if (options.skipSeed) {
+        args.push(`--skip-seed`)
+    }
+
+    console.log(args)
+
+    await getExecOutput(`npx prisma migrate dev`, args, {
+        ignoreReturnCode: true,
+        env,
+    }).then((res) => {
         if (res.stderr.length > 0 && res.exitCode != 0) {
             throw new Error(`${res.stderr.trim() ?? 'unknown error'}`)
         }
