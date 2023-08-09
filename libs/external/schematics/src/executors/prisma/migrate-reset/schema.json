@@ -12,7 +12,7 @@
     "replaceUrlEnv": {
       "type": "object",
       "description": "Database url"
-    },
+    }
   },
   "required": []
 }
