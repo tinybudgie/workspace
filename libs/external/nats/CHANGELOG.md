@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.5.0](https://github.com/temarusanov/nx/compare/nats-0.4.0...nats-0.5.0) (2023-08-17)
+
+
+### Bug Fixes
+
+* add try/catch to consumer creation for prevent app crashes ([cc348d5](https://github.com/temarusanov/nx/commit/cc348d50c341cc2dc150363c7c8baeb361e2b306))
+
+
+### Features
+
+* add debug logs ([04aaad0](https://github.com/temarusanov/nx/commit/04aaad0d29ab4f591dbc025c618e54f2fcceb3c8))
+
+
+
 # [0.4.0](https://github.com/temarusanov/nx/compare/nats-0.3.0...nats-0.4.0) (2023-07-25)
 
 
