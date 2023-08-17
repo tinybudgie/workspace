@@ -43,11 +43,35 @@ export class NatsJetStreamClientService {
 
         const encodedPayload: Payload = encodeMessage(payload)
 
-        return await js.publish(subject, encodedPayload, {
+        const published = await js.publish(subject, encodedPayload, {
             timeout: 10000,
             ...options,
             headers: parseHeaders(options?.headers),
         })
+
+        const logEnabled = this.config.debugLog?.enable
+
+        if (
+            (typeof logEnabled === 'boolean' && logEnabled === true) ||
+            (typeof logEnabled === 'object' && logEnabled?.publish === true)
+        ) {
+            const data = {
+                meta: 'NATS_PUBLISH',
+                subject: subject,
+                payload,
+                published,
+                options,
+                requestHeaders: options?.headers,
+            }
+
+            const logMessage = this.config.debugLog?.prettify
+                ? JSON.stringify(data, null, 2)
+                : JSON.stringify(data)
+
+            this.logger.debug(logMessage)
+        }
+
+        return published
     }
 
     /**

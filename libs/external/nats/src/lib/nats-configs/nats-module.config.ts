@@ -7,10 +7,33 @@ export interface NatsConfig extends ConnectionOptions {
      * @default: true
      */
     enableJetstream?: boolean
+
+    /**
+     * When set to `true` the client will print protocol messages that it receives
+     * or sends to the server using NestJS logger. If you want to debug logs from `nats.io` directly
+     * use `debug: true`
+     */
+    debugLog?: {
+        enable:
+            | boolean
+            | {
+                  request?: boolean
+                  reply?: boolean
+                  publish?: boolean
+                  consume?: boolean
+              }
+        prettify?: boolean
+    }
 }
 
-export const DEFAULT_NATS_CONFIG: Pick<NatsConfig, 'enableJetstream'> = {
+export const DEFAULT_NATS_CONFIG: Pick<
+    NatsConfig,
+    'enableJetstream' | 'debugLog'
+> = {
     enableJetstream: true,
+    debugLog: {
+        enable: false,
+    },
 }
 
 export function patchNatsConfig(

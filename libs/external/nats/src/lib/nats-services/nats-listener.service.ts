@@ -1,8 +1,14 @@
 import { DiscoveryService } from '@golevelup/nestjs-discovery'
-import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common'
+import {
+    Inject,
+    Injectable,
+    Logger,
+    OnApplicationBootstrap,
+} from '@nestjs/common'
 import { ExternalContextCreator } from '@nestjs/core'
 import { JsMsg, SubscriptionOptions } from 'nats'
 
+import { NATS_CONFIG, NatsConfig } from '../nats-configs/nats-module.config'
 import {
     CONSUME_ARGS_METADATA,
     CONSUME_METADATA,
@@ -19,6 +25,8 @@ export class NatsListenerService implements OnApplicationBootstrap {
     private readonly logger = new Logger(NatsListenerService.name)
 
     constructor(
+        @Inject(NATS_CONFIG)
+        private readonly config: NatsConfig,
         private readonly natsClient: NatsClientService,
         private readonly natsJetStreamClient: NatsJetStreamClientService,
         private readonly discovery: DiscoveryService,
@@ -55,18 +63,47 @@ export class NatsListenerService implements OnApplicationBootstrap {
             this.natsClient.reply(listener.meta.subject, {
                 ...listener.meta.options,
                 callback: async (_error, message) => {
+                    let response: any
+
+                    const decodedMessage = decodeMessage(message.data)
+
                     try {
-                        message.respond(
-                            encodeMessage(
-                                await methodHandler({
-                                    data: decodeMessage(message.data),
-                                    subject: message.subject,
-                                    headers: message.headers,
-                                }),
-                            ),
-                        )
+                        response = await methodHandler({
+                            data: decodedMessage,
+                            subject: message.subject,
+                            headers: message.headers,
+                        })
+
+                        message.respond(encodeMessage(response))
                     } catch (error) {
+                        response = error
                         message.respond(encodeMessage(error))
+                    }
+
+                    const logEnabled = this.config.debugLog?.enable
+
+                    if (
+                        (typeof logEnabled === 'boolean' &&
+                            logEnabled === true) ||
+                        (typeof logEnabled === 'object' &&
+                            logEnabled?.reply === true)
+                    ) {
+                        const data = {
+                            meta: 'NATS_REPLY',
+                            subject: message.subject,
+                            request: decodedMessage,
+                            requestHeaders: message.headers,
+                            response: response?.data ? response.data : response,
+                            responseHeaders: response?.headers
+                                ? response.headers
+                                : undefined,
+                        }
+
+                        const logMessage = this.config.debugLog?.prettify
+                            ? JSON.stringify(data, null, 2)
+                            : JSON.stringify(data)
+
+                        this.logger.debug(logMessage)
                     }
                 },
             })
@@ -107,15 +144,39 @@ export class NatsListenerService implements OnApplicationBootstrap {
                 this.natsJetStreamClient.consume(stream, consumerInfo.name, {
                     ...options,
                     callback: async (message: JsMsg) => {
+                        const decodedMessage = decodeMessage(message.data)
+
                         await methodHandler(
                             {
-                                data: decodeMessage(message.data),
+                                data: decodedMessage,
                                 headers: message.headers,
                                 subject: message.subject,
                             },
-                            // pass message to be able to use acks
+                            // pass &message to be able to use acks
                             message,
                         )
+
+                        const logEnabled = this.config.debugLog?.enable
+
+                        if (
+                            (typeof logEnabled === 'boolean' &&
+                                logEnabled === true) ||
+                            (typeof logEnabled === 'object' &&
+                                logEnabled?.consume === true)
+                        ) {
+                            const data = {
+                                meta: 'NATS_CONSUME',
+                                subject: message.subject,
+                                data: decodedMessage,
+                                headers: message.headers,
+                            }
+
+                            const logMessage = this.config.debugLog?.prettify
+                                ? JSON.stringify(data, null, 2)
+                                : JSON.stringify(data)
+
+                            this.logger.debug(logMessage)
+                        }
                     },
                 })
             } catch (error) {

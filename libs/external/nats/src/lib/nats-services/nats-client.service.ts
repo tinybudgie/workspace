@@ -1,6 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common'
+import { Inject, Injectable, Logger } from '@nestjs/common'
 import { ErrorCode, Payload, Subscription, SubscriptionOptions } from 'nats'
 
+import { NATS_CONFIG, NatsConfig } from '../nats-configs/nats-module.config'
 import { NATS_ERROR_TITLES } from '../nats-errors/nats-errors.enum'
 import { NatsErrorsEnum } from '../nats-errors/nats-errors.enum'
 import {
@@ -18,7 +19,11 @@ import { NatsConnectionService } from './nats-connection.service'
 export class NatsClientService {
     private logger = new Logger(NatsClientService.name)
 
-    constructor(private readonly natsConnection: NatsConnectionService) {}
+    constructor(
+        @Inject(NATS_CONFIG)
+        private readonly config: NatsConfig,
+        private readonly natsConnection: NatsConnectionService,
+    ) {}
 
     async request<T, K>(
         subject: string,
@@ -36,10 +41,34 @@ export class NatsClientService {
                 headers: parseHeaders(options?.headers),
             })
 
+            const decodedMessage = decodeMessage(msg.data) as K
+
+            const logEnabled = this.config.debugLog?.enable
+
+            if (
+                (typeof logEnabled === 'boolean' && logEnabled === true) ||
+                (typeof logEnabled === 'object' && logEnabled?.request === true)
+            ) {
+                const data = {
+                    meta: 'NATS_REQUEST',
+                    subject: subject,
+                    request: payload,
+                    requestHeaders: options?.headers,
+                    response: decodedMessage,
+                    options,
+                }
+
+                const logMessage = this.config.debugLog?.prettify
+                    ? JSON.stringify(data, null, 2)
+                    : JSON.stringify(data)
+
+                this.logger.debug(logMessage)
+            }
+
             return {
                 subject,
                 headers: msg.headers,
-                data: decodeMessage(msg.data) as K,
+                data: decodedMessage,
             }
         } catch (error) {
             if (error?.code === ErrorCode.NoResponders) {
