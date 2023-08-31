@@ -21,7 +21,7 @@
     "@actions/exec": "^1.1.1",
     "@apollo/gateway": "^2.5.1",
     "@apollo/server": "^4.7.5",
-    "@apollo/subgraph": "^2.4.9",
+    "@apollo/subgraph": "^2.5.4",
     "@golevelup/nestjs-discovery": "^3.0.1",
     "@nestjs/apollo": "^11.0.4",
     "@nestjs/common": "9.4.3",
