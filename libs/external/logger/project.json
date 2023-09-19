@@ -12,7 +12,8 @@
         "outputPath": "dist/libs/external/logger",
         "main": "libs/external/logger/src/index.ts",
         "tsConfig": "libs/external/logger/tsconfig.lib.json",
-        "assets": ["libs/external/logger/*.md"]
+        "assets": ["libs/external/logger/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     },
     "publish": {
