@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.0.0](https://github.com/temarusanov/workspace/compare/nats-0.5.0...nats-1.0.0) (2023-09-19)
+
+
+### Features
+
+* migrate to nestjs 10 ([ea6f499](https://github.com/temarusanov/workspace/commit/ea6f499e9deea328d779aa27118d07475ea5ec49))
+
+
+### BREAKING CHANGES
+
+* migrate to nestjs v10
+
+
+
 # [0.5.0](https://github.com/temarusanov/nx/compare/nats-0.4.0...nats-0.5.0) (2023-08-17)
 
 
