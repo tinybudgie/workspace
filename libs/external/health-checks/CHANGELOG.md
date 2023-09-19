@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.0.0](https://github.com/temarusanov/workspace/compare/health-checks-1.0.0...health-checks-2.0.0) (2023-09-19)
+
+
+### Features
+
+* migrate to nestjs 10 ([f34d7f1](https://github.com/temarusanov/workspace/commit/f34d7f1291752f800739e2a3686857f965849585))
+
+
+### BREAKING CHANGES
+
+* migrate to nestjs v10
+
+
+
 # [1.0.0](https://github.com/temarusanov/nx/compare/health-checks-0.3.0...health-checks-1.0.0) (2023-07-25)
 
 
