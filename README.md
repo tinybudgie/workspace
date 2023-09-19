@@ -32,7 +32,7 @@ Checkout documentation: https://temarusanov.github.io/dev-notes/workspace/gettin
 
 ### Others
 
-- [ ] Update NestJS to 10 (wait for golevelup/discovery bump)
+- [x] Update NestJS to 10 (wait for golevelup/discovery bump)
 - [ ] Jest coverage bug [#13576](https://github.com/jestjs/jest/issues/13576)
 - [ ] Localization
 - [ ] GraphQL format error
