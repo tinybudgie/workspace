@@ -12,7 +12,8 @@
         "outputPath": "dist/libs/external/health-checks",
         "main": "libs/external/health-checks/src/index.ts",
         "tsConfig": "libs/external/health-checks/tsconfig.lib.json",
-        "assets": ["libs/external/health-checks/*.md"]
+        "assets": ["libs/external/health-checks/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     },
     "publish": {
