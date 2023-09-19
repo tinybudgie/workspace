@@ -12,7 +12,8 @@
         "outputPath": "dist/libs/external/nats",
         "main": "libs/external/nats/src/index.ts",
         "tsConfig": "libs/external/nats/tsconfig.lib.json",
-        "assets": ["libs/external/nats/*.md"]
+        "assets": ["libs/external/nats/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     },
     "publish": {
