@@ -26,7 +26,7 @@
     },
     "lint": {
       "dependsOn": ["^prisma:generate"],
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+      "inputs": ["default", "{workspaceRoot}/eslint.config.js"]
     },
     "prisma:generate": {
       "inputs": ["{projectRoot}/**/schema.prisma"]
@@ -40,7 +40,8 @@
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s",
       "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/src/test-setup.[jt]s"
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/eslint.config.js"
     ],
     "sharedGlobals": []
   },
