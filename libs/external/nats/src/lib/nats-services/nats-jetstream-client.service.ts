@@ -38,8 +38,11 @@ export class NatsJetStreamClientService {
         subject: string,
         payload?: T,
         options?: PublishOptions,
+        connectionName?: string,
     ): Promise<PubAck> {
-        const js = this.natsConnection.getNatsConnection().jetstream()
+        const js = this.natsConnection
+            .getNatsConnection(connectionName)
+            .connection.jetstream()
 
         const encodedPayload: Payload = encodeMessage(payload)
 
@@ -77,8 +80,11 @@ export class NatsJetStreamClientService {
     /**
      * Create or **update** stream. Set `autoupdate` flag to false, if you dont want to update stream
      */
-    async createStream(options: CreateStream): Promise<StreamInfo> {
-        const jsm = await this.jsm()
+    async createStream(
+        options: CreateStream,
+        connectionName?: string,
+    ): Promise<StreamInfo> {
+        const jsm = await this.jsm(connectionName)
 
         try {
             return await jsm.streams.add(options)
@@ -99,14 +105,18 @@ export class NatsJetStreamClientService {
     async updateStream(
         name: string,
         options: Partial<StreamUpdateConfig>,
+        connectionName?: string,
     ): Promise<StreamInfo> {
-        const jsm = await this.jsm()
+        const jsm = await this.jsm(connectionName)
 
         return await jsm.streams.update(name, options)
     }
 
-    async deleteStream(name: string): Promise<boolean> {
-        const jsm = await this.jsm()
+    async deleteStream(
+        name: string,
+        connectionName?: string,
+    ): Promise<boolean> {
+        const jsm = await this.jsm(connectionName)
 
         return await jsm.streams.delete(name)
     }
@@ -114,8 +124,9 @@ export class NatsJetStreamClientService {
     async streamInfo(
         stream: string,
         options?: Partial<StreamInfoRequestOptions>,
+        connectionName?: string,
     ): Promise<StreamInfo> {
-        const jsm = await this.jsm()
+        const jsm = await this.jsm(connectionName)
 
         return await jsm.streams.info(stream, options)
     }
@@ -124,8 +135,11 @@ export class NatsJetStreamClientService {
         stream: string,
         consumerName?: string,
         options?: ConsumeOptions,
+        connectionName?: string,
     ) {
-        const js = this.natsConnection.getNatsConnection().jetstream()
+        const js = this.natsConnection
+            .getNatsConnection(connectionName)
+            .connection.jetstream()
 
         const consumer = await js.consumers.get(stream, consumerName)
 
@@ -139,8 +153,9 @@ export class NatsJetStreamClientService {
     async createConsumer(
         stream: string,
         options: Partial<ConsumerConfig>,
+        connectionName?: string,
     ): Promise<ConsumerInfo> {
-        const jsm = await this.jsm()
+        const jsm = await this.jsm(connectionName)
 
         return await jsm.consumers.add(stream, options)
     }
@@ -149,14 +164,19 @@ export class NatsJetStreamClientService {
         stream: string,
         durable: string,
         options: Partial<ConsumerUpdateConfig>,
+        connectionName?: string,
     ): Promise<ConsumerInfo> {
-        const jsm = await this.jsm()
+        const jsm = await this.jsm(connectionName)
 
         return await jsm.consumers.update(stream, durable, options)
     }
 
-    async deleteConsumer(stream: string, consumer: string): Promise<boolean> {
-        const jsm = await this.jsm()
+    async deleteConsumer(
+        stream: string,
+        consumer: string,
+        connectionName?: string,
+    ): Promise<boolean> {
+        const jsm = await this.jsm(connectionName)
 
         return await jsm.consumers.delete(stream, consumer)
     }
@@ -164,21 +184,27 @@ export class NatsJetStreamClientService {
     async consumerInfo(
         stream: string,
         consumer: string,
+        connectionName?: string,
     ): Promise<ConsumerInfo> {
-        const jsm = await this.jsm()
+        const jsm = await this.jsm(connectionName)
 
         return await jsm.consumers.info(stream, consumer)
     }
 
-    async jsm() {
-        if (!this.config.enableJetstream) {
+    async jsm(connectionName?: string) {
+        const natsConnection =
+            this.natsConnection.getNatsConnection(connectionName)
+
+        if (!natsConnection.options.enableJetstream === false) {
             throw new Error(
                 NATS_ERROR_TITLES[NatsErrorsEnum.JetStreamNotEnabledConfig],
             )
         }
 
         try {
-            const jsm = await this.natsConnection.getJetStreamManager()
+            const jsm = await this.natsConnection.getJetStreamManager({
+                connectionName,
+            })
 
             return jsm
         } catch (error) {

@@ -1,12 +1,16 @@
 import {
     ConsumeOptions as NatsConsumeOptions,
     ConsumerConfig,
+    JetStreamOptions,
     JetStreamPublishOptions,
     MsgHdrs,
+    NatsConnection,
     RequestOptions as NatsRequestOptions,
     StreamConfig,
     SubscriptionOptions as NatsSubscriptionOptions,
 } from 'nats'
+
+import { NatsConnectionConfig } from '../nats-configs/nats-module.config'
 
 export interface NatsResponse<T> {
     subject: string
@@ -21,6 +25,17 @@ export interface RequestOptions
     timeout?: number
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     headers: Record<string, string>
+}
+
+export interface NatsConnectionObject {
+    name: string
+    options: NatsConnectionConfig
+    connection: NatsConnection
+}
+
+export interface GetJetStreamManagerOptions {
+    connectionName?: string
+    options?: JetStreamOptions
 }
 
 export interface PublishOptions
@@ -84,6 +99,7 @@ export interface ConsumerAcks {
 }
 
 export interface ConsumeOptions {
+    connectionName?: string
     stream: string
     consumer: Partial<ConsumerConfig>
     options?: Omit<NatsConsumeOptions, 'callback'>

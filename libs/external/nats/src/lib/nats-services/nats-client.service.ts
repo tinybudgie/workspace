@@ -29,8 +29,10 @@ export class NatsClientService {
         subject: string,
         payload?: T,
         options?: RequestOptions,
+        connectionName?: string,
     ): Promise<NatsResponse<K>> {
-        const nc = this.natsConnection.getNatsConnection()
+        const nc =
+            this.natsConnection.getNatsConnection(connectionName).connection
 
         const encodedPayload: Payload = encodeMessage(payload)
 
@@ -103,8 +105,10 @@ export class NatsClientService {
     async reply(
         subject: string,
         options?: SubscriptionOptions,
+        connectionName?: string,
     ): Promise<Subscription> {
-        const nc = this.natsConnection.getNatsConnection()
+        const nc =
+            this.natsConnection.getNatsConnection(connectionName).connection
 
         const subscription = nc.subscribe(subject, options)
         this.logger.log(`Mapped {${subject}, NATS} route`)

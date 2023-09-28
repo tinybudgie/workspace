@@ -13,17 +13,38 @@ export class NatsConnectionHealthIndicator {
     @HealthIndicator('nats')
     async isHealthy(): Promise<HealthIndicatorResult> {
         try {
-            const status = this.natsConnection.status()
+            const allConnections = this.natsConnection.getAllConnections()
+            let allConnected = true
+            const details: Record<string, any> = []
 
-            if (status.connected) {
+            for (const connection of allConnections) {
+                const status = this.natsConnection.status(connection.name)
+
+                if (!status.connected) {
+                    allConnected = false
+                    details.push({
+                        connectionName: connection.name,
+                        connected: false,
+                        error: status.error,
+                    })
+                } else {
+                    details.push({
+                        connectionName: connection.name,
+                        connected: true,
+                    })
+                }
+            }
+
+            if (allConnected) {
                 return {
                     status: 'up',
+                    details,
                 }
             }
 
             return {
                 status: 'down',
-                error: status.error,
+                details,
             }
         } catch (error) {
             return {

@@ -4,6 +4,7 @@ export enum NatsErrorsEnum {
     NoConnection = 'NATS-002',
     JetStreamNotEnabled = 'NATS-003',
     JetStreamNotEnabledConfig = 'NATS-004',
+    UnknownConnectionName = 'NATS-005',
 }
 
 export const NATS_ERROR_TITLES = {
@@ -12,4 +13,5 @@ export const NATS_ERROR_TITLES = {
     [NatsErrorsEnum.NoConnection]: `No connection established to NATS`,
     [NatsErrorsEnum.JetStreamNotEnabled]: `JetStream not enabled. Please provide '--jetstream' option to your nats server`,
     [NatsErrorsEnum.JetStreamNotEnabledConfig]: `JetStream not enabled. Please provide 'enableJetStream: true' option to your nats module config`,
+    [NatsErrorsEnum.UnknownConnectionName]: `Provide connection name if you use multiple NATS connections`,
 }

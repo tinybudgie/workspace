@@ -8,3 +8,5 @@ export const CONSUME_ARGS_METADATA = 'nats.consume.args.metadata'
 export const CONSUME_PAYLOAD_TYPE = 3
 export const CONSUME_HEADER_TYPE = 4
 export const CONSUME_ACK_TYPE = 5
+
+export const DEFAULT_CONNECTION_NAME = 'nats-default-connection'

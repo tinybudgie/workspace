@@ -2,16 +2,25 @@ import { ConfigurableModuleBuilder } from '@nestjs/common'
 import { merge } from 'lodash'
 import { ConnectionOptions } from 'nats'
 
-export interface NatsConfig extends ConnectionOptions {
+export interface NatsConnectionConfig extends ConnectionOptions {
+    /**
+     * Connection name, provide it if you want to support different NATS connection (NOT clusters)
+     */
+    connectionName?: string
+
     /**
      * @default: true
      */
     enableJetstream?: boolean
+}
+
+export interface NatsConfig {
+    connections: NatsConnectionConfig[]
 
     /**
      * When set to `true` the client will print protocol messages that it receives
      * or sends to the server using NestJS logger. If you want to debug logs from `nats.io` directly
-     * use `debug: true`
+     * use `debug: true` in `NatsConnectionConfig`
      */
     debugLog?: {
         enable:
@@ -26,11 +35,7 @@ export interface NatsConfig extends ConnectionOptions {
     }
 }
 
-export const DEFAULT_NATS_CONFIG: Pick<
-    NatsConfig,
-    'enableJetstream' | 'debugLog'
-> = {
-    enableJetstream: true,
+export const DEFAULT_NATS_CONFIG: Pick<NatsConfig, 'debugLog'> = {
     debugLog: {
         enable: false,
     },
