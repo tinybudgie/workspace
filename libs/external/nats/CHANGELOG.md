@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.1.0](https://github.com/temarusanov/workspace/compare/nats-1.0.0...nats-1.1.0) (2023-09-30)
+
+
+### Features
+
+* add eslint @nx/dependency-checks rule ([52f91f0](https://github.com/temarusanov/workspace/commit/52f91f0649b91467ed08630cbb2516dd8411fe78))
+* add multiconnection ([019ee30](https://github.com/temarusanov/workspace/commit/019ee302a8dddc12d47667b5ae776be7dd6b1a99))
+
+
+
 # [1.0.0](https://github.com/temarusanov/workspace/compare/nats-0.5.0...nats-1.0.0) (2023-09-19)
 
 
