@@ -75,7 +75,7 @@
     "@tematools/schematics": "^1.1.1",
     "@types/jest": "29.5.5",
     "@types/node": "20.6.2",
-    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/eslint-plugin": "6.7.3",
     "@typescript-eslint/parser": "5.62.0",
     "eslint": "8.46.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
