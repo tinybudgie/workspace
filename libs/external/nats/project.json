@@ -29,7 +29,10 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/external/nats/**/*.ts", "libs/external/nats/package.json"]
+        "lintFilePatterns": [
+          "libs/external/nats/**/*.ts",
+          "libs/external/nats/package.json"
+        ]
       }
     },
     "test": {

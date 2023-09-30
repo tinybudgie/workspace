@@ -29,7 +29,10 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/external/health-checks/**/*.ts", "libs/external/health-checks/package.json"]
+        "lintFilePatterns": [
+          "libs/external/health-checks/**/*.ts",
+          "libs/external/health-checks/package.json"
+        ]
       }
     },
     "test": {
