@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.1](https://github.com/temarusanov/workspace/compare/logger-0.2.0...logger-0.2.1) (2023-09-30)
+
+
+
 # [0.2.0](https://github.com/temarusanov/workspace/compare/logger-0.1.1...logger-0.2.0) (2023-09-30)
 
 
