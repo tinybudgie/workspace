@@ -12,8 +12,7 @@
         "outputPath": "dist/libs/external/nats",
         "main": "libs/external/nats/src/index.ts",
         "tsConfig": "libs/external/nats/tsconfig.lib.json",
-        "assets": ["libs/external/nats/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/external/nats/*.md"]
       }
     },
     "publish": {
@@ -30,7 +29,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/external/nats/**/*.ts"]
+        "lintFilePatterns": ["libs/external/nats/**/*.ts", "libs/external/nats/package.json"]
       }
     },
     "test": {

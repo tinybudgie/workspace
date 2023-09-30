@@ -34,8 +34,7 @@
             "glob": "executors.json",
             "output": "."
           }
-        ],
-        "updateBuildableProjectDepsInPackageJson": true
+        ]
       }
     },
     "publish": {
@@ -56,6 +55,7 @@
           "libs/external/schematics/**/*.ts",
           "libs/external/schematics/generators.json",
           "libs/external/schematics/executors.json",
+          "libs/external/schematics/package.json",
           "libs/external/schematics/package.json"
         ]
       }
