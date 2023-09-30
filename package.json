@@ -33,7 +33,7 @@
     "@tematools/eventloop-frozen-detector": "^0.3.1",
     "@tematools/health-checks": "^2.0.0",
     "@tematools/logger": "^0.1.1",
-    "@tematools/nats": "^1.0.0",
+    "@tematools/nats": "^1.1.0",
     "axios": "^1.5.0",
     "bcrypt": "^5.1.1",
     "chalk": "^4.1.2",

@@ -18,7 +18,11 @@ import { SampleModule } from 'sample'
             delay: 3000,
         }),
         NatsModule.forRoot({
-            servers: env.get('NATS_URL').required().asString(),
+            connections: [
+                {
+                    servers: env.get('NATS_URL').required().asString(),
+                },
+            ],
         }),
         GraphQLModule.forRoot<ApolloFederationDriverConfig>({
             driver: ApolloFederationDriver,
