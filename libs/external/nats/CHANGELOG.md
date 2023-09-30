@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.1](https://github.com/temarusanov/workspace/compare/nats-1.1.0...nats-1.1.1) (2023-09-30)
+
+
+
 # [1.1.0](https://github.com/temarusanov/workspace/compare/nats-1.0.0...nats-1.1.0) (2023-09-30)
 
 

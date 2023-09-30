@@ -1,6 +1,6 @@
 {
   "name": "@tematools/nats",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "dependencies": {
     "@golevelup/nestjs-discovery": "4.0.0",
     "@nestjs/common": "10.2.5",
