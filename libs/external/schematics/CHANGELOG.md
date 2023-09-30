@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.1](https://github.com/temarusanov/workspace/compare/schematics-1.1.0...schematics-1.1.1) (2023-09-30)
+
+
+
 # [1.1.0](https://github.com/temarusanov/workspace/compare/schematics-1.0.1...schematics-1.1.0) (2023-09-30)
 
 
