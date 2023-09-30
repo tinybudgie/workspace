@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.1.1](https://github.com/temarusanov/workspace/compare/health-checks-2.1.0...health-checks-2.1.1) (2023-09-30)
+
+
+
 # [2.1.0](https://github.com/temarusanov/workspace/compare/health-checks-2.0.0...health-checks-2.1.0) (2023-09-30)
 
 
