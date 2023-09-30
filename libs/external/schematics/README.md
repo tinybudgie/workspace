@@ -1,11 +1,3 @@
-# schematics
+# Schematics
 
-This library was generated with [Nx](https://nx.dev).
-
-## Building
-
-Run `nx build schematics` to build the library.
-
-## Running unit tests
-
-Run `nx test schematics` to execute the unit tests via [Jest](https://jestjs.io).
+Library contains utils to generate and execute commands working with [Workspace](https://temarusanov.github.io/dev-notes/workspace)

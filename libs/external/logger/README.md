@@ -1,11 +1,12 @@
-# logger
+# Logger
 
-This library was generated with [Nx](https://nx.dev).
+Imagine a large application in which there is active development and something constantly needs to be debugged. The developers cover everything with debug logs and all this deploys to the server. Due to the huge number of logs, it is impossible to find the log you need. Developers remove all debug logs. After a lot of logs have been removed, a bug appears in production, but now there are no logs.
 
-## Building
+How to find a balance between logs, and turn on only necessary logs?
 
-Run `nx build logger` to build the library.
+```bash
+npm i --save @tematools/logger
+```
 
-## Running unit tests
+[Documentation](https://temarusanov.github.io/dev-notes/workspace/techniques/logging)
 
-Run `nx test logger` to execute the unit tests via [Jest](https://jestjs.io).
