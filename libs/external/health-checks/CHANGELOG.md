@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.1.0](https://github.com/temarusanov/workspace/compare/health-checks-2.0.0...health-checks-2.1.0) (2023-09-30)
+
+
+### Features
+
+* add eslint @nx/dependency-checks rule ([52f91f0](https://github.com/temarusanov/workspace/commit/52f91f0649b91467ed08630cbb2516dd8411fe78))
+
+
+
 # [2.0.0](https://github.com/temarusanov/workspace/compare/health-checks-1.0.0...health-checks-2.0.0) (2023-09-19)
 
 
