@@ -1,7 +1,7 @@
 import { extractLayoutDirectory, Tree } from '@nx/devkit'
 import { getWorkspaceLayout, joinPathFragments, names } from '@nx/devkit'
+import { Linter } from '@nx/eslint'
 import type { LibraryGeneratorSchema as JsLibraryGeneratorSchema } from '@nx/js/src/utils/schema'
-import { Linter } from '@nx/linter'
 
 import type { LibraryGeneratorOptions, NormalizedOptions } from '../schema'
 
@@ -13,7 +13,7 @@ export function normalizeOptions(
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         options.directory!,
     )
-    const { libsDir: defaultLibsDir, npmScope } = getWorkspaceLayout(tree)
+    const { libsDir: defaultLibsDir } = getWorkspaceLayout(tree)
     const libsDir = layoutDirectory ?? defaultLibsDir
     const name = names(options.name).fileName
     const fullProjectDirectory = projectDirectory
@@ -35,7 +35,7 @@ export function normalizeOptions(
         global: options.global ?? false,
         linter: options.linter ?? Linter.EsLint,
         parsedTags,
-        prefix: npmScope, // we could also allow customizing this
+        prefix: '', // we could also allow customizing this
         projectDirectory: fullProjectDirectory,
         projectName,
         projectRoot,

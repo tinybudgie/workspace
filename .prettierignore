@@ -11,3 +11,4 @@
 *.gql
 
 *.md
+/.nx/cache

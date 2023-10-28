@@ -1,35 +1,26 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e",
-          "prisma:generate",
-          "container"
-        ],
-        "accessToken": "OWQ4ZDdhNjYtOTIwMi00MTU3LTkxZGEtMjY2ZDhlMTZiMGQxfHJlYWQtd3JpdGU="
-      }
-    }
-  },
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "inputs": ["production", "^production"],
+      "cache": true
     },
     "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "cache": true
     },
     "lint": {
       "dependsOn": ["^prisma:generate"],
-      "inputs": ["default", "{workspaceRoot}/eslint.config.js"]
+      "inputs": ["default", "{workspaceRoot}/eslint.config.js"],
+      "cache": true
     },
     "prisma:generate": {
-      "inputs": ["{projectRoot}/**/schema.prisma"]
+      "inputs": ["{projectRoot}/**/schema.prisma"],
+      "cache": true
+    },
+    "e2e": {
+      "cache": true
     }
   },
   "namedInputs": {
@@ -45,5 +36,6 @@
     ],
     "sharedGlobals": []
   },
-  "defaultProject": "api"
+  "defaultProject": "api",
+  "nxCloudAccessToken": "OWQ4ZDdhNjYtOTIwMi00MTU3LTkxZGEtMjY2ZDhlMTZiMGQxfHJlYWQtd3JpdGU="
 }

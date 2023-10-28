@@ -45,3 +45,5 @@ Thumbs.db
 .docusaurus/
 .cache-loader/
 .history
+
+.nx/cache
