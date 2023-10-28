@@ -1,0 +1,7 @@
+---
+postgres_user: postgres
+postgres_password: postgres
+postgres_db: postgres
+postgres_volume: /mnt/db/postgres:/var/lib/postgresql/data
+
+gitlab_runner_name: stable-api

@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "nats-exporter"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["prometheus-nats-exporter:7777"]
+
+    

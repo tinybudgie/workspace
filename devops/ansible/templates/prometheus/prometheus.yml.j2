@@ -1,0 +1,22 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "nats-exporter"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["{{ hostvars['metrics_server']['ansible_host'] }}:8223"]
+  
+  - job_name: "api-node-exporter"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['{{ hostvars['dev_api']['ansible_host'] }}:9100']
+        labels:
+          app_name: api-dev
+      - targets: ['{{ hostvars['stable_api']['ansible_host'] }}:9100']
+        labels:
+          app_name: api-stable
+      - targets: ['{{ hostvars['prod_api']['ansible_host'] }}:9100']
+        labels:
+          app_name: api-prod
+    

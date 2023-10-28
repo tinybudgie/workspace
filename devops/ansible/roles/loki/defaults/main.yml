@@ -1,0 +1,11 @@
+---
+loki__container_name: loki
+loki__image: grafana/loki:latest
+loki__network_mode:
+loki__networks: []
+loki__remove_existing_container: yes
+loki__env:
+loki__ports:
+  - "3100:3100"
+loki__restart_policy: always
+loki__config_template: local-config.yaml.j2

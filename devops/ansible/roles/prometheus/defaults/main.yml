@@ -1,0 +1,11 @@
+---
+prometheus__container_name: prometheus
+prometheus__image: prom/prometheus:latest
+prometheus__network_mode:
+prometheus__networks: []
+prometheus__remove_existing_container: yes
+prometheus__env:
+prometheus__ports:
+  - "9090:9090"
+prometheus__restart_policy: always
+prometheus__template: prometheus.yml.j2

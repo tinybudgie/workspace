@@ -1,0 +1,38 @@
+---
+- name: prepare metrics
+  hosts: metrics
+  gather_facts: true
+  become: true
+  vars:
+    docker_network: workspace
+  roles:
+    - role: geerlingguy.docker
+      docker_users: ["ubuntu"]
+
+    - role: create_docker_network
+
+    - role: grafana
+      grafana__networks: 
+        - name:  "{{ docker_network }}" 
+      grafana__remove_existing_container: yes
+      grafana__ports: 
+        - 3050:3000
+      grafana__config_template: "{{ playbook_dir }}/templates/grafana/config.ini.j2"
+      grafana__datasource_template: "{{ playbook_dir }}/templates/grafana/datasource.yml.j2"
+      grafana__dashboards_template: "{{ playbook_dir }}/templates/grafana/dashboards.yaml.j2"
+      grafana__dashboards_dir_source: "{{ playbook_dir }}/templates/grafana/dashboards"
+
+    - role: prometheus
+      prometheus__networks: 
+        - name:  "{{ docker_network }}" 
+      prometheus__remove_existing_container: yes
+      prometheus__template: "{{ playbook_dir }}/templates/prometheus/prometheus.yml.j2"
+    
+    - role: loki
+      loki__networks: 
+        - name:  "{{ docker_network }}" 
+      loki__remove_existing_container: yes
+      loki__ports:
+       - 3100:3100
+      loki__config_template: "{{ playbook_dir }}/templates/loki/local-config.yaml.j2"
+

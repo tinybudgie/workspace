@@ -15,3 +15,11 @@ services:
       - workspace
     env_file:
       - ./../../.env
+    logging: 
+      driver: loki
+      options:
+        loki-url: "${GRAFANA_LOKI_URL}/loki/api/v1/push"
+        loki-retries: "1"
+        max-file: "1"
+        max-size: "500m"
+

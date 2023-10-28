@@ -1,6 +1,7 @@
 ---
 - name: start local
   hosts: local
+  become: yes
   gather_facts: false
   vars:
     docker_network: workspace
@@ -10,16 +11,38 @@
     - role: start_docker
       container_name: nats
       image: nats:latest
-      command: "--jetstream --store_dir /data/nats-server/"
+      command: "--jetstream --store_dir /data/nats-server/ -m 8222"
       volumes:
-        - "/var/lib/nats:/data/nats-server/jetstream"
+        - "/mnt/nats:/data/nats-server/jetstream"
       networks: 
         - name:  "{{ docker_network }}" 
-      remove_existing_container: no
+      remove_existing_container: yes
       ports: 
         - 4222:4222
         - 6222:6222
         - 8222:8222
+
+    - role: start_docker
+      container_name: prometheus-nats-exporter
+      image: natsio/prometheus-nats-exporter:latest
+      networks: 
+        - name:  "{{ docker_network }}" 
+      remove_existing_container: yes
+      entrypoint:
+        - /prometheus-nats-exporter
+        - -varz
+        - -channelz
+        - -connz
+        - -healthz
+        - -leafz
+        - -routez
+        - -serverz
+        - -subz
+        - -gatewayz
+        - -jsz=all
+        - "http://nats:8222/"
+      ports: 
+        - 8223:7777   
 
     - role: start_docker
       container_name: postgres
@@ -35,3 +58,28 @@
         - "/var/lib/postgres:/var/lib/postgresql/data"
       ports: 
         - 5432:5432
+
+    - role: grafana
+      grafana__networks: 
+        - name:  "{{ docker_network }}" 
+      grafana__remove_existing_container: yes
+      grafana__ports: 
+        - 3050:3000
+      grafana__config_template: "{{ playbook_dir }}/templates/grafana/config.ini.j2"
+      grafana__datasource_template: "{{ playbook_dir }}/templates/grafana/datasource.yml.j2"
+      grafana__dashboards_template: "{{ playbook_dir }}/templates/grafana/dashboards.yaml.j2"
+      grafana__dashboards_dir_source: "{{ playbook_dir }}/templates/grafana/dashboards"
+
+    - role: prometheus
+      prometheus__networks: 
+        - name:  "{{ docker_network }}" 
+      prometheus__remove_existing_container: yes
+      prometheus__template: "{{ playbook_dir }}/templates/prometheus/prometheus-local.yml.j2"
+    
+    - role: loki
+      loki__networks: 
+        - name:  "{{ docker_network }}" 
+      loki__remove_existing_container: yes
+      loki__ports:
+       - 3100:3100
+      loki__config_template: "{{ playbook_dir }}/templates/loki/local-config.yaml.j2"

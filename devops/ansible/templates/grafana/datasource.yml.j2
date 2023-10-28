@@ -1,0 +1,26 @@
+apiVersion: 1
+
+deleteDatasources:
+  - name: Prometheus
+
+datasources:
+- name: Prometheus
+  type: prometheus
+  uid: a32852b7-4486-41a1-972e-6d7b39c89f8b
+  access: proxy
+  orgId: 1
+  url: http://prometheus:9090
+  basicAuth: false
+  isDefault: true
+  version: 1
+  editable: true
+
+- name: Loki
+  type: loki
+  uid: d04c6fd4-69e2-4b47-bf85-25d56416e457
+  access: proxy
+  orgId: 1
+  url: http://loki:3100
+  basicAuth: false
+  version: 1
+  editable: true
