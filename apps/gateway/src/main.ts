@@ -8,6 +8,10 @@ import { AppModule } from './app/app.module'
 
 const logger = new Logger()
 
+logger.configure({
+    json: env.get('LOGGING_JSON').asBool(),
+})
+
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, { logger })
 

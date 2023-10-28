@@ -137,5 +137,6 @@ Deploy api:
     - cp $API_ENV ./.env
     - docker-compose --env-file ./.env -f devops/gitlab/api.docker-compose.yaml pull
     - docker-compose --env-file ./.env -f devops/gitlab/api.docker-compose.yaml stop api || true
+    - npx nx run sample:prisma:migrate:deploy --replaceUrlEnv.from "SAMPLE_DATABASE_URL" --replaceUrlEnv.to "SAMPLE_MIGRATION_DATABASE_URL"
     - docker-compose --env-file ./.env -f devops/gitlab/api.docker-compose.yaml up -d
     - docker rmi $(docker images --filter "dangling=true" -q --no-trunc) || true
