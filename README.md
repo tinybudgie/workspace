@@ -20,6 +20,12 @@ This is a customized workspace using [NestJS](https://docs.nestjs.com/), orchest
 
 Checkout documentation: https://temarusanov.github.io/dev-notes/workspace/getting-started
 
+## Installation
+
+```bash
+npx @tematools/create-workspace my-project
+```
+
 ## TODO:
 
 ### Nats

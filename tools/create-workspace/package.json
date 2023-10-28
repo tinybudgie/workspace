@@ -1,0 +1,12 @@
+{
+    "name": "@tematools/create-workspace",
+    "version": "0.0.2",
+    "type": "module",
+    "bin": "./bin.js",
+    "dependencies": {
+        "hosted-git-info": "^4.0.0",
+        "mri": "^1.1.4",
+        "tar": "^6.0.0",
+        "chalk": "^4.1.2"
+    }
+}
