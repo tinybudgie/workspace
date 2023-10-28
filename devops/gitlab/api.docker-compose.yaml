@@ -1,0 +1,17 @@
+version: '3'
+
+networks:
+  workspace:
+    external: true
+
+services:
+  api:
+    image: ${CI_REGISTRY_IMAGE}/api:${VERSION}
+    container_name: api
+    restart: always
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - workspace
+    env_file:
+      - ./../../.env

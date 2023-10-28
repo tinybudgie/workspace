@@ -1,0 +1,141 @@
+stages:
+  - "build"
+  - "release"
+  - "package"
+  - "deploy"
+
+.dte-agent:
+  interruptible: true
+  variables:
+    CI: "true"
+    CI_CONTEXT_FALLBACK_TO_LOCAL: "true"
+  before_script:
+    - NX_HEAD=$CI_COMMIT_SHA
+    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
+  script:
+    - npm ci
+    - npx nx-cloud start-agent
+
+Build project:
+  stage: build
+  tags:
+    - YOUR-TAG-HERE
+  interruptible: true
+  rules:
+    - if: $CI_COMMIT_BRANCH
+  variables:
+    CI: "true"
+    CI_CONTEXT_FALLBACK_TO_LOCAL: "true"
+  before_script:
+    - NX_HEAD=$CI_COMMIT_SHA
+    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
+  script:
+    - npm ci
+    - npx nx-cloud start-ci-run
+    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t lint build --parallel=3
+      & npx nx affected --base=$NX_BASE --head=$NX_HEAD -t test --parallel=3 --ci --code-coverage
+    - npx nx-cloud stop-all-agents
+
+Nx build Agent 1:
+  extends: .dte-agent
+  stage: build
+  rules:
+    - if: $CI_COMMIT_BRANCH
+  tags:
+    - YOUR-TAG-HERE
+
+Nx build Agent 2:
+  extends: .dte-agent
+  stage: build
+  rules:
+    - if: $CI_COMMIT_BRANCH
+  tags:
+    - YOUR-TAG-HERE
+
+Nx build Agent 3:
+  extends: .dte-agent
+  stage: build
+  rules:
+    - if: $CI_COMMIT_BRANCH
+  tags:
+    - YOUR-TAG-HERE
+
+Release project:
+  stage: release
+  tags:
+    - YOUR-TAG-HERE
+  rules:
+    - if: $CI_COMMIT_BRANCH
+  when: manual
+  allow_failure: false
+  before_script:
+    - apt-get update -y && apt-get install -yqqf openssh-client git unzip sshpass rsync --fix-missing
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )"
+    - eval $(ssh-agent -s)
+    - echo "$DEPLOY_TOKEN" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $CI_SERVER_HOST >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - git config --global user.email "our@email.com"
+    - git config --global user.name "Gitlab Runner"
+    - echo "$CI_JOB_TOKEN" | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - ssh git@$CI_SERVER_HOST
+    - git remote set-url origin git@$CI_SERVER_HOST:$CI_PROJECT_PATH
+  script:
+    - npm ci
+    - npx nx run-many -t version --parallel=1 --baseBranch=HEAD:${CI_COMMIT_BRANCH}
+    - git push origin HEAD:${CI_COMMIT_BRANCH} -o ci.skip
+    - git push origin HEAD:${CI_COMMIT_BRANCH} --follow-tags
+
+Build container:
+  stage: package
+  tags:
+    - YOUR-TAG-HERE
+  rules:
+    - if: $CI_COMMIT_TAG
+  interruptible: false
+  before_script:
+    - echo "$CI_JOB_TOKEN" | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - npm ci
+  script:
+    - APP_NAME=$(echo "$CI_COMMIT_TAG" | sed 's/\([^-]*-[^-]*\)-.*/\1/')
+    - VERSION=$(echo "$CI_COMMIT_TAG" | sed 's/\([^-]*\)-\([^-]*\)-\(.*\)/\3/')
+    - npx nx run $APP_NAME:build
+    - docker buildx build --file "apps/$APP_NAME/Dockerfile" -t $CI_REGISTRY_IMAGE/$APP_NAME:$VERSION --push .
+    - docker rmi $(docker images --filter "dangling=true" -q --no-trunc) || true
+  release:
+    name: "$CI_COMMIT_TAG release"
+    description: "New release of $CI_COMMIT_TAG"
+    tag_name: "$CI_COMMIT_TAG"
+    assets:
+      links:
+        - name: Docker container
+          url: "https://${CI_REGISTRY_IMAGE}/$APP_NAME:${VERSION}"
+
+.deploy-base:
+  stage: deploy
+  interruptible: false
+  before_script:
+    - VERSION=$(echo "$CI_COMMIT_TAG" | sed 's/\([^-]*\)-\([^-]*\)-\(.*\)/\3/')
+    - echo "$CI_JOB_TOKEN" | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+    - export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
+    - nvm install
+    - npm ci
+
+Deploy api:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^api/
+      when: manual
+  tags:
+    - YOUR-TAG-HERE
+  before_script:
+    - echo "$CI_JOB_TOKEN" | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  script:
+    - cp $API_ENV ./.env
+    - docker-compose --env-file ./.env -f devops/gitlab/api.docker-compose.yaml pull
+    - docker-compose --env-file ./.env -f devops/gitlab/api.docker-compose.yaml stop api || true
+    - docker-compose --env-file ./.env -f devops/gitlab/api.docker-compose.yaml up -d
+    - docker rmi $(docker images --filter "dangling=true" -q --no-trunc) || true
