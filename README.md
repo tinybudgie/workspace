@@ -12,9 +12,9 @@ This is a customized workspace using [NestJS](https://docs.nestjs.com/), orchest
 - Gateway application for your GraphQL services
 - Own NestJS library for communication between applications using [NATS](https://nats.io) (full nats support)
 - ESLint rules and Prettier configured
-- Example for Gitlab CI/CD (coming soon)
+- Example for Gitlab CI/CD
 - Store your DevOps code with the entire code of application and manage it easily with Ansible and Terraform (terraform coming soon)
-- Configured metrics with Grafana and Prometheus (coming soon)
+- Configured metrics with Grafana and Prometheus
 
 ## Documentation
 
