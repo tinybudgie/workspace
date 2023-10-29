@@ -5,18 +5,14 @@ import {
 } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
-import { EventloopFrozenDetectorModule } from '@tematools/eventloop-frozen-detector'
-import { HealthChecksModule } from '@tematools/health-checks'
-import { NatsModule } from '@tematools/nats'
+import { HealthChecksModule } from '@tinybudgie/health-checks'
+import { NatsModule } from '@tinybudgie/nats'
 import * as env from 'env-var'
 import { SampleModule } from 'sample'
 
 @Module({
     imports: [
         HealthChecksModule,
-        EventloopFrozenDetectorModule.forRoot({
-            delay: 3000,
-        }),
         NatsModule.forRoot({
             connections: [
                 {

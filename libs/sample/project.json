@@ -26,20 +26,20 @@
       }
     },
     "prisma:generate": {
-      "executor": "@tematools/schematics:prisma-generate",
+      "executor": "@tinybudgie/schematics:prisma-generate",
       "outputs": ["{workspaceRoot}/node_modules/@prisma/sample-client"]
     },
     "prisma:pull": {
-      "executor": "@tematools/schematics:prisma-pull"
+      "executor": "@tinybudgie/schematics:prisma-pull"
     },
     "prisma:migrate:dev": {
-      "executor": "@tematools/schematics:prisma-migrate-dev"
+      "executor": "@tinybudgie/schematics:prisma-migrate-dev"
     },
     "prisma:migrate:deploy": {
-      "executor": "@tematools/schematics:prisma-migrate-deploy"
+      "executor": "@tinybudgie/schematics:prisma-migrate-deploy"
     },
     "prisma:studio": {
-      "executor": "@tematools/schematics:prisma-studio"
+      "executor": "@tinybudgie/schematics:prisma-studio"
     }
   },
   "tags": []

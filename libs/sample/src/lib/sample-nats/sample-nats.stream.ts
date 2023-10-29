@@ -1,5 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common'
-import { NatsJetStreamClientService, PublishOptions } from '@tematools/nats'
+import { NatsJetStreamClientService, PublishOptions } from '@tinybudgie/nats'
 import { PubAck, RetentionPolicy, StorageType } from 'nats'
 
 export enum SampleNatsJetStreamSubjectsEnum {

@@ -3,14 +3,10 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
-import { EventloopFrozenDetectorModule } from '@tematools/eventloop-frozen-detector'
 import * as env from 'env-var'
 
 @Module({
     imports: [
-        EventloopFrozenDetectorModule.forRoot({
-            delay: 3000,
-        }),
         GraphQLModule.forRoot<ApolloGatewayDriverConfig>({
             driver: ApolloGatewayDriver,
             server: {

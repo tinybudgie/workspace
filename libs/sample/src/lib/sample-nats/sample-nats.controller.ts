@@ -6,7 +6,7 @@ import {
     Reply,
     ReplyPayload,
     ReplyResponse,
-} from '@tematools/nats'
+} from '@tinybudgie/nats'
 import { AckPolicy } from 'nats'
 
 import {

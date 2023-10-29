@@ -1,9 +1,0 @@
-{
-  "name": "@tematools/health-checks",
-  "version": "2.1.1",
-  "dependencies": {
-    "@golevelup/nestjs-discovery": "4.0.0",
-    "@nestjs/common": "10.2.7",
-    "@nestjs/core": "10.2.7"
-  }
-}

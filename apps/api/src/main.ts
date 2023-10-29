@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
-import { Logger } from '@tematools/logger'
+import { Logger } from '@tinybudgie/logger'
 import env from 'env-var'
 import { SpelunkerModule } from 'nestjs-spelunker'
 

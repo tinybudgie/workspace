@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import {
     HealthIndicator,
     HealthIndicatorResult,
-} from '@tematools/health-checks'
+} from '@tinybudgie/health-checks'
 
 import { SamplePrismaService } from '../sample-services/sample-prisma.service'
 
