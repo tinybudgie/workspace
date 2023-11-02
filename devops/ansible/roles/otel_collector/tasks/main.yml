@@ -1,0 +1,31 @@
+---
+- name: Remove existing container {{ otel_collector__container_name }}
+  community.docker.docker_container:
+    name: "{{ otel_collector__container_name }}"
+    state: absent
+  when: otel_collector__remove_existing_container
+
+- name: Create a directory /etc/otel-collector if it does not exist
+  ansible.builtin.file:
+    path: /etc/otel-collector
+    state: directory
+    mode: "0755"
+
+- name: Template config to /etc/otel-collector/config.yaml
+  ansible.builtin.template:
+    src: "{{ otel_collector__config_template }}"
+    dest: /etc/otel-collector/config.yaml
+    mode: "0755"
+
+- name: Run container {{ otel_collector__container_name }}
+  community.docker.docker_container:
+    name: "{{ otel_collector__container_name }}"
+    image: "{{ otel_collector__image }}"
+    restart_policy: "{{ otel_collector__restart_policy }}"
+    command: [--config=/etc/config.yaml]
+    volumes:
+      - /etc/otel-collector/config.yaml:/etc/config.yaml
+    network_mode: "{{ otel_collector__network_mode }}"
+    networks: "{{ otel_collector__networks }}"
+    expose: "{{ otel_collector__ports }}"
+    ports: "{{ otel_collector__ports }}"

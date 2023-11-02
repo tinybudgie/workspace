@@ -83,3 +83,15 @@
       loki__ports:
         - 3100:3100
       loki__config_template: "{{ playbook_dir }}/templates/loki/local-config.yaml.j2"
+
+    - role: tempo
+      tempo__networks:
+        - name: "{{ docker_network__name }}"
+      tempo__remove_existing_container: true
+      tempo__config_template: "{{ playbook_dir }}/templates/tempo/tempo.yaml.j2"
+
+    - role: otel_collector
+      otel_collector__networks:
+        - name: "{{ docker_network__name }}"
+      otel_collector__remove_existing_container: true
+      otel_collector__config_template: "{{ playbook_dir }}/templates/otel-collector/config.yaml.j2"

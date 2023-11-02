@@ -1,0 +1,38 @@
+---
+- name: Remove existing container {{ tempo__container_name }}
+  community.docker.docker_container:
+    name: "{{ tempo__container_name }}"
+    state: absent
+  when: tempo__remove_existing_container
+
+- name: Create a directory /etc/tempo if it does not exist
+  ansible.builtin.file:
+    path: /etc/tempo
+    state: directory
+    mode: "0755"
+
+- name: Create a directory if it does not exist {{ tempo__storage_volume }}
+  ansible.builtin.file:
+    path: "{{ tempo__storage_volume }}"
+    state: directory
+    mode: "0755"
+
+- name: Template config to /etc/tempo/tempo.yaml
+  ansible.builtin.template:
+    src: "{{ tempo__config_template }}"
+    dest: /etc/tempo/tempo.yaml
+    mode: "0755"
+
+- name: Run container {{ tempo__container_name }}
+  community.docker.docker_container:
+    name: "{{ tempo__container_name }}"
+    image: "{{ tempo__image }}"
+    restart_policy: "{{ tempo__restart_policy }}"
+    command: [-config.file=/etc/tempo.yaml]
+    volumes:
+      - /etc/tempo/tempo.yaml:/etc/tempo.yaml
+      - "{{ tempo__storage_volume }}:/tmp/tempo"
+    network_mode: "{{ tempo__network_mode }}"
+    networks: "{{ tempo__networks }}"
+    expose: "{{ tempo__ports }}"
+    ports: "{{ tempo__ports }}"

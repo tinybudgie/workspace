@@ -1,0 +1,17 @@
+---
+otel_collector__container_name: otel-collector
+otel_collector__image: otel/opentelemetry-collector:latest
+otel_collector__network_mode:
+otel_collector__networks: []
+otel_collector__remove_existing_container: true
+otel_collector__env:
+otel_collector__ports:
+  - 1888:1888 # pprof extension
+  - 8888:8888 # Prometheus metrics exposed by the collector
+  - 8889:8889 # Prometheus exporter metrics
+  - 13133:13133 # health_check extension
+  - 4317:4317 # OTLP gRPC receiver
+  - 4318:4318 # OTLP HTTP receiver
+  - 55679:55679 # zpages extension
+otel_collector__restart_policy: always
+otel_collector__config_template: config.yaml.j2

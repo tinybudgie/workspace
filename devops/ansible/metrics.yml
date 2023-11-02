@@ -35,3 +35,9 @@
       loki__ports:
         - 3100:3100
       loki__config_template: "{{ playbook_dir }}/templates/loki/local-config.yaml.j2"
+
+    - role: tempo
+      tempo__networks:
+        - name: "{{ docker_network__name }}"
+      tempo__remove_existing_container: true
+      tempo__config_template: "{{ playbook_dir }}/templates/tempo/tempo.yaml.j2"

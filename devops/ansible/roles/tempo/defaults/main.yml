@@ -1,0 +1,13 @@
+---
+tempo__container_name: tempo
+tempo__image: grafana/tempo:latest
+tempo__network_mode:
+tempo__networks: []
+tempo__remove_existing_container: true
+tempo__env:
+tempo__ports:
+  - 3200:3200
+tempo__restart_policy: always
+
+tempo__storage_volume: /etc/tempo/data
+tempo__config_template: config.ini.j2
