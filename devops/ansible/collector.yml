@@ -1,24 +1,21 @@
 ---
-- name: prepare collector
+- name: Prepare collector
   hosts: collector
   gather_facts: true
   become: true
   roles:
     - role: grzegorznowak.nvm_node
-      nvm_node_version: '20.9.0'
+      nvm_node_version: 20.9.0
 
     - role: riemers.ansible-gitlab-runner
       gitlab_runner_coordinator_url: https://gitlab.example.com/
-      gitlab_runner_registration_token: 'registration-token-here'
+      gitlab_runner_registration_token: registration-token-here
       gitlab_runner_runners:
-        - name: 'Shell collector runner'
+        - name: Shell collector runner
           executor: shell
-          docker_image: 'alpine'
+          docker_image: alpine
           tags:
             - workspace-collector
 
     - role: geerlingguy.docker
-      docker_users: ["ubuntu", "gitlab-runner"]
-
-  
-  
+      docker_users: [ubuntu, gitlab-runner]

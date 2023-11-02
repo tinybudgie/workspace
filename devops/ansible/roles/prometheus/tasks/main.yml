@@ -1,6 +1,6 @@
 ---
 - name: Remove existing {{ prometheus__container_name }} container
-  docker_container:
+  community.docker.docker_container:
     name: "{{ prometheus__container_name }}"
     state: absent
   when: prometheus__remove_existing_container
@@ -9,20 +9,20 @@
   ansible.builtin.file:
     path: /etc/prometheus
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Template config to /etc/prometheus/prometheus.yml
   ansible.builtin.template:
     src: "{{ prometheus__template }}"
-    dest: '/etc/prometheus/prometheus.yml'
+    dest: /etc/prometheus/prometheus.yml
 
 - name: Run {{ prometheus__container_name }} container
-  docker_container:
+  community.docker.docker_container:
     name: "{{ prometheus__container_name }}"
     image: "{{ prometheus__image }}"
     restart_policy: "{{ prometheus__restart_policy }}"
-    volumes: 
-      - '/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:rw'
+    volumes:
+      - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:rw
     network_mode: "{{ prometheus__network_mode }}"
     networks: "{{ prometheus__networks }}"
     expose: "{{ prometheus__ports }}"

@@ -3,10 +3,10 @@ grafana__container_name: grafana
 grafana__image: grafana/grafana:latest
 grafana__network_mode:
 grafana__networks: []
-grafana__remove_existing_container: yes
+grafana__remove_existing_container: true
 grafana__env:
 grafana__ports:
-  - "3000:3000"
+  - 3000:3000
 grafana__restart_policy: always
 grafana__config_template: config.ini.j2
 grafana__datasource_template: datasource.yml.j2

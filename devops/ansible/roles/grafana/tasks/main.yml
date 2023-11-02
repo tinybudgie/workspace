@@ -1,6 +1,6 @@
 ---
 - name: Remove existing {{ grafana__container_name }} container
-  docker_container:
+  community.docker.docker_container:
     name: "{{ grafana__container_name }}"
     state: absent
   when: grafana__remove_existing_container
@@ -9,50 +9,50 @@
   ansible.builtin.file:
     path: /etc/grafana
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Create a directory /etc/grafana/dashboards if it does not exist
   ansible.builtin.file:
     path: /etc/grafana/dashboards
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Template config to /etc/grafana/config.ini
   ansible.builtin.template:
     src: "{{ grafana__config_template }}"
-    dest: '/etc/grafana/config.ini'
+    dest: /etc/grafana/config.ini
 
 - name: Template config to /etc/grafana/datasource.yml
   ansible.builtin.template:
     src: "{{ grafana__datasource_template }}"
-    dest: '/etc/grafana/datasource.yml'
+    dest: /etc/grafana/datasource.yml
 
 - name: Template config to /etc/grafana/dashboards.yaml
   ansible.builtin.template:
     src: "{{ grafana__dashboards_template }}"
-    dest: '/etc/grafana/dashboards.yaml'
+    dest: /etc/grafana/dashboards.yaml
 
 - name: Deploy dashboards files
-  copy:
-    dest: '/etc/grafana/dashboards'
+  ansible.builtin.copy:
+    dest: /etc/grafana/dashboards
     src: "{{ grafana__dashboards_dir_source | default('files/dashboards') }}"
     owner: 472
     group: 472
-    mode: 0755
+    mode: "0755"
 
 - name: Run {{ grafana__container_name }} container
-  docker_container:
+  community.docker.docker_container:
     name: "{{ grafana__container_name }}"
     image: "{{ grafana__image }}"
     restart_policy: "{{ grafana__restart_policy }}"
-    volumes: 
-      - '/etc/grafana/config.ini:/etc/grafana/config.ini'
-      - '/etc/grafana:/etc/grafana/provisioning/datasources'
-      - '/etc/grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml'
-      - '/etc/grafana/dashboards:/var/lib/grafana/dashboards'
+    volumes:
+      - /etc/grafana/config.ini:/etc/grafana/config.ini
+      - /etc/grafana:/etc/grafana/provisioning/datasources
+      - /etc/grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
+      - /etc/grafana/dashboards:/var/lib/grafana/dashboards
     network_mode: "{{ grafana__network_mode }}"
     networks: "{{ grafana__networks }}"
     expose: "{{ grafana__ports }}"
     ports: "{{ grafana__ports }}"
-    env: 
-      "GF_PATHS_CONFIG": "/etc/grafana/config.ini"
+    env:
+      GF_PATHS_CONFIG: /etc/grafana/config.ini

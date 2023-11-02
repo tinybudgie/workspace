@@ -1,6 +1,6 @@
 ---
 - name: Remove existing {{ loki__container_name }} container
-  docker_container:
+  community.docker.docker_container:
     name: "{{ loki__container_name }}"
     state: absent
   when: loki__remove_existing_container
@@ -9,23 +9,22 @@
   ansible.builtin.file:
     path: /etc/loki
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Template config to /etc/grafana/dashboards.yaml
   ansible.builtin.template:
     src: "{{ loki__config_template }}"
-    dest: '/etc/loki/local-config.yaml'
+    dest: /etc/loki/local-config.yaml
 
 - name: Run {{ loki__container_name }} container
-  docker_container:
+  community.docker.docker_container:
     name: "{{ loki__container_name }}"
     image: "{{ loki__image }}"
     restart_policy: "{{ loki__restart_policy }}"
-    command: '-config.file=/etc/loki/local-config.yaml'
-    volumes: 
-      - '/etc/loki/local-config.yaml:/etc/loki/local-config.yaml'
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - /etc/loki/local-config.yaml:/etc/loki/local-config.yaml
     network_mode: "{{ loki__network_mode }}"
     networks: "{{ loki__networks }}"
     expose: "{{ loki__ports }}"
     ports: "{{ loki__ports }}"
-

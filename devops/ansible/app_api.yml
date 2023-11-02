@@ -1,6 +1,6 @@
 ---
-- name: prepare application 'api'
-  hosts: 
+- name: Prepare application 'api'
+  hosts:
     - dev
     - stable
     - prod
@@ -10,20 +10,20 @@
     docker_network: workspace
   roles:
     - role: grzegorznowak.nvm_node
-      nvm_node_version: '20.9.0'
+      nvm_node_version: 20.9.0
 
     - role: riemers.ansible-gitlab-runner
       gitlab_runner_coordinator_url: https://gitlab.example.com/
-      gitlab_runner_registration_token: 'registration-token-here'
+      gitlab_runner_registration_token: registration-token-here
       gitlab_runner_runners:
-        - name: 'Shell runner'
+        - name: Shell runner
           executor: shell
-          gitlab_runner_name: 'alpine'
+          gitlab_runner_name: alpine
           tags:
             - "{{ gitlab_runner_name }}"
 
     - role: geerlingguy.docker
-      docker_users: ["ubuntu", "gitlab-runner"]
+      docker_users: [ubuntu, gitlab-runner]
 
     - role: geerlingguy.node_exporter
 
@@ -34,14 +34,14 @@
     - role: start_docker
       container_name: postgres
       image: postgres:15.4
-      networks: 
-        - name:  "{{ docker_network }}" 
-      remove_existing_container: yes
+      networks:
+        - name: "{{ docker_network }}"
+      remove_existing_container: true
       env:
         POSTGRES_USER: "{{ postgres_user }}"
         POSTGRES_PASSWORD: "{{ postgres_password }}"
         POSTGRES_DB: "{{ postgres_db }}"
       volumes:
         - "{{ postgres_volume }}"
-      ports: 
+      ports:
         - 5432:5432

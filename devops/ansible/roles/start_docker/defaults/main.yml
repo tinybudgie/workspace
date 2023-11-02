@@ -1,12 +1,12 @@
 ---
-container_name: 
-image: 
+container_name:
+image:
 network_mode:
 networks: []
-remove_existing_container: yes
+remove_existing_container: true
 env:
 ports:
 command:
 volumes:
-entrypoint: 
+entrypoint:
 restart_policy: always

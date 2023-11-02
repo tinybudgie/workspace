@@ -1,5 +1,5 @@
 ---
-- name: prepare nats
+- name: Prepare nats
   hosts: nats
   gather_facts: false
   become: true
@@ -7,20 +7,20 @@
     docker_network: workspace
   roles:
     - role: geerlingguy.docker
-      docker_users: ["ubuntu"]
+      docker_users: [ubuntu]
 
     - role: create_docker_network
 
     - role: start_docker
       container_name: nats
       image: nats:latest
-      command: "--jetstream --store_dir /data/nats-server/ -m 8222"
+      command: --jetstream --store_dir /data/nats-server/ -m 8222
       volumes:
-        - "/mnt/nats:/data/nats-server/jetstream"
-      networks: 
-        - name:  "{{ docker_network }}" 
-      remove_existing_container: yes
-      ports: 
+        - /mnt/nats:/data/nats-server/jetstream
+      networks:
+        - name: "{{ docker_network }}"
+      remove_existing_container: true
+      ports:
         - 4222:4222
         - 6222:6222
         - 8222:8222
@@ -28,9 +28,9 @@
     - role: start_docker
       container_name: prometheus-nats-exporter
       image: natsio/prometheus-nats-exporter:latest
-      networks: 
-        - name:  "{{ docker_network }}" 
-      remove_existing_container: yes
+      networks:
+        - name: "{{ docker_network }}"
+      remove_existing_container: true
       entrypoint:
         - /prometheus-nats-exporter
         - -varz
@@ -43,8 +43,6 @@
         - -subz
         - -gatewayz
         - -jsz=all
-        - "http://nats:8222/"
-      ports: 
-        - 8223:7777   
-
-  
+        - http://nats:8222/
+      ports:
+        - 8223:7777
