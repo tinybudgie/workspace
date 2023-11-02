@@ -18,7 +18,7 @@ This is a customized workspace using [NestJS](https://docs.nestjs.com/), orchest
 
 ## Documentation
 
-Checkout documentation: https://temarusanov.github.io/dev-notes/workspace/getting-started
+Checkout documentation: https://tinybudgie.github.io/docs/
 
 ## Installation
 
