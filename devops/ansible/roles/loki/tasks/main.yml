@@ -1,5 +1,5 @@
 ---
-- name: Remove existing {{ loki__container_name }} container
+- name: Remove existing container {{ loki__container_name }}
   community.docker.docker_container:
     name: "{{ loki__container_name }}"
     state: absent
@@ -15,8 +15,9 @@
   ansible.builtin.template:
     src: "{{ loki__config_template }}"
     dest: /etc/loki/local-config.yaml
+    mode: "0755"
 
-- name: Run {{ loki__container_name }} container
+- name: Run container {{ loki__container_name }}
   community.docker.docker_container:
     name: "{{ loki__container_name }}"
     image: "{{ loki__image }}"

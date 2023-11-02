@@ -7,7 +7,7 @@
   gather_facts: true
   become: true
   vars:
-    docker_network: workspace
+    docker_network__name: workspace
   roles:
     - role: grzegorznowak.nvm_node
       nvm_node_version: 20.9.0
@@ -27,21 +27,21 @@
 
     - role: geerlingguy.node_exporter
 
-    - role: create_docker_network
+    - role: docker_network
 
     - role: docker_loki_plugin
 
-    - role: start_docker
-      container_name: postgres
-      image: postgres:15.4
-      networks:
-        - name: "{{ docker_network }}"
-      remove_existing_container: true
-      env:
+    - role: docker
+      docker__container_name: postgres
+      docker__image: postgres:15.4
+      docker__networks:
+        - name: "{{ docker_network__name }}"
+      docker__remove_existing_container: true
+      docker__env:
         POSTGRES_USER: "{{ postgres_user }}"
         POSTGRES_PASSWORD: "{{ postgres_password }}"
         POSTGRES_DB: "{{ postgres_db }}"
-      volumes:
+      docker__volumes:
         - "{{ postgres_volume }}"
-      ports:
+      docker__ports:
         - 5432:5432

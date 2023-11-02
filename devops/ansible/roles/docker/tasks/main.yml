@@ -1,0 +1,20 @@
+---
+- name: Remove existing container {{ docker__container_name }}
+  community.docker.docker_container:
+    name: "{{ docker__container_name }}"
+    state: absent
+  when: docker__remove_existing_container
+
+- name: Run container {{ docker__container_name }}
+  community.docker.docker_container:
+    name: "{{ docker__container_name }}"
+    image: "{{ docker__image }}"
+    restart_policy: "{{ docker__restart_policy }}"
+    command: "{{ docker__command }}"
+    volumes: "{{ docker__volumes }}"
+    entrypoint: "{{ docker__entrypoint }}"
+    network_mode: "{{ docker__network_mode }}"
+    networks: "{{ docker__networks }}"
+    expose: "{{ docker__ports }}"
+    ports: "{{ docker__ports }}"
+    env: "{{ docker__env }}"

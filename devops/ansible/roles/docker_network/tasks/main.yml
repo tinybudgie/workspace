@@ -1,0 +1,4 @@
+---
+- name: Create network {{ docker_network__name }}
+  community.docker.docker_network:
+    name: "{{ docker_network__name }}"

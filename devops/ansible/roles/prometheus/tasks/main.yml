@@ -1,5 +1,5 @@
 ---
-- name: Remove existing {{ prometheus__container_name }} container
+- name: Remove existing container {{ prometheus__container_name }}
   community.docker.docker_container:
     name: "{{ prometheus__container_name }}"
     state: absent
@@ -15,8 +15,9 @@
   ansible.builtin.template:
     src: "{{ prometheus__template }}"
     dest: /etc/prometheus/prometheus.yml
+    mode: '0755'
 
-- name: Run {{ prometheus__container_name }} container
+- name: Run container {{ prometheus__container_name }}
   community.docker.docker_container:
     name: "{{ prometheus__container_name }}"
     image: "{{ prometheus__image }}"

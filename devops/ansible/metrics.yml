@@ -4,16 +4,16 @@
   gather_facts: true
   become: true
   vars:
-    docker_network: workspace
+    docker_network__name: workspace
   roles:
     - role: geerlingguy.docker
       docker_users: [ubuntu]
 
-    - role: create_docker_network
+    - role: docker_network
 
     - role: grafana
       grafana__networks:
-        - name: "{{ docker_network }}"
+        - name: "{{ docker_network__name }}"
       grafana__remove_existing_container: true
       grafana__ports:
         - 3050:3000
@@ -24,13 +24,13 @@
 
     - role: prometheus
       prometheus__networks:
-        - name: "{{ docker_network }}"
+        - name: "{{ docker_network__name }}"
       prometheus__remove_existing_container: true
       prometheus__template: "{{ playbook_dir }}/templates/prometheus/prometheus.yml.j2"
 
     - role: loki
       loki__networks:
-        - name: "{{ docker_network }}"
+        - name: "{{ docker_network__name }}"
       loki__remove_existing_container: true
       loki__ports:
         - 3100:3100

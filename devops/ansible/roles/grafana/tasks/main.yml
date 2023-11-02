@@ -1,5 +1,5 @@
 ---
-- name: Remove existing {{ grafana__container_name }} container
+- name: Remove existing container {{ grafana__container_name }}
   community.docker.docker_container:
     name: "{{ grafana__container_name }}"
     state: absent
@@ -21,16 +21,19 @@
   ansible.builtin.template:
     src: "{{ grafana__config_template }}"
     dest: /etc/grafana/config.ini
+    mode: '0755'
 
 - name: Template config to /etc/grafana/datasource.yml
   ansible.builtin.template:
     src: "{{ grafana__datasource_template }}"
     dest: /etc/grafana/datasource.yml
+    mode: '0755'
 
 - name: Template config to /etc/grafana/dashboards.yaml
   ansible.builtin.template:
     src: "{{ grafana__dashboards_template }}"
     dest: /etc/grafana/dashboards.yaml
+    mode: '0755'
 
 - name: Deploy dashboards files
   ansible.builtin.copy:
@@ -40,7 +43,7 @@
     group: 472
     mode: "0755"
 
-- name: Run {{ grafana__container_name }} container
+- name: Run container {{ grafana__container_name }}
   community.docker.docker_container:
     name: "{{ grafana__container_name }}"
     image: "{{ grafana__image }}"
