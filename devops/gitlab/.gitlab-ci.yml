@@ -116,6 +116,9 @@ Build container:
 .deploy-base:
   stage: deploy
   interruptible: false
+  variables:
+    # For some reason it's necessary to define variable here
+    VERSION: 'no-version'
   before_script:
     - VERSION=$(echo "$CI_COMMIT_TAG" | sed 's/\([^-]*\)-\([^-]*\)-\(.*\)/\3/')
     - echo "$CI_JOB_TOKEN" | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
