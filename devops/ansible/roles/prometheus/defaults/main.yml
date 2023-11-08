@@ -9,3 +9,4 @@ prometheus__ports:
   - 9090:9090
 prometheus__restart_policy: always
 prometheus__template: prometheus.yml.j2
+prometheus__storage_dir_source: /etc/prometheus/storage

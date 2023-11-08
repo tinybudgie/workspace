@@ -11,6 +11,12 @@
     state: directory
     mode: "0755"
 
+- name: Create a directory if it does not exist {{ prometheus__storage_dir_source }}
+  ansible.builtin.file:
+    path: "{{ prometheus__storage_dir_source }}"
+    state: directory
+    mode: "7777"
+
 - name: Template config to /etc/prometheus/prometheus.yml
   ansible.builtin.template:
     src: "{{ prometheus__template }}"
@@ -24,6 +30,7 @@
     restart_policy: "{{ prometheus__restart_policy }}"
     volumes:
       - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:rw
+      - "{{ prometheus__storage_dir_source }}:/prometheus"
     network_mode: "{{ prometheus__network_mode }}"
     networks: "{{ prometheus__networks }}"
     expose: "{{ prometheus__ports }}"
